@@ -234,6 +234,7 @@
   "info.tcr.press_to_open_battle_mode": "§c请按[%s]开启战斗模式!§r",
   "info.tcr.press_to_open_map": "按下§6[M]键§f以查看地图",
   "info.tcr.press_to_open_portal_screen2": "点击物品栏中的§6[卷轴]§r以回到曾经点亮过的石碑！",
+  "info.tcr.press_to_open_skill_tree": "按下 %s 以打开技能树",
   "info.tcr.press_to_show_progress": "按下§6[L]键§f以查看指引！",
   "info.tcr.press_to_show_quest_ui": "按 %s 键查看任务列表",
   "info.tcr.press_to_skill_tree": "经验充足，按下§6[K]键§f以进行技能加点！",

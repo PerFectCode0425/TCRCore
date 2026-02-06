@@ -84,6 +84,7 @@ public class    TCRZHLangGenerator extends TCRLangProvider {
         this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "上面写着古老的神谕，暗示了火种散落的地方。回主城给守望者看看吧，说不定对冒险有帮助！");
         this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "§c多人模式请勿占据他人任务道具！每人都需各自提交！", 2);
 
+        this.addInfo("press_to_open_skill_tree", "按下 %s 以打开技能树");
         this.addInfo("press_to_show_quest_ui", "按 %s 键查看任务列表");
         this.addInfo("please_use_custom_flint_and_steel", "请使用[%s]开启地狱传送门");
         this.addInfo("exit_quest_screen", "确定");

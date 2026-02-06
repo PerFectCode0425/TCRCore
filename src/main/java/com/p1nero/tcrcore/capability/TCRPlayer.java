@@ -220,12 +220,11 @@ public class TCRPlayer {
 
     /**
      * 移动到这延迟进行
+     * 对主世界任务目标进行标点
      */
     public void tryMarkMapInOverworld(ServerPlayer serverPlayer) {
-        if (!PlayerDataManager.pillagerKilled.get(serverPlayer)) {
-            TCRQuestManager.KILL_PILLAGER.start(serverPlayer);
-        }
 
+        //TODO 添加各个获取任务
         if (needToMarkMapInOverworld && serverPlayer.serverLevel().dimension() == Level.OVERWORLD) {
             // 揭示预言，即解锁新玩法。根据记录的id解锁，初始阶段0，1解锁时装和武器 2解锁盔甲和boss图鉴，3解锁附魔地狱末地，具体在FTB看
             // 同时按阶段来解锁boss提示
@@ -301,7 +300,6 @@ public class TCRPlayer {
                         if (stage <= 3) {
                             serverPlayer.displayClientMessage(TCRCoreMod.getInfo("unlock_new_ftb_page"), false);
                         }
-                        TCRQuestManager.GO_TO_OVERWORLD.finish(serverPlayer);
                     });
         }
     }
@@ -551,9 +549,6 @@ public class TCRPlayer {
                 }
                 if (oldAdder < healthAdder) {
                     updateHealth(serverPlayer, true, oldAdder);
-                    if (PlayerDataManager.isAllEyeGet(serverPlayer) && !TCRMainLevelSaveData.get(serverLevel).isAllFinish()) {
-                        TCRQuestManager.LIGHT_ALL_ALTAR.start(serverPlayer);
-                    }
                 } else {
                     serverPlayer.displayClientMessage(TCRCoreMod.getInfo("nothing_happen_after_bless"), false);
                 }

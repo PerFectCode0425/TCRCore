@@ -58,7 +58,6 @@ public abstract class ArteriusMixin extends PathfinderMob {
                 return;
             }
             if(!this.inBattle && serverPlayer.isAlive()) {
-                TCRQuestManager.FIND_ARTERIUS.finish(serverPlayer);
                 TCRCapabilityProvider.getTCRPlayer(serverPlayer).setCurrentTalkingEntity(this);
                 CompoundTag tag = new CompoundTag();
                 tag.putBoolean("can_get_invite", PlayerDataManager.canGetInvite(serverPlayer));

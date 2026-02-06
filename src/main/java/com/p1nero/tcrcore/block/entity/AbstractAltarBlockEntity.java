@@ -85,7 +85,6 @@ public abstract class AbstractAltarBlockEntity extends BlockEntity {
             return;
         }
         ServerLevel serverLevel = (ServerLevel) pLevel;
-        TCRQuestManager.LIGHT_ALL_ALTAR.finish(((ServerPlayer) pPlayer));
         MinecraftServer minecraftServer = pPlayer.getServer();
         if(minecraftServer == null) {
             return;

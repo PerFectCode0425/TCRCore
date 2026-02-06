@@ -6,10 +6,7 @@ import com.p1nero.cataclysm_dimension.worldgen.CataclysmDimensions;
 import com.p1nero.dpr.gameassets.DPRSkills;
 import com.p1nero.fast_tpa.network.PacketRelay;
 import com.p1nero.tcrcore.TCRCoreMod;
-import com.p1nero.tcrcore.capability.PlayerDataManager;
-import com.p1nero.tcrcore.capability.TCRCapabilityProvider;
-import com.p1nero.tcrcore.capability.TCRPlayer;
-import com.p1nero.tcrcore.capability.TCRQuestManager;
+import com.p1nero.tcrcore.capability.*;
 import com.p1nero.tcrcore.datagen.TCRAdvancementData;
 import com.p1nero.tcrcore.effect.TCREffects;
 import com.p1nero.tcrcore.item.TCRItems;
@@ -107,13 +104,6 @@ public class PlayerEventListeners {
                     player.displayClientMessage(TCRCoreMod.getInfo("unlock_new_skill", SwordControllerSkills.KILL_AURA_1.getDisplayName()), false);
                     player.displayClientMessage(TCRCoreMod.getInfo("unlock_new_skill", SwordControllerSkills.KILL_AURA_2.getDisplayName()), false);
                 }
-                if(path.equals("kill_pillager")) {
-                    if(!TCRQuestManager.KILL_PILLAGER.isFinished(player)) {
-                        TCRQuestManager.KILL_PILLAGER.finish(player);
-                        TCRQuestManager.BACK_TO_KEEPER.start(player);
-                        PlayerDataManager.pillagerKilled.put(player, true);
-                    }
-                }
             }
 
             if (namespace.equals("minecraft") && path.equals("recipes/transportation/oak_boat")) {
@@ -154,7 +144,8 @@ public class PlayerEventListeners {
                 ItemUtil.addItem(serverPlayer, EpicSkillsItems.ABILIITY_STONE.get(), 1);
 
                 PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new OpenStartScreenPacket(), serverPlayer);
-
+                TCRQuests.TALK_TO_AINE_1.start(serverPlayer);
+                TCRQuests.TALK_TO_COL_1.start(serverPlayer);
 
                 PlayerDataManager.firstJoint.put(serverPlayer, true);
             }
@@ -198,6 +189,7 @@ public class PlayerEventListeners {
                 }
             }
 
+            //和女神像交互的处理
             if (blockState.is(com.github.L_Ender.cataclysm.init.ModBlocks.GODDESS_STATUE.get()) && ItemEvents.eyes.contains(serverPlayer.getMainHandItem().getItem())) {
                 TCRPlayer tcrPlayer = TCRCapabilityProvider.getTCRPlayer(serverPlayer);
                 ServerLevel serverLevel = serverPlayer.serverLevel();
@@ -205,7 +197,6 @@ public class PlayerEventListeners {
                 serverLevel.playSound(null, blessPos, SoundEvents.BEACON_AMBIENT,
                         SoundSource.AMBIENT, 0.7F, 0.5F + serverLevel.random.nextFloat() * 0.3F);
 
-                TCRQuestManager.FIND_GODNESS_STATUE.finish(serverPlayer);
                 if(!tcrPlayer.inBlessing()) {
                     tcrPlayer.setTickAfterBless(100);
                     tcrPlayer.setBlessPos(event.getPos());
@@ -481,7 +472,6 @@ public class PlayerEventListeners {
         ItemStack itemStack = event.getStack();
         if (event.getEntity() instanceof ServerPlayer player) {
             if(itemStack.is(TCRItems.ANCIENT_ORACLE_FRAGMENT.get()) && itemStack.getOrCreateTag().getString(TCRPlayer.PLAYER_NAME).equals(player.getGameProfile().getName())) {
-                TCRQuestManager.GIVE_ORACLE_TO_KEEPER.start(player);
                 if(!PlayerDataManager.mapMarked.get(player)) {
                     giveOracleEffect(player, TCRItems.ANCIENT_ORACLE_FRAGMENT.get());
                 }
@@ -545,9 +535,7 @@ public class PlayerEventListeners {
     }
 
     public static void giveOracleEffect(ServerPlayer player, Item toDisplay) {
-        if(ItemEvents.eyes.contains(toDisplay)) {
-            TCRQuestManager.FIND_GODNESS_STATUE.start(player);
-        }
+
         //改和女神兑换
 //        ItemUtil.addItemEntity(player, TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), 1, ChatFormatting.LIGHT_PURPLE.getColor().intValue());
         PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new PlayItemPickupParticlePacket(toDisplay.getDefaultInstance()), player);

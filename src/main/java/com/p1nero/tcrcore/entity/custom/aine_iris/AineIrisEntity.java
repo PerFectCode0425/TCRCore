@@ -2,6 +2,11 @@ package com.p1nero.tcrcore.entity.custom.aine_iris;
 
 import com.p1nero.dialog_lib.api.entity.custom.IEntityNpc;
 import com.p1nero.dialog_lib.client.screen.DialogueScreen;
+import com.p1nero.tcrcore.capability.PlayerDataManager;
+import com.p1nero.tcrcore.capability.TCRPlayer;
+import com.p1nero.tcrcore.capability.TCRQuestManager;
+import com.p1nero.tcrcore.item.TCRItems;
+import com.p1nero.tcrcore.save_data.TCRMainLevelSaveData;
 import com.p1nero.tcrcore.utils.WorldUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -9,6 +14,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.player.Player;
@@ -17,6 +24,8 @@ import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -41,7 +50,20 @@ public class AineIrisEntity extends PathfinderMob implements IEntityNpc, GeoEnti
     }
 
     @Override
-    public DialogueScreen getDialogueScreen(CompoundTag compoundTag) {
+    protected @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            CompoundTag tag = new CompoundTag();
+
+            this.sendDialogTo(serverPlayer, tag);
+        }
+        return InteractionResult.sidedSuccess(level().isClientSide);
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public DialogueScreen getDialogueScreen(CompoundTag serverData) {
+
+
         return null;
     }
 

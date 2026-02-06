@@ -134,11 +134,6 @@ public class LivingEntityEventListeners {
             }
 
             if (!serverPlayer.isCreative()) {
-                if (!PlayerDataManager.pillagerKilled.get(serverPlayer) && entity instanceof IronGolem && WorldUtil.isInStructure(entity, WorldUtil.SKY_ISLAND)) {
-                    serverPlayer.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
-                    event.setCanceled(true);
-                    return;
-                }
                 if (!PlayerDataManager.stormEyeBlessed.get(serverPlayer) && entity instanceof BulldrogiothEntity) {
                     serverPlayer.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
                     event.setCanceled(true);
@@ -282,9 +277,6 @@ public class LivingEntityEventListeners {
                     ItemUtil.addItemEntity(player, EpicSkillsItems.ABILIITY_STONE.get(), 5, ChatFormatting.GOLD.getColor());
                     PlayerDataManager.voidEyeKilled.put(player, true);
                 }
-                if (PlayerDataManager.canGetInviteTip(player) && !PlayerDataManager.letterGet.get(player)) {
-                    TCRQuestManager.FIND_ARTERIUS.start(player);
-                }
             }
 
             if (livingEntity instanceof Netherite_Monstrosity_Entity) {
@@ -292,18 +284,12 @@ public class LivingEntityEventListeners {
                     ItemUtil.addItemEntity(player, EpicSkillsItems.ABILIITY_STONE.get(), 5, ChatFormatting.GOLD.getColor());
                     PlayerDataManager.monstEyeKilled.put(player, true);
                 }
-                if (PlayerDataManager.canGetInviteTip(player) && !PlayerDataManager.letterGet.get(player)) {
-                    TCRQuestManager.FIND_ARTERIUS.start(player);
-                }
             }
 
             if (livingEntity instanceof The_Harbinger_Entity) {
                 if(!PlayerDataManager.mechEyeKilled.get(player)) {
                     ItemUtil.addItemEntity(player, EpicSkillsItems.ABILIITY_STONE.get(), 5, ChatFormatting.GOLD.getColor());
                     PlayerDataManager.mechEyeKilled.put(player, true);
-                }
-                if (PlayerDataManager.canGetInviteTip(player) && !PlayerDataManager.letterGet.get(player)) {
-                    TCRQuestManager.FIND_ARTERIUS.start(player);
                 }
             }
 
@@ -313,12 +299,6 @@ public class LivingEntityEventListeners {
 
             if (livingEntity instanceof WitherBoss && !PlayerDataManager.mechEyeTraded.get(player)) {
                 ItemUtil.addItemEntity(player, ModItems.MECH_EYE.get(), 1, ChatFormatting.DARK_RED.getColor().intValue());
-            }
-
-            if (event.getSource().getEntity() instanceof Player && livingEntity.getType().is(EntityTypeTags.RAIDERS) && !TCRQuestManager.KILL_PILLAGER.isFinished(player)) {
-                TCRQuestManager.KILL_PILLAGER.finish(player);
-                TCRQuestManager.BACK_TO_KEEPER.start(player);
-                PlayerDataManager.pillagerKilled.put(player, true);
             }
 
             if (livingEntity instanceof IronGolem && WorldUtil.isInStructure(livingEntity, WorldUtil.SKY_ISLAND)) {

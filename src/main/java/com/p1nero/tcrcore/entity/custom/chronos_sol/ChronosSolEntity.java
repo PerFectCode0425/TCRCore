@@ -1,7 +1,5 @@
 package com.p1nero.tcrcore.entity.custom.chronos_sol;
 
-import com.github.dodo.dodosmobs.init.ModEntities;
-import com.obscuria.aquamirae.registry.AquamiraeEntities;
 import com.p1nero.dialog_lib.api.component.DialogueComponentBuilder;
 import com.p1nero.dialog_lib.api.component.DialogNode;
 import com.p1nero.dialog_lib.api.entity.custom.IEntityNpc;
@@ -12,22 +10,15 @@ import com.p1nero.tcrcore.TCRCoreMod;
 import com.p1nero.tcrcore.capability.PlayerDataManager;
 import com.p1nero.tcrcore.capability.TCRCapabilityProvider;
 import com.p1nero.tcrcore.capability.TCRPlayer;
-import com.p1nero.tcrcore.capability.TCRQuestManager;
-import com.p1nero.tcrcore.datagen.TCRAdvancementData;
 import com.p1nero.tcrcore.item.TCRItems;
-import com.p1nero.tcrcore.save_data.TCRDimSaveData;
 import com.p1nero.tcrcore.save_data.TCRMainLevelSaveData;
 import com.p1nero.tcrcore.utils.WorldUtil;
-import com.p1nero.tudigong.util.StructureUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -43,18 +34,8 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.sonmok14.fromtheshadows.server.utils.registry.EntityRegistry;
-import net.sonmok14.fromtheshadows.server.utils.registry.ItemRegistry;
-import net.unusual.blockfactorysbosses.init.BlockFactorysBossesModEntities;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.merlin204.wraithon.WraithonMod;
-import org.merlin204.wraithon.entity.WraithonEntities;
-import org.merlin204.wraithon.entity.wraithon.WraithonEntity;
-import org.merlin204.wraithon.entity.wraithon.WraithonEntityPatch;
-import org.merlin204.wraithon.epicfight.animation.WraithonAnimations;
-import org.merlin204.wraithon.util.WraithonFieldTeleporter;
-import org.merlin204.wraithon.worldgen.WraithonDimensions;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -63,8 +44,6 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
-import yesman.epicfight.world.capabilities.EpicFightCapabilities;
-import yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch;
 
 /**
  * 曦轮
@@ -89,10 +68,11 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
     @Override
     public void tick() {
         super.tick();
-        if(level() instanceof ServerLevel serverLevel) {
+        if(level() instanceof ServerLevel) {
             if(conversingPlayer != null && (conversingPlayer.isRemoved() || conversingPlayer.isDeadOrDying() || conversingPlayer.distanceTo(this) > 5)) {
                 conversingPlayer = null;
             }
+            //位置矫正保险
             if(tickCount % 100 == 0) {
                 BlockPos myPos = this.getOnPos();
                 if(myPos.getX() != WorldUtil.COL_GUIDER_BLOCK_POS.getX() || myPos.getZ() != WorldUtil.COL_GUIDER_BLOCK_POS.getZ()) {
@@ -108,20 +88,7 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
             player.displayClientMessage(Component.translatable("/summon " + ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).withStyle(ChatFormatting.RED), false);
             this.discard();
         }
-        if (source.getEntity() instanceof ServerPlayer serverPlayer) {
-            //彩蛋对话
-            if (this.getConversingPlayer() == null) {
-                CompoundTag compoundTag = new CompoundTag();
-                compoundTag.putBoolean("from_hurt", true);
-                this.sendDialogTo(serverPlayer, compoundTag);
-                this.setConversingPlayer(serverPlayer);
-            } else {
-                return false;
-            }
-            source.getEntity().hurt(this.damageSources().indirectMagic(this, this), value * 0.5F);
-            EntityType.LIGHTNING_BOLT.spawn(serverPlayer.serverLevel(), serverPlayer.getOnPos(), MobSpawnType.MOB_SUMMONED);
-        }
-        return source.isCreativePlayer();
+        return false;
     }
 
     public static AttributeSupplier setAttributes() {
@@ -156,13 +123,10 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
     protected @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
         if (player instanceof ServerPlayer serverPlayer) {
 
-            TCRQuestManager.GIVE_ORACLE_TO_KEEPER.finish(serverPlayer);
-            TCRQuestManager.BACK_TO_KEEPER.finish(serverPlayer);
             CompoundTag tag = new CompoundTag();
             tag.putInt("stage", PlayerDataManager.stage.getInt(player));
             tag.putBoolean("finished", TCRMainLevelSaveData.get(serverPlayer.serverLevel()).isAllFinish());
             tag.putBoolean("map_mark", PlayerDataManager.mapMarked.get(serverPlayer));
-            tag.putBoolean("pillager_kill", PlayerDataManager.pillagerKilled.get(serverPlayer));
             tag.putBoolean("fire_eye_get", PlayerDataManager.flameEyeTraded.get(serverPlayer));
             tag.putBoolean("finish_all_eye_boss", PlayerDataManager.isAllEyeGet(serverPlayer));
             tag.putBoolean("finish_all_altar_boss", PlayerDataManager.isAllAltarKilled(serverPlayer));
@@ -183,182 +147,15 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
         int stage = compoundTag.getInt("stage");
         StreamDialogueScreenBuilder treeBuilder = new StreamDialogueScreenBuilder(this, TCRCoreMod.MOD_ID);
         DialogueComponentBuilder dBuilder = treeBuilder.getComponentBuildr();
-        if (compoundTag.getBoolean("from_hurt")) {
-            treeBuilder.start(5).addFinalOption(6);
-            return treeBuilder.build();
-        }
-        if(compoundTag.getBoolean("finished") && compoundTag.getBoolean("finish_all_eye_boss")) {
-            if(compoundTag.getBoolean("finish_all_altar_boss")) {
-                treeBuilder.start(8)
-                        .addOption(12, 11)
-                        .thenExecute(4)
-                        .thenExecute((dialogueScreen -> ChronosSolGeoRenderer.useRedModel = true))
-                        .addOption(13, 12)
-                        .addOption(14, 13)
-                        .addFinalOption(15, 3);
-            } else {
-                treeBuilder.start(21).addFinalOption(0);
-            }
-            return treeBuilder.build();
-        }
+        DialogNode root = new DialogNode(dBuilder.ans(0), dBuilder.opt(0));
 
-        if (compoundTag.getBoolean("is_oracle")) {
-            switch (stage) {
-                case 0 -> treeBuilder.start(7)
-                        .addOption(dBuilder.optWithBrackets(9),
-                                dBuilder.ans(15,
-                                        Component.literal(StructureUtils.getPrettyStructureName(ResourceLocation.parse(WorldUtil.SKY_ISLAND))).withStyle(ChatFormatting.AQUA),
-                                        TCRCoreMod.getInfo("iron_golem_name").withStyle(ChatFormatting.GOLD),
-                                        Component.literal(StructureUtils.getPrettyStructureName(ResourceLocation.parse(WorldUtil.SKY_ISLAND))).withStyle(ChatFormatting.AQUA)))
-                        .thenExecute(2)
-                        .addFinalOption(dBuilder.optWithBrackets(5), 1);
+        return treeBuilder.build();
 
-                case 1 -> treeBuilder.start(7)
-                        .addOption(dBuilder.optWithBrackets(9),
-                                dBuilder.ans(16,
-                                        Component.literal(StructureUtils.getPrettyStructureName(ResourceLocation.parse(WorldUtil.RIBBIT_VILLAGE))).withStyle(ChatFormatting.BLUE),
-                                        EntityRegistry.BULLDROGIOTH.get().getDescription().copy().withStyle(ChatFormatting.GOLD),
-                                        Component.literal(StructureUtils.getPrettyStructureName(ResourceLocation.parse(WorldUtil.RIBBIT_VILLAGE))).withStyle(ChatFormatting.BLUE),
-                                        ItemRegistry.CRIMSON_SHELL.get().getDescription().copy().withStyle(ChatFormatting.RED)))
-                        .thenExecute(2)
-                        .addFinalOption(dBuilder.optWithBrackets(5), 1);
-
-                case 3 -> treeBuilder.start(7)
-                        .addOption(dBuilder.optWithBrackets(9),
-                                dBuilder.ans(17,
-                                        Component.literal(StructureUtils.getPrettyStructureName(ResourceLocation.parse(WorldUtil.CURSED))).withStyle(ChatFormatting.DARK_GREEN),
-                                        AquamiraeEntities.CAPTAIN_CORNELIA.get().getDescription().copy().withStyle(ChatFormatting.GOLD),
-                                        Component.literal(StructureUtils.getPrettyStructureName(ResourceLocation.parse(WorldUtil.CURSED))).withStyle(ChatFormatting.DARK_GREEN)))
-                        .thenExecute(2)
-                        .addFinalOption(dBuilder.optWithBrackets(5), 1);
-
-                case 2 -> treeBuilder.start(7)
-                        .addOption(dBuilder.optWithBrackets(9),
-                                dBuilder.ans(18,
-                                        Component.literal(StructureUtils.getPrettyStructureName(ResourceLocation.parse(WorldUtil.SAND))).withStyle(ChatFormatting.YELLOW),
-                                        ModEntities.BONE_CHIMERA.get().getDescription().copy().withStyle(ChatFormatting.GOLD),
-                                        Component.literal(StructureUtils.getPrettyStructureName(ResourceLocation.parse(WorldUtil.SAND))).withStyle(ChatFormatting.YELLOW)))
-                        .thenExecute(2)
-                        .addFinalOption(dBuilder.optWithBrackets(5), 1);
-
-                case 4 -> treeBuilder.start(7)
-                        .addOption(dBuilder.optWithBrackets(9),
-                                dBuilder.ans(19,
-                                        Component.literal(StructureUtils.getPrettyStructureName(ResourceLocation.parse(WorldUtil.FIRE))).withStyle(ChatFormatting.RED),
-                                        BlockFactorysBossesModEntities.UNDERWORLD_KNIGHT.get().getDescription().copy().withStyle(ChatFormatting.RED),
-                                        Component.literal(StructureUtils.getPrettyStructureName(ResourceLocation.parse(WorldUtil.FIRE))).withStyle(ChatFormatting.RED)))
-                        .thenExecute(2)
-                        .addFinalOption(dBuilder.optWithBrackets(5), 1);
-                default -> treeBuilder.start(20).addFinalOption(17);
-            }
-            return treeBuilder.build();
-        }
-        //正式起航，改变一下对话
-        else if(compoundTag.getBoolean("map_mark")) {
-            DialogNode root = new DialogNode(dBuilder.ans(8), dBuilder.optWithBrackets(0));//开场白 | 返回
-
-            //接下来干鸟
-//            DialogNode ans1 = new DialogNode(dBuilder.ans(9), dBuilder.optWithBrackets(10))
-//                    .addChild(root);
-
-            DialogNode ans2 = new DialogNode(dBuilder.ans(10), dBuilder.optWithBrackets(11))
-                    .addChild(root);
-
-            DialogNode ans3 = new DialogNode(dBuilder.ans(14), dBuilder.optWithBrackets(16))
-                    .addChild(root);
-
-            //如何获得神谕
-            DialogNode ans4 = new DialogNode(dBuilder.ans(22), dBuilder.optWithBrackets(18))
-                    .addChild(root);
-
-            root.addChild(ans2)
-                    .addChild(ans4)
-//                    .addChild(ans1)
-                    .addChild(ans3);
-
-            return treeBuilder.buildWith(root);
-        } else {
-            DialogNode root = new DialogNode(dBuilder.ans(0), dBuilder.optWithBrackets(0));//开场白 | 返回
-
-            DialogNode ans1 = new DialogNode(dBuilder.ans(1), dBuilder.optWithBrackets(1))
-                    .addChild(root);
-
-            DialogNode ans2 = new DialogNode(dBuilder.ans(2), dBuilder.optWithBrackets(3))
-                    .addChild(root);
-
-            DialogNode ans3 = new DialogNode(dBuilder.ans(3), dBuilder.optWithBrackets(4))
-                    .addChild(root);
-
-            if (compoundTag.getBoolean("pillager_kill")) {
-//                ans3 = new DialogNode(dBuilder.ans(4), dBuilder.optWithBrackets(7))
-//                        .addChild(root);
-//                root.addChild(new DialogNode(dBuilder.ans(6), dBuilder.optWithBrackets(8))
-//                        .addChild(root));
-                treeBuilder.start(0)
-                        .addOption(dBuilder.optWithBrackets(7),
-                                dBuilder.ans(15,
-                                        Component.literal(StructureUtils.getPrettyStructureName(ResourceLocation.parse(WorldUtil.SKY_ISLAND))).withStyle(ChatFormatting.AQUA),
-                                        TCRCoreMod.getInfo("iron_golem_name").withStyle(ChatFormatting.GOLD),
-                                        Component.literal(StructureUtils.getPrettyStructureName(ResourceLocation.parse(WorldUtil.SKY_ISLAND))).withStyle(ChatFormatting.AQUA)))
-                        .thenExecute(2)
-                        .addFinalOption(dBuilder.optWithBrackets(5), 1);
-                return treeBuilder.build();
-            }
-
-            root.addChild(ans1).addChild(ans2).addChild(ans3);
-
-            return treeBuilder.buildWith(root);
-        }
     }
 
     @Override
     public void handleNpcInteraction(ServerPlayer player, int code) {
-        if(code == 4) {
-            level().playSound(null, getX(), getY(), getZ(), SoundEvents.WITCH_AMBIENT, SoundSource.BLOCKS, 1.0F, 1.0F);
-        }
 
-        if (code == 3) {
-            ServerLevel wraithonLevel = player.server.getLevel(WraithonDimensions.SANCTUM_OF_THE_WRAITHON_LEVEL_KEY);
-            player.changeDimension(wraithonLevel, new WraithonFieldTeleporter());
-            if(!TCRDimSaveData.get(wraithonLevel).isBossSummoned() && wraithonLevel.getEntities(WraithonEntities.WRAITHON.get(), LivingEntity::isAlive).isEmpty()) {
-                EpicFightCapabilities.getUnparameterizedEntityPatch(player, ServerPlayerPatch.class).ifPresent(serverPlayerPatch -> {
-                    serverPlayerPatch.playAnimationSynchronized(WraithonAnimations.BIPE_COME, 0);
-                });
-                WraithonEntity wraithonEntity = WraithonEntities.WRAITHON.get().spawn(wraithonLevel, WraithonMod.WRAITHON_SPAWN_POS, MobSpawnType.MOB_SUMMONED);
-                EpicFightCapabilities.getUnparameterizedEntityPatch(wraithonEntity, WraithonEntityPatch.class).ifPresent(wraithonEntityPatch -> {
-                    wraithonEntityPatch.playAnimationSynchronized(WraithonAnimations.WRAITHON_BEGIN, 0);
-                });
-                TCRDimSaveData.get(wraithonLevel).setBossSummoned(true);
-            }
-            player.displayClientMessage(TCRCoreMod.getInfo("wraithon_start_tip"), false);
-        }
-
-        //对下面的补充，对话结束再说
-        if(code == 1) {
-            TCRAdvancementData.finishAdvancement("mark_map", player);
-        }
-
-        if (code == 2) {
-            TCRCapabilityProvider.getTCRPlayer(player).setNeedToMarkMapInOverworld(true);
-            player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundSource.PLAYERS, 1.0F, 1.0F);
-            if (player.getMainHandItem().is(TCRItems.ANCIENT_ORACLE_FRAGMENT.get())) {
-                player.getMainHandItem().shrink(1);
-            } else if (player.getOffhandItem().is(TCRItems.ANCIENT_ORACLE_FRAGMENT.get())){
-                player.getOffhandItem().shrink(1);
-            }
-            TCRQuestManager.GO_TO_OVERWORLD.start(player);
-            return;
-        }
-
-        if(!PlayerDataManager.pillagerKilled.get(player)) {
-            TCRQuestManager.KILL_PILLAGER.start(player);
-            //======TODO 测试
-            TCRQuestManager.FIND_GODNESS_STATUE.start(player);
-            TCRQuestManager.GIVE_ORACLE_TO_KEEPER.start(player);
-            //======TODO 测试
-            DialogueComponentBuilder dBuilder = new DialogueComponentBuilder(this, TCRCoreMod.MOD_ID);
-            player.displayClientMessage(dBuilder.buildDialogue(this, dBuilder.ans(3)), false);
-        }
         this.setConversingPlayer(null);
     }
 

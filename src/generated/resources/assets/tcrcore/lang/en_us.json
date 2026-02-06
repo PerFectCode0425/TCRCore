@@ -234,6 +234,7 @@
   "info.tcr.press_to_open_battle_mode": "§cPress [%s] to enable Battle Mode!§r",
   "info.tcr.press_to_open_map": "§6[M]§f to view the map",
   "info.tcr.press_to_open_portal_screen2": "Click the §6[Scroll]§r in the inventory to return to previously activated stones!",
+  "info.tcr.press_to_open_skill_tree": "Press %s to open Skill Tree",
   "info.tcr.press_to_show_progress": "Press §6[L]§f to view guidance!",
   "info.tcr.press_to_show_quest_ui": "Press %s to view quests",
   "info.tcr.press_to_skill_tree": "Sufficient EXP available. Press §6[K]§f to allocate skill points!",

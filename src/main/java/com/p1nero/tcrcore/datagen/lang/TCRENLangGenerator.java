@@ -84,6 +84,7 @@ public class TCRENLangGenerator extends TCRLangProvider {
         this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "It bears an ancient oracle hinting at the locations of scattered embers. Show it to the The Sanctuary Keeper in the The Sanctuary; it might aid your adventure!");
         this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "§cIn multiplayer mode, do not occupy other players'! Everyone must submit their own!", 2);
 
+        this.addInfo("press_to_open_skill_tree", "Press %s to open Skill Tree");
         this.addInfo("press_to_show_quest_ui", "Press %s to view quests");
         this.addInfo("please_use_custom_flint_and_steel", "Please use [%s] to spawn portal");
         this.addInfo("exit_quest_screen", "OK");

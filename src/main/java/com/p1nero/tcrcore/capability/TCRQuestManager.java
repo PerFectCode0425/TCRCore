@@ -25,27 +25,22 @@ public class TCRQuestManager {
     public static final Map<Integer, Quest> QUEST_MAP = new HashMap<>();
     public static int id = 0;
     public static Quest EMPTY;
-    public static Quest KILL_PILLAGER;
-    public static Quest GIVE_ORACLE_TO_KEEPER;
-    public static Quest BACK_TO_KEEPER;
-    public static Quest FIND_GODNESS_STATUE;
-    public static Quest FIND_ARTERIUS;
-    public static Quest LIGHT_ALL_ALTAR;
-    public static Quest GO_TO_OVERWORLD;
     public static void init() {
         QUEST_MAP.clear();
         EMPTY = createTask("empty");//不知道为嘛默认0改不了= =
-        KILL_PILLAGER = createTask("kill_pillager");
-        GIVE_ORACLE_TO_KEEPER = createTask("give_oracle_to_keeper");
-        BACK_TO_KEEPER = createTask("back_to_keeper");
-        FIND_GODNESS_STATUE = createTask("find_godness_statue").withTrackingPos(new BlockPos(WorldUtil.GODNESS_STATUE_POS), TCRDimensions.SANCTUM_LEVEL_KEY);
-        FIND_ARTERIUS = createTask("find_arterius");
-        LIGHT_ALL_ALTAR = createTask("light_all_altar");
-        GO_TO_OVERWORLD = createTask("go_to_overworld");
+        TCRQuests.init();
     }
 
     public static Quest getQuestById(int id) {
         return QUEST_MAP.getOrDefault(id, EMPTY);
+    }
+
+    public static Quest getCurrentQuest(Player player) {
+        return getQuestById(PlayerDataManager.currentQuestId.getInt(player));
+    }
+
+    public static int getCurrentQuestId(Player player) {
+        return PlayerDataManager.currentQuestId.getInt(player);
     }
 
     public static Quest createTask(String desc) {

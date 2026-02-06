@@ -52,10 +52,10 @@ public class ChronosSolGeoRenderer extends GeoEntityRenderer<ChronosSolEntity> {
     public void render(@NotNull ChronosSolEntity entity, float entityYaw, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight) {
         LocalPlayer localPlayer = Minecraft.getInstance().player;
         //TODO 对通关者不渲染
-        if(PlayerDataManager.pillagerKilled.get(localPlayer)) {
-            super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+        if(false) {
+            return;
         } else {
-            this.renderer.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+            super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
         }
     }
 }
