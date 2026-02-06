@@ -145,7 +145,7 @@ public class PlayerEventListeners {
 
                 PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new OpenStartScreenPacket(), serverPlayer);
                 TCRQuests.TALK_TO_AINE_1.start(serverPlayer);
-                TCRQuests.TALK_TO_COL_1.start(serverPlayer);
+                TCRQuests.TALK_TO_CHRONOS_1.start(serverPlayer);
 
                 PlayerDataManager.firstJoint.put(serverPlayer, true);
             }

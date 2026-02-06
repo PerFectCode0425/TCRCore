@@ -22,7 +22,7 @@ public class TCRMainLevelSaveData extends SavedData {
     private BlockPos stormPos = BlockPos.ZERO;
     private BlockPos cursedPos = BlockPos.ZERO;
     private BlockPos flamePos = BlockPos.ZERO;
-    private boolean girlPlaced;
+    private boolean npcPlaced;
     private boolean stormFinish;
     private boolean desertFinish;
     private boolean cursedFinish;
@@ -116,12 +116,12 @@ public class TCRMainLevelSaveData extends SavedData {
         return abyssPos;
     }
 
-    public boolean isGirlPlaced() {
-        return girlPlaced;
+    public boolean isNPCPlaced() {
+        return npcPlaced;
     }
 
-    public void setGirlPlaced(boolean girlPlaced) {
-        this.girlPlaced = girlPlaced;
+    public void setNPCPlaced(boolean girlPlaced) {
+        this.npcPlaced = girlPlaced;
         setDirty();
     }
 
@@ -200,7 +200,7 @@ public class TCRMainLevelSaveData extends SavedData {
         pCompoundTag.putInt("flamePosY", flamePos.getY());
         pCompoundTag.putInt("flamePosZ", flamePos.getZ());
 
-        pCompoundTag.putBoolean("girlPlaced", girlPlaced);
+        pCompoundTag.putBoolean("girlPlaced", npcPlaced);
         pCompoundTag.putBoolean("stormFinish", stormFinish);
         pCompoundTag.putBoolean("desertFinish", desertFinish);
         pCompoundTag.putBoolean("cursedFinish", cursedFinish);
@@ -241,7 +241,7 @@ public class TCRMainLevelSaveData extends SavedData {
                 nbt.getInt("flamePosY"),
                 nbt.getInt("flamePosZ")
         );
-        this.girlPlaced = nbt.getBoolean("girlPlaced");
+        this.npcPlaced = nbt.getBoolean("girlPlaced");
         this.stormFinish = nbt.getBoolean("stormFinish");
         this.desertFinish = nbt.getBoolean("desertFinish");
         this.cursedFinish = nbt.getBoolean("cursedFinish");

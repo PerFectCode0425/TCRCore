@@ -7,11 +7,10 @@ import com.p1nero.dialog_lib.api.entity.goal.LookAtConservingPlayerGoal;
 import com.p1nero.dialog_lib.client.screen.DialogueScreen;
 import com.p1nero.dialog_lib.client.screen.builder.StreamDialogueScreenBuilder;
 import com.p1nero.tcrcore.TCRCoreMod;
-import com.p1nero.tcrcore.capability.PlayerDataManager;
 import com.p1nero.tcrcore.capability.TCRCapabilityProvider;
-import com.p1nero.tcrcore.capability.TCRPlayer;
-import com.p1nero.tcrcore.item.TCRItems;
-import com.p1nero.tcrcore.save_data.TCRMainLevelSaveData;
+import com.p1nero.tcrcore.capability.TCRQuestManager;
+import com.p1nero.tcrcore.capability.TCRQuests;
+import com.p1nero.tcrcore.entity.TCREntities;
 import com.p1nero.tcrcore.utils.WorldUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -29,7 +28,6 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -75,8 +73,8 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
             //位置矫正保险
             if(tickCount % 100 == 0) {
                 BlockPos myPos = this.getOnPos();
-                if(myPos.getX() != WorldUtil.COL_GUIDER_BLOCK_POS.getX() || myPos.getZ() != WorldUtil.COL_GUIDER_BLOCK_POS.getZ()) {
-                    this.setPos(new BlockPos(WorldUtil.COL_GUIDER_BLOCK_POS).getCenter());
+                if(myPos.getX() != WorldUtil.CHRONOS_SOL_BLOCK_POS.getX() || myPos.getZ() != WorldUtil.CHRONOS_SOL_BLOCK_POS.getZ()) {
+                    this.setPos(new BlockPos(WorldUtil.CHRONOS_SOL_BLOCK_POS).getCenter());
                 }
             }
         }
@@ -122,20 +120,8 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
     @Override
     protected @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
         if (player instanceof ServerPlayer serverPlayer) {
-
             CompoundTag tag = new CompoundTag();
-            tag.putInt("stage", PlayerDataManager.stage.getInt(player));
-            tag.putBoolean("finished", TCRMainLevelSaveData.get(serverPlayer.serverLevel()).isAllFinish());
-            tag.putBoolean("map_mark", PlayerDataManager.mapMarked.get(serverPlayer));
-            tag.putBoolean("fire_eye_get", PlayerDataManager.flameEyeTraded.get(serverPlayer));
-            tag.putBoolean("finish_all_eye_boss", PlayerDataManager.isAllEyeGet(serverPlayer));
-            tag.putBoolean("finish_all_altar_boss", PlayerDataManager.isAllAltarKilled(serverPlayer));
-            ItemStack itemStack = player.getItemInHand(hand);
-            if (itemStack.is(TCRItems.ANCIENT_ORACLE_FRAGMENT.get())
-                    && (serverPlayer.isCreative()
-                        || (itemStack.hasTag() && itemStack.getOrCreateTag().getString(TCRPlayer.PLAYER_NAME).equals(player.getGameProfile().getName())))) {
-                tag.putBoolean("is_oracle", true);
-            }
+            tag.putInt("current_quest_id", TCRQuestManager.getCurrentQuestId(player));
             this.sendDialogTo(serverPlayer, tag);
         }
         return InteractionResult.sidedSuccess(level().isClientSide);
@@ -144,18 +130,69 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
     @Override
     @OnlyIn(Dist.CLIENT)
     public DialogueScreen getDialogueScreen(CompoundTag compoundTag) {
-        int stage = compoundTag.getInt("stage");
+        int currentQuestId = compoundTag.getInt("current_quest_id");
+        TCRQuestManager.Quest currentQuest = TCRQuestManager.getQuestById(currentQuestId);
         StreamDialogueScreenBuilder treeBuilder = new StreamDialogueScreenBuilder(this, TCRCoreMod.MOD_ID);
         DialogueComponentBuilder dBuilder = treeBuilder.getComponentBuildr();
-        DialogNode root = new DialogNode(dBuilder.ans(0), dBuilder.opt(0));
 
-        return treeBuilder.build();
+        //-1:继续
+        //-2:结束对话
+        DialogNode root = new DialogNode(dBuilder.ans(0));//冒险可还顺利？
+
+        DialogNode aboutThisWorld = new DialogNode(dBuilder.ans(1), dBuilder.opt(0))
+                .addChild(new DialogNode(dBuilder.ans(2), dBuilder.opt(-1))
+                        .addLeaf(dBuilder.opt(-2)));
+
+        DialogNode aboutAine = new DialogNode(dBuilder.ans(3), dBuilder.opt(1))
+                .addLeaf(dBuilder.opt(-2));
+
+        DialogNode aboutFerryGirl = new DialogNode(dBuilder.ans(4), dBuilder.opt(2))
+                .addLeaf(dBuilder.opt(-2));
+
+        DialogNode aboutOrnn = new DialogNode(dBuilder.ans(5), dBuilder.opt(3))
+                .addLeaf(dBuilder.opt(-2));
+
+        if(currentQuest == TCRQuests.TALK_TO_CHRONOS_1) {
+            //初次对话
+            root = new DialogNode(dBuilder.ans(6));
+            //你是何人
+            DialogNode aboutMe = new DialogNode(dBuilder.ans(7, TCREntities.CHRONOS_SOL.get().getDescription()), dBuilder.opt(4))
+                    .addChild(new DialogNode(dBuilder.ans(8), dBuilder.opt(5))
+                            .addLeaf(dBuilder.opt(-2)));
+            //关于接下来的行动
+            DialogNode aboutNext = new DialogNode(dBuilder.ans(9), dBuilder.opt(6))
+                    .addChild(new DialogNode(dBuilder.ans(10), dBuilder.opt(-1))
+                            .addChild(new DialogNode(dBuilder.ans(11, TCREntities.ORNN.get().getDescription().copy().withStyle(ChatFormatting.GOLD), TCREntities.FERRY_GIRL.get().getDescription().copy().withStyle(ChatFormatting.GOLD)), dBuilder.opt(-1))
+                                    .addLeaf(dBuilder.opt(-2), 1)));
+
+            root.addChild(aboutMe)
+                    .addChild(aboutThisWorld)
+                    .addChild(aboutNext);
+        } else {
+            //默认的情况
+
+            if(true) {
+                root.addChild(aboutAine);
+            }
+            if(true) {
+                root.addChild(aboutFerryGirl);
+            }
+            if(true) {
+                root.addChild(aboutOrnn);
+            }
+
+            root.addChild(aboutThisWorld);
+        }
+
+        return treeBuilder.buildWith(root);
 
     }
 
     @Override
     public void handleNpcInteraction(ServerPlayer player, int code) {
+        if(code == 1) {
 
+        }
         this.setConversingPlayer(null);
     }
 

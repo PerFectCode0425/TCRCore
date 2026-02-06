@@ -23,7 +23,8 @@ public class TCRQuestScreen extends Screen {
 
     private static List<TCRQuestManager.Quest> quests;
 
-    private static TCRQuestManager.Quest selectedQuest;
+    private static TCRQuestManager.Quest selectedQuest; // 当前真正追踪的任务
+    private static TCRQuestManager.Quest uiSelectedQuest; // UI 中当前高亮的任务
 
     private LocalPlayer player;
 
@@ -57,12 +58,14 @@ public class TCRQuestScreen extends Screen {
             return;
         }
         refreshSelectedQuest();
+        uiSelectedQuest = selectedQuest;
     }
 
     @Override
     protected void init() {
         super.init();
         refreshSelectedQuest();
+        uiSelectedQuest = selectedQuest;
         int listHeight = this.height - LIST_MARGIN_VERTICAL - BOTTOM_AREA_HEIGHT;
         if (listHeight < 40) {
             listHeight = 40;
@@ -93,17 +96,19 @@ public class TCRQuestScreen extends Screen {
         ensureSelectedQuestVisible();
         int buttonWidth = 80;
         int buttonHeight = 20;
-        int buttonX = this.width / 2 - buttonWidth / 2;
         int buttonY = listY1 + (BOTTOM_AREA_HEIGHT - buttonHeight) / 2;
-        this.addRenderableWidget(Button.builder(TCRCoreMod.getInfo("exit_quest_screen"), button -> this.onClose()).bounds(buttonX, buttonY, buttonWidth, buttonHeight).build());
+        int centerX = this.width / 2;
+        int startButtonX = centerX - buttonWidth - 8;
+        int exitButtonX = centerX + 8;
+        this.addRenderableWidget(Button.builder(TCRCoreMod.getInfo("start_tracking_quest"), button -> this.startTrackingSelectedQuest()).bounds(startButtonX, buttonY, buttonWidth, buttonHeight).build());
+        this.addRenderableWidget(Button.builder(TCRCoreMod.getInfo("exit_quest_screen"), button -> this.onClose()).bounds(exitButtonX, buttonY, buttonWidth, buttonHeight).build());
     }
 
     public void setSelectedQuest(TCRQuestManager.Quest quest) {
         if (isEmptyQuest(quest)) {
             return;
         }
-        selectedQuest = quest;
-        PlayerDataManager.currentQuestId.put(player, quest.getId());
+        uiSelectedQuest = quest;
         ensureSelectedQuestVisible();
     }
 
@@ -144,7 +149,7 @@ public class TCRQuestScreen extends Screen {
             if (isEmptyQuest(quest)) {
                 continue;
             }
-            boolean selected = selectedQuest != null && selectedQuest.getId() == quest.getId();
+            boolean selected = uiSelectedQuest != null && uiSelectedQuest.getId() == quest.getId();
             int entryHeight = getEntryHeight(quest, selected);
             int entryTop = y;
             int entryBottom = y + entryHeight;
@@ -171,7 +176,7 @@ public class TCRQuestScreen extends Screen {
             if (isEmptyQuest(quest)) {
                 continue;
             }
-            boolean selected = selectedQuest != null && selectedQuest.getId() == quest.getId();
+            boolean selected = uiSelectedQuest != null && uiSelectedQuest.getId() == quest.getId();
             heightSum += getEntryHeight(quest, selected);
         }
         return heightSum;
@@ -216,7 +221,7 @@ public class TCRQuestScreen extends Screen {
         int titleColor = selected ? 0xFFFFE070 : 0xFFFFFFFF;
         int shortDescColor = 0xFFAAAAAA;
         guiGraphics.drawString(font, quest.getTitle(), textX, textY, titleColor, false);
-        if (selected) {
+        if (selectedQuest != null && selectedQuest.getId() == quest.getId()) {
             Component tracking = TCRCoreMod.getInfo("tracking_quest");
             int titleWidth = font.width(quest.getTitle());
             int trackX = textX + titleWidth + 6;
@@ -287,7 +292,7 @@ public class TCRQuestScreen extends Screen {
             if (isEmptyQuest(quest)) {
                 continue;
             }
-            boolean selected = selectedQuest != null && selectedQuest.getId() == quest.getId();
+            boolean selected = uiSelectedQuest != null && uiSelectedQuest.getId() == quest.getId();
             int entryHeight = getEntryHeight(quest, selected);
             if (mouseY >= y && mouseY <= y + entryHeight) {
                 return quest;
@@ -362,7 +367,7 @@ public class TCRQuestScreen extends Screen {
     }
 
     private void ensureSelectedQuestVisible() {
-        if (selectedQuest == null) {
+        if (uiSelectedQuest == null) {
             return;
         }
         int visibleHeight = listY1 - listY0;
@@ -379,7 +384,7 @@ public class TCRQuestScreen extends Screen {
             if (isEmptyQuest(quest)) {
                 continue;
             }
-            boolean selected = selectedQuest != null && selectedQuest.getId() == quest.getId();
+            boolean selected = uiSelectedQuest != null && uiSelectedQuest.getId() == quest.getId();
             int entryHeight = getEntryHeight(quest, selected);
             if (selected) {
                 int entryTop = y;
@@ -402,6 +407,15 @@ public class TCRQuestScreen extends Screen {
         if(player != null && player.tickCount % 100 == 0) {
             refreshSelectedQuest();
         }
+    }
+
+    private void startTrackingSelectedQuest() {
+        if (player == null || uiSelectedQuest == null || isEmptyQuest(uiSelectedQuest)) {
+            return;
+        }
+        selectedQuest = uiSelectedQuest;
+        PlayerDataManager.currentQuestId.put(player, selectedQuest.getId());
+        Minecraft.getInstance().setScreen(null);
     }
 
     public static void refreshSelectedQuest() {
@@ -481,7 +495,7 @@ public class TCRQuestScreen extends Screen {
         }
         int bg = 0x40000000;
         guiGraphics.fill(detailX0, detailY0, detailX1, detailY1, bg);
-        if (selectedQuest == null || isEmptyQuest(selectedQuest)) {
+        if (uiSelectedQuest == null || isEmptyQuest(uiSelectedQuest)) {
             return;
         }
         int padding = 8;
@@ -490,15 +504,15 @@ public class TCRQuestScreen extends Screen {
         int titleColor = 0xFFFFE070;
         int shortDescColor = 0xFFAAAAAA;
         int descColor = 0xFFDDDDDD;
-        guiGraphics.drawString(font, selectedQuest.getTitle(), x, y, titleColor, false);
+        guiGraphics.drawString(font, uiSelectedQuest.getTitle(), x, y, titleColor, false);
         y += font.lineHeight + 4;
-        guiGraphics.drawString(font, selectedQuest.getShortDesc(), x, y, shortDescColor, false);
+        guiGraphics.drawString(font, uiSelectedQuest.getShortDesc(), x, y, shortDescColor, false);
         y += font.lineHeight + 8;
         int textWidth = detailX1 - x - padding;
         if (textWidth < 40) {
             textWidth = 40;
         }
-        List<FormattedCharSequence> descLines = font.split(selectedQuest.getDesc(), textWidth);
+        List<FormattedCharSequence> descLines = font.split(uiSelectedQuest.getDesc(), textWidth);
         for (FormattedCharSequence line : descLines) {
             if (y > detailY1 - padding - font.lineHeight) {
                 break;

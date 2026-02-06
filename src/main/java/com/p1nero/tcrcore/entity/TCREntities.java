@@ -5,6 +5,7 @@ import com.p1nero.tcrcore.entity.custom.CustomColorItemEntity;
 import com.p1nero.tcrcore.entity.custom.aine_iris.AineIrisEntity;
 import com.p1nero.tcrcore.entity.custom.ferry_girl.FerryGirlEntity;
 import com.p1nero.tcrcore.entity.custom.chronos_sol.ChronosSolEntity;
+import com.p1nero.tcrcore.entity.custom.ornn.OrnnEntity;
 import com.p1nero.tcrcore.entity.custom.tutorial_golem.TutorialGolem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -28,14 +29,17 @@ public class TCREntities {
     public static final RegistryObject<EntityType<CustomColorItemEntity>> CUSTOM_COLOR_ITEM = register("custom_color_item",
             EntityType.Builder.<CustomColorItemEntity>of(CustomColorItemEntity::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(6).updateInterval(20));
 
-    public static final RegistryObject<EntityType<ChronosSolEntity>> GUIDER = register("guider",
+    public static final RegistryObject<EntityType<ChronosSolEntity>> CHRONOS_SOL = register("chronos_sol",
             EntityType.Builder.of(ChronosSolEntity::new, MobCategory.CREATURE).sized(0.8f, 2.3f).fireImmune());
 
-    public static final RegistryObject<EntityType<FerryGirlEntity>> GIRL = register("girl",
+    public static final RegistryObject<EntityType<FerryGirlEntity>> FERRY_GIRL = register("ferry_girl",
             EntityType.Builder.of(FerryGirlEntity::new, MobCategory.CREATURE).sized(0.6f, 1.9f).fireImmune());
 
     public static final RegistryObject<EntityType<AineIrisEntity>> AINE_IRIS = register("aine",
             EntityType.Builder.of(AineIrisEntity::new, MobCategory.CREATURE).sized(0.6f, 1.9f).fireImmune());
+
+    public static final RegistryObject<EntityType<OrnnEntity>> ORNN = register("ornn",
+            EntityType.Builder.of(OrnnEntity::new, MobCategory.CREATURE).sized(0.6f, 1.9f).fireImmune());
 
     public static final RegistryObject<EntityType<TutorialGolem>> TUTORIAL_GOLEM = register("tutorial_golem",
             EntityType.Builder.of(TutorialGolem::new, MobCategory.CREATURE).sized(1.4F, 2.7f).fireImmune());
@@ -46,8 +50,8 @@ public class TCREntities {
 
     @SubscribeEvent
     public static void entityAttributeEvent(EntityAttributeCreationEvent event) {
-        event.put(GUIDER.get(), ChronosSolEntity.setAttributes());
-        event.put(GIRL.get(), ChronosSolEntity.setAttributes());
+        event.put(CHRONOS_SOL.get(), ChronosSolEntity.setAttributes());
+        event.put(FERRY_GIRL.get(), ChronosSolEntity.setAttributes());
         event.put(AINE_IRIS.get(), ChronosSolEntity.setAttributes());
         event.put(TUTORIAL_GOLEM.get(), TutorialGolem.setAttributes());
 

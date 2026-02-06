@@ -34,8 +34,8 @@ public class ClientModEvents {
     public static void onClientSetup(FMLClientSetupEvent event) {
 
         EntityRenderers.register(TCREntities.CUSTOM_COLOR_ITEM.get(), ItemEntityRenderer::new);
-        EntityRenderers.register(TCREntities.GUIDER.get(), ChronosSolGeoRenderer::new);
-        EntityRenderers.register(TCREntities.GIRL.get(), FerryGirlGeoRenderer::new);
+        EntityRenderers.register(TCREntities.CHRONOS_SOL.get(), ChronosSolGeoRenderer::new);
+        EntityRenderers.register(TCREntities.FERRY_GIRL.get(), FerryGirlGeoRenderer::new);
         EntityRenderers.register(TCREntities.AINE_IRIS.get(), AineIrisRenderer::new);
         EntityRenderers.register(TCREntities.TUTORIAL_GOLEM.get(), TutorialGolemRenderer::new);
 

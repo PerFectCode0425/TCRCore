@@ -41,8 +41,8 @@ public class WorldUtil {
     public static final Vec3 GOLEM_CENTER_POS_VEC3 = new Vec3(78, 75, -190);
     public static final Vec3i GOLEM_CENTER_POS_VEC3I = new Vec3i(78, 75, -190);
     public static final Vec3 CENTER_POS = new Vec3(-19, 75, -79);
-    public static final Vec3 COL_GUIDER_POS = new Vec3(-186, 85, -191);
-    public static final Vec3i COL_GUIDER_BLOCK_POS = new Vec3i(-186, 85, -191);
+    public static final Vec3 CHRONOS_SOL_POS = new Vec3(-186, 85, -191);
+    public static final Vec3i CHRONOS_SOL_BLOCK_POS = new Vec3i(-186, 85, -191);
 //    public static final String COVES = "trek:overworld/very_rare/coves";
     public static final String RIBBIT_VILLAGE = "ribbits:ribbit_village";
     public static final String SKY_ISLAND = "trek:overworld/very_rare/floating_farm_large";

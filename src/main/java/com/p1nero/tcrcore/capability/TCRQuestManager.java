@@ -3,8 +3,6 @@ package com.p1nero.tcrcore.capability;
 import com.p1nero.fast_tpa.network.PacketRelay;
 import com.p1nero.tcrcore.network.TCRPacketHandler;
 import com.p1nero.tcrcore.network.packet.clientbound.RefreshClientQuestsPacket;
-import com.p1nero.tcrcore.utils.WorldUtil;
-import com.p1nero.tcrcore.worldgen.TCRDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -21,13 +19,13 @@ import java.util.Objects;
 
 public class TCRQuestManager {
     public static final int NO_QUEST = 0;
-    public static final String PRE = "tcrcore.task.";
+    public static final String PRE = "tcrcore.quest.";
     public static final Map<Integer, Quest> QUEST_MAP = new HashMap<>();
     public static int id = 0;
     public static Quest EMPTY;
     public static void init() {
         QUEST_MAP.clear();
-        EMPTY = createTask("empty");//不知道为嘛默认0改不了= =
+        EMPTY = create("empty");//不知道为嘛默认0改不了= =
         TCRQuests.init();
     }
 
@@ -43,7 +41,7 @@ public class TCRQuestManager {
         return PlayerDataManager.currentQuestId.getInt(player);
     }
 
-    public static Quest createTask(String desc) {
+    public static Quest create(String desc) {
         Quest quest = new Quest(id, PRE + desc);
         QUEST_MAP.put(id, quest);
         id++;
@@ -99,9 +97,9 @@ public class TCRQuestManager {
 
         private final int id;
         private final String key;
-        private final Component shortDesc;
-        private final Component desc;
-        private final Component title;
+        private Component shortDesc;
+        private Component desc;
+        private Component title;
         private ResourceLocation icon;
         private BlockPos trackingPos;
         private ResourceKey<Level> dimension;
@@ -112,6 +110,21 @@ public class TCRQuestManager {
             desc = Component.translatable(key + ".desc");
             shortDesc = Component.translatable(key + ".short_desc");
             title = Component.translatable(key + ".title");
+        }
+
+        public Quest titleParam(Object... objects) {
+            title = Component.translatable(key + ".title", objects);
+            return this;
+        }
+
+        public Quest shortDescParam(Object... objects) {
+            shortDesc = Component.translatable(key + ".short_desc", objects);
+            return this;
+        }
+
+        public Quest descParam(Object... objects) {
+            desc = Component.translatable(key + ".desc", objects);
+            return this;
         }
 
         public void start(ServerPlayer player) {

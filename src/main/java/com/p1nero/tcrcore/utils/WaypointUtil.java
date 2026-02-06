@@ -1,8 +1,10 @@
 package com.p1nero.tcrcore.utils;
 
 import com.p1nero.fast_tpa.network.PacketRelay;
+import com.p1nero.tcrcore.TCRCoreMod;
 import com.p1nero.tcrcore.network.TCRPacketHandler;
 import com.p1nero.tcrcore.network.packet.clientbound.AddWaypointPacket;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -17,6 +19,7 @@ import xaero.common.minimap.waypoints.WaypointVisibilityType;
 import xaero.common.minimap.waypoints.WaypointsManager;
 import xaero.hud.minimap.waypoint.WaypointColor;
 import xaero.hud.minimap.waypoint.WaypointPurpose;
+import xaero.map.controls.ControlsRegister;
 import xaero.minimap.XaeroMinimap;
 
 import java.io.IOException;
@@ -40,6 +43,7 @@ public class WaypointUtil {
             instant.setVisibility(WaypointVisibilityType.LOCAL);
             waypoints.add(instant);
             save(Minecraft.getInstance().player);
+            Minecraft.getInstance().player.displayClientMessage(TCRCoreMod.getInfo("map_pos_marked_press_to_open", ControlsRegister.keyOpenMap.getTranslatedKeyMessage().copy().withStyle(ChatFormatting.GOLD)), false);
         }
     }
 
