@@ -26,6 +26,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.player.Player;
@@ -60,6 +61,11 @@ public class AineIrisEntity extends PathfinderMob implements IEntityNpc, GeoEnti
     }
 
     @Override
+    public boolean hurt(DamageSource source, float p_21017_) {
+        return source.isCreativePlayer();
+    }
+
+    @Override
     protected @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
         if (player instanceof ServerPlayer serverPlayer) {
             CompoundTag tag = new CompoundTag();
@@ -78,8 +84,7 @@ public class AineIrisEntity extends PathfinderMob implements IEntityNpc, GeoEnti
         if(localPlayer == null) {
             return null;
         }
-        int currentQuestId = serverData.getInt("current_quest_id");
-        TCRQuestManager.Quest currentQuest = TCRQuestManager.getQuestById(currentQuestId);
+        TCRQuestManager.Quest currentQuest = TCRQuestManager.getCurrentQuest(localPlayer);
         StreamDialogueScreenBuilder treeBuilder = new StreamDialogueScreenBuilder(this, TCRCoreMod.MOD_ID);
         DialogueComponentBuilder dBuilder = treeBuilder.getComponentBuildr();
 
@@ -108,6 +113,8 @@ public class AineIrisEntity extends PathfinderMob implements IEntityNpc, GeoEnti
         } else {
             if(PlayerDataManager.chonosTalked.get(localPlayer)) {
                 root.addChild(aboutChronos);
+                root.addChild(aboutThisWorld);
+                root.addLeaf(dBuilder.opt(-2));
             }
         }
 

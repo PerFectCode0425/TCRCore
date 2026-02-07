@@ -401,14 +401,6 @@ public class TCRQuestScreen extends Screen {
         }
     }
 
-    @Override
-    public void tick() {
-        super.tick();
-        if(player != null && player.tickCount % 100 == 0) {
-            refreshSelectedQuest();
-        }
-    }
-
     private void startTrackingSelectedQuest() {
         if (player == null || uiSelectedQuest == null || isEmptyQuest(uiSelectedQuest)) {
             return;
@@ -424,26 +416,12 @@ public class TCRQuestScreen extends Screen {
             return;
         }
         quests = TCRCapabilityProvider.getTCRPlayer(player).getCurrentQuests();
-        if (quests == null) {
-            quests = TCRCapabilityProvider.getTCRPlayer(player).getCurrentQuests();
-        }
-        selectedQuest = TCRQuestManager.getQuestById(PlayerDataManager.currentQuestId.getInt(player));
-        if (selectedQuest == null || isEmptyQuest(selectedQuest)) {
-            selectedQuest = null;
-            if (quests != null) {
-                for (TCRQuestManager.Quest quest : quests) {
-                    if (!isEmptyQuest(quest)) {
-                        selectedQuest = quest;
-                        PlayerDataManager.currentQuestId.put(player, quest.getId());
-                        break;
-                    }
-                }
-            }
-        }
+        selectedQuest = TCRQuestManager.getCurrentQuest(player);
+//        TCRQuestManager.ensureQuest(player);
     }
 
     private static boolean isEmptyQuest(TCRQuestManager.Quest quest) {
-        return quest == null || quest == TCRQuestManager.EMPTY;
+        return quest == null || quest.equals(TCRQuestManager.EMPTY);
     }
 
     private boolean hasRenderableQuests() {

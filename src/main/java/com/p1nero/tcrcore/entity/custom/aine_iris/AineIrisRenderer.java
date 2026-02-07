@@ -1,6 +1,8 @@
 package com.p1nero.tcrcore.entity.custom.aine_iris;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.p1nero.tcrcore.TCRCoreMod;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -16,19 +18,15 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 @OnlyIn(Dist.CLIENT)
 public class AineIrisRenderer extends GeoEntityRenderer<AineIrisEntity> {
     public AineIrisRenderer(EntityRendererProvider.Context context) {
-        super(context, new DefaultedEntityGeoModel<>(ResourceLocation.fromNamespaceAndPath(TCRCoreMod.MOD_ID, "aine")) {
-            @Override
-            public void setCustomAnimations(AineIrisEntity animatable, long instanceId, AnimationState<AineIrisEntity> animationState) {
-                CoreGeoBone head = getAnimationProcessor().getBone("Head");
-
-                if (head != null) {
-                    EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-
-                    head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
-                    head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
-                }
-            }
-        });
+        super(context, new DefaultedEntityGeoModel<>(ResourceLocation.fromNamespaceAndPath(TCRCoreMod.MOD_ID, "aine"), true));
     }
 
+    @Override
+    public void render(AineIrisEntity entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+        poseStack.pushPose();
+        poseStack.scale(1.25F, 1.25F, 1.25F);
+        poseStack.translate(0, 0.25F, 0);
+        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+        poseStack.popPose();
+    }
 }

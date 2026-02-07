@@ -5,7 +5,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.math.Axis;
 import com.p1nero.tcrcore.TCRClientConfig;
 import com.p1nero.tcrcore.TCRCoreMod;
-import com.p1nero.tcrcore.capability.PlayerDataManager;
 import com.p1nero.tcrcore.capability.TCRQuestManager;
 import com.p1nero.tcrcore.client.TCRKeyMappings;
 import com.p1nero.tcrcore.client.gui.screen.TCRQuestScreen;
@@ -28,7 +27,7 @@ import java.util.ArrayList;
 @OnlyIn(Dist.CLIENT)
 public class CustomQuestOverlayRenderer {
     private static long fadeStartTime = 0;
-    private static boolean hasTask = false;
+    private static boolean hasQuest = false;
     private static boolean lastHasTask = false;
     private static float alpha = 0.0f;
     private static final int FADE_DURATION = 30; // 30 ticks = 1.5 seconds
@@ -70,22 +69,19 @@ public class CustomQuestOverlayRenderer {
         long currentTime = localPlayer.level().getGameTime();
         // Calculate alpha based on game time with partialTick interpolation
         timeSinceStateChange = currentTime - fadeStartTime;
-        hasTask = TCRQuestManager.hasQuest(localPlayer);
+        hasQuest = TCRQuestManager.hasQuest(localPlayer);
         hintText = TCRCoreMod.getInfo("press_to_show_quest_ui", TCRKeyMappings.SHOW_QUESTS.getTranslatedKeyMessage().copy().withStyle(ChatFormatting.GOLD));
         // Handle state changes
-        if (hasTask != lastHasTask) {
+        if (hasQuest != lastHasTask) {
             fadeStartTime = currentTime;
         }
-        if (hasTask) {
-            // Update task description when task appears
-
-            int id = PlayerDataManager.currentQuestId.getInt(localPlayer);
-            currentQuest = TCRQuestManager.getQuestById(id);
+        if (hasQuest) {
+            currentQuest = TCRQuestManager.getCurrentQuest(localPlayer);
             lastQuestShortDesc = currentQuest.getShortDesc();
             currentQuestIcon = currentQuest.getIcon();
         }
 
-        lastHasTask = hasTask;
+        lastHasTask = hasQuest;
 
         // Calculate position (golden ratio - left side, about 38.2% from top)
         int screenHeight = window.getGuiScaledHeight();
@@ -103,7 +99,7 @@ public class CustomQuestOverlayRenderer {
         Minecraft minecraft = Minecraft.getInstance();
         float interpolatedTime = timeSinceStateChange + partialTick;
 
-        if (hasTask) {
+        if (hasQuest) {
             // Fade in
             if (interpolatedTime < FADE_DURATION) {
                 alpha = interpolatedTime / FADE_DURATION;
@@ -377,7 +373,7 @@ public class CustomQuestOverlayRenderer {
     public static void reset() {
         fadeStartTime = 0;
         alpha = 0.0f;
-        hasTask = false;
+        hasQuest = false;
         lastHasTask = false;
         lastQuestShortDesc = Component.empty();
     }

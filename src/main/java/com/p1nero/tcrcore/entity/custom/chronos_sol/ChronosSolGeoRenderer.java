@@ -2,7 +2,6 @@ package com.p1nero.tcrcore.entity.custom.chronos_sol;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.p1nero.tcrcore.TCRCoreMod;
-import com.p1nero.tcrcore.capability.PlayerDataManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -21,7 +20,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 @OnlyIn(Dist.CLIENT)
 public class ChronosSolGeoRenderer extends GeoEntityRenderer<ChronosSolEntity> {
-    public static boolean useRedModel;
+    public static boolean useRedTexture;
     private final ChronosSolRenderer renderer;
     public ChronosSolGeoRenderer(EntityRendererProvider.Context context) {
         super(context, new DefaultedEntityGeoModel<>(ResourceLocation.fromNamespaceAndPath(TCRCoreMod.MOD_ID, "guider")) {
@@ -39,7 +38,7 @@ public class ChronosSolGeoRenderer extends GeoEntityRenderer<ChronosSolEntity> {
 
             @Override
             public ResourceLocation getTextureResource(ChronosSolEntity animatable) {
-                if(useRedModel) {
+                if(useRedTexture) {
                     return ResourceLocation.fromNamespaceAndPath(TCRCoreMod.MOD_ID, "textures/entity/guider_red.png");
                 }
                 return super.getTextureResource(animatable);
@@ -55,7 +54,11 @@ public class ChronosSolGeoRenderer extends GeoEntityRenderer<ChronosSolEntity> {
         if(false) {
             return;
         } else {
+            poseStack.pushPose();
+            poseStack.scale(1.25F, 1.25F, 1.25F);
+            poseStack.translate(0, 0.25F, 0);
             super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+            poseStack.popPose();
         }
     }
 }

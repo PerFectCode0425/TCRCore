@@ -1,9 +1,16 @@
 package com.p1nero.tcrcore.entity.custom.ornn;
 
+import com.p1nero.dialog_lib.api.component.DialogNode;
+import com.p1nero.dialog_lib.api.component.DialogueComponentBuilder;
 import com.p1nero.dialog_lib.api.entity.custom.IEntityNpc;
 import com.p1nero.dialog_lib.client.screen.DialogueScreen;
+import com.p1nero.dialog_lib.client.screen.builder.StreamDialogueScreenBuilder;
+import com.p1nero.tcrcore.TCRCoreMod;
 import com.p1nero.tcrcore.capability.PlayerDataManager;
+import com.p1nero.tcrcore.capability.TCRQuestManager;
 import com.p1nero.tcrcore.utils.WorldUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -70,7 +77,14 @@ public class OrnnEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
     @Override
     @OnlyIn(Dist.CLIENT)
     public DialogueScreen getDialogueScreen(CompoundTag serverData) {
-
+        LocalPlayer localPlayer = Minecraft.getInstance().player;
+        if(localPlayer == null) {
+            return null;
+        }
+        TCRQuestManager.Quest currentQuest = TCRQuestManager.getCurrentQuest(localPlayer);
+        StreamDialogueScreenBuilder treeBuilder = new StreamDialogueScreenBuilder(this, TCRCoreMod.MOD_ID);
+        DialogueComponentBuilder dBuilder = treeBuilder.getComponentBuildr();
+        DialogNode root = new DialogNode(dBuilder.ans(0));
 
         return null;
     }

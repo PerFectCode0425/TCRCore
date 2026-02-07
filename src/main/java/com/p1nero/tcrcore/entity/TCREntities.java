@@ -30,13 +30,13 @@ public class TCREntities {
             EntityType.Builder.<CustomColorItemEntity>of(CustomColorItemEntity::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(6).updateInterval(20));
 
     public static final RegistryObject<EntityType<ChronosSolEntity>> CHRONOS_SOL = register("chronos_sol",
-            EntityType.Builder.of(ChronosSolEntity::new, MobCategory.CREATURE).sized(0.8f, 2.3f).fireImmune());
+            EntityType.Builder.of(ChronosSolEntity::new, MobCategory.CREATURE).sized(0.8f, 3.0F).fireImmune());
 
     public static final RegistryObject<EntityType<FerryGirlEntity>> FERRY_GIRL = register("ferry_girl",
             EntityType.Builder.of(FerryGirlEntity::new, MobCategory.CREATURE).sized(0.6f, 1.9f).fireImmune());
 
     public static final RegistryObject<EntityType<AineIrisEntity>> AINE_IRIS = register("aine",
-            EntityType.Builder.of(AineIrisEntity::new, MobCategory.CREATURE).sized(0.6f, 1.9f).fireImmune());
+            EntityType.Builder.of(AineIrisEntity::new, MobCategory.CREATURE).sized(0.8f, 3.0F).fireImmune());
 
     public static final RegistryObject<EntityType<OrnnEntity>> ORNN = register("ornn",
             EntityType.Builder.of(OrnnEntity::new, MobCategory.CREATURE).sized(4f, 4f).fireImmune());

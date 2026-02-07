@@ -18,13 +18,14 @@ import java.util.Map;
 import java.util.Objects;
 
 public class TCRQuestManager {
-    public static final int NO_QUEST = 0;
     public static final String PRE = "tcrcore.quest.";
     public static final Map<Integer, Quest> QUEST_MAP = new HashMap<>();
     public static int id = 0;
     public static Quest EMPTY;
+
     public static void init() {
         QUEST_MAP.clear();
+        id = 0;
         EMPTY = create("empty");//不知道为嘛默认0改不了= =
         TCRQuests.init();
     }
@@ -49,48 +50,62 @@ public class TCRQuestManager {
     }
 
     public static boolean hasQuest(Player player) {
-        return PlayerDataManager.currentQuestId.get(player) != NO_QUEST;
+        return PlayerDataManager.currentQuestId.get(player) != EMPTY.id;
     }
 
     public static void startQuest(ServerPlayer player, Quest quest) {
-        if(quest.equals(EMPTY)) {
+        if (quest.equals(EMPTY)) {
             return;
         }
         TCRPlayer tcrPlayer = TCRCapabilityProvider.getTCRPlayer(player);
         tcrPlayer.addQuest(quest);
         PlayerDataManager.currentQuestId.put(player, quest.getId());
-        PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new RefreshClientQuestsPacket(), player);
+        ensureQuest(player);
         tcrPlayer.syncToClient(player);
+        PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new RefreshClientQuestsPacket(), player);
     }
 
     public static void finishQuest(ServerPlayer player, Quest quest) {
         int currentQuestId = PlayerDataManager.currentQuestId.getInt(player);
-        if(quest.getId() != currentQuestId) {
+        if (quest.getId() != currentQuestId) {
             return;
         }
         TCRPlayer tcrPlayer = TCRCapabilityProvider.getTCRPlayer(player);
         tcrPlayer.finishQuest(quest);
         List<Quest> currentQuests = tcrPlayer.getCurrentQuests();
-        if(!currentQuests.isEmpty()) {
-            PlayerDataManager.currentQuestId.put(player, currentQuests.get(0).getId());
+        if (!currentQuests.isEmpty()) {
+            PlayerDataManager.currentQuestId.put(player, currentQuests.get(currentQuests.size() - 1).getId());
         } else {
             PlayerDataManager.currentQuestId.put(player, EMPTY.getId());
         }
-        PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new RefreshClientQuestsPacket(), player);
+        ensureQuest(player);
         tcrPlayer.syncToClient(player);
+        PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new RefreshClientQuestsPacket(), player);
+    }
+
+    /**
+     * 保险措施，确保当前选中的任务位于任务列表内。否则随便选一个
+     */
+    public static void ensureQuest(Player player) {
+        Quest selectedQuest = getCurrentQuest(player);
+        List<Quest> quests = TCRCapabilityProvider.getTCRPlayer(player).getCurrentQuests();
+        if (selectedQuest == null || isEmptyQuest(selectedQuest) || !quests.contains(selectedQuest)) {
+            for (TCRQuestManager.Quest quest : quests) {
+                if (!isEmptyQuest(quest)) {
+                    PlayerDataManager.currentQuestId.put(player, quest.getId());
+                    break;
+                }
+            }
+        }
+    }
+
+    public static boolean isEmptyQuest(TCRQuestManager.Quest quest) {
+        return quest == null || quest.equals(TCRQuestManager.EMPTY);
     }
 
     public static boolean hasFinished(ServerPlayer player, Quest quest) {
         TCRPlayer tcrPlayer = TCRCapabilityProvider.getTCRPlayer(player);
         return tcrPlayer.hasFinished(quest);
-    }
-
-    public static Component getCurrentQuestShortDesc(Player player) {
-        if(!hasQuest(player)) {
-            return Component.empty();
-        }
-        int id = PlayerDataManager.currentQuestId.getInt(player);
-        return QUEST_MAP.getOrDefault(id, EMPTY).shortDesc;
     }
 
     public static class Quest {

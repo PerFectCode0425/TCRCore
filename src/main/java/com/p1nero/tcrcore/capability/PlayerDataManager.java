@@ -17,7 +17,7 @@ import java.util.Set;
 public class PlayerDataManager {
     private final static Set<String> EXISTING_ID = new HashSet<>();
     public static DoubleData stage = new DoubleData("stage", 0);
-    public static DoubleData currentQuestId = new DoubleData("currentTaskId", TCRQuestManager.NO_QUEST);
+    public static DoubleData currentQuestId = new DoubleData("currentQuestId", 0);
 
     public static BoolData aineTalked = new BoolData("aineTalked", false);
     public static BoolData ornnTalked = new BoolData("ornnTalked", false);

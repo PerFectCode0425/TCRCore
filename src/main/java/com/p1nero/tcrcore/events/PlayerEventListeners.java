@@ -136,7 +136,6 @@ public class PlayerEventListeners {
                 addSkill(serverPlayer, EFNSkills.EFN_PARRY, SkillSlots.GUARD);
                 addSkill(serverPlayer, DPRSkills.STAMINA1, SkillSlots.PASSIVE1);
 
-                ItemUtil.addItem(serverPlayer, Items.IRON_SWORD, 1);
                 ItemUtil.addItem(serverPlayer, ModItems.BACKPACK.get(), 1);
                 ItemUtil.addItem(serverPlayer, Items.LANTERN, 1);
                 ItemUtil.addItem(serverPlayer, Items.BREAD, 32);

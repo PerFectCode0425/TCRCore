@@ -12,6 +12,8 @@ import com.p1nero.tcrcore.capability.TCRCapabilityProvider;
 import com.p1nero.tcrcore.capability.TCRQuestManager;
 import com.p1nero.tcrcore.capability.TCRQuests;
 import com.p1nero.tcrcore.entity.TCREntities;
+import com.p1nero.tcrcore.item.TCRItems;
+import com.p1nero.tcrcore.utils.ItemUtil;
 import com.p1nero.tcrcore.utils.WorldUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -200,6 +202,7 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
 
             TCRQuests.TALK_TO_FERRY_GIRL_1.start(player);
             TCRQuests.TALK_TO_ORNN_1.start(player);
+            ItemUtil.addItem(player, TCRItems.RESONANCE_STONE.get(), 1, true);
             PlayerDataManager.chonosTalked.put(player, true);
         }
         this.setConversingPlayer(null);
