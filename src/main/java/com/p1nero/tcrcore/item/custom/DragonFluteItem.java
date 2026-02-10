@@ -82,4 +82,12 @@ public class DragonFluteItem extends SimpleDescriptionItem {
             list.add(TCRCoreMod.getInfo("dragon_owner", ownerName));
         }
     }
+
+    /**
+     * 包含实体的时候就发光
+     */
+    @Override
+    public boolean isFoil(@NotNull ItemStack itemStack) {
+        return itemStack.hasTag() && itemStack.getOrCreateTag().contains("entity");
+    }
 }

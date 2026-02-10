@@ -2,6 +2,7 @@ package com.p1nero.tcrcore;
 
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModItems;
+import com.github.alexthe668.domesticationinnovation.server.item.DIItemRegistry;
 import com.hm.efn.registries.EFNItem;
 import com.mojang.logging.LogUtils;
 import com.obscuria.aquamirae.registry.AquamiraeItems;
@@ -99,6 +100,7 @@ public class TCRCoreMod {
                 BlockFactorysBossesModEntities.FLAMING_SKELETON_GUARD_FIREBALL.get()
         ));
         ItemEvents.additionalInfoItems.addAll(List.of(
+                DIItemRegistry.COLLAR_TAG.get(),
                 net.blay09.mods.waystones.item.ModItems.warpStone,
                 ItemRegistry.BOTTLE_OF_BLOOD.get(),
                 BlockFactorysBossesModItems.DRAGON_SKULL.get(),

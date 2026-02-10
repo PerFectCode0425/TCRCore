@@ -1,8 +1,13 @@
 package com.p1nero.tcrcore.utils;
 
+import com.yesman.epicskills.registry.entry.EpicSkillsSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -16,6 +21,11 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class EntityUtil {
+
+    public static void playLocalSound(ServerPlayer player, SoundEvent soundEvent) {
+        player.connection.send(new ClientboundSoundPacket(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(soundEvent), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 1.0F, 1.0F, player.getRandom().nextInt()));
+    }
+
     /**
      * 获取视线和目标位置连线的夹角
      */

@@ -209,7 +209,7 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
 
             TCRQuests.TALK_TO_FERRY_GIRL_1.start(player);
             TCRQuests.TALK_TO_ORNN_1.start(player);
-            ItemUtil.addItem(player, TCRItems.RESONANCE_STONE.get(), 1, true);
+            ItemUtil.addItem(player, TCRItems.LAND_RESONANCE_STONE.get(), 1, true);
             PlayerDataManager.chonosTalked.put(player, true);
         }
         this.setConversingPlayer(null);

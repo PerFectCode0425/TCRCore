@@ -133,32 +133,6 @@ public class LivingEntityEventListeners {
                 serverPlayer.getCooldowns().addCooldown(BlockFactorysBossesModItems.KNIGHT_SWORD.get(), 80);
             }
 
-            if (!serverPlayer.isCreative()) {
-                if (!PlayerDataManager.stormEyeBlessed.get(serverPlayer) && entity instanceof BulldrogiothEntity) {
-                    serverPlayer.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
-                    event.setCanceled(true);
-                    return;
-                }
-                if (!PlayerDataManager.abyssEyeBlessed.get(serverPlayer) && entity instanceof Bone_Chimera_Entity) {
-                    serverPlayer.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
-                    event.setCanceled(true);
-                    return;
-                }
-                if (!PlayerDataManager.desertEyeBlessed.get(serverPlayer) && entity instanceof CaptainCornelia) {
-                    serverPlayer.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
-                    event.setCanceled(true);
-                    return;
-                }
-                if (!PlayerDataManager.cursedEyeBlessed.get(serverPlayer) && entity instanceof Arterius arterius) {
-                    if (!arterius.isInBattle()) {
-                        event.setCanceled(true);
-                        return;
-                    }
-                    serverPlayer.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
-                    event.setCanceled(true);
-                }
-            }
-
         }
 
         if (event.getEntity() instanceof Bone_Chimera_Entity boneChimeraEntity) {

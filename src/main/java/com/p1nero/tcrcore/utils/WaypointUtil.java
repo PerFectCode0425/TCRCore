@@ -9,6 +9,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -29,12 +30,20 @@ import java.util.ArrayList;
 @SuppressWarnings("deprecation")
 public class WaypointUtil {
 
+    public static void sendWaypoint(ServerPlayer player, String key, Component displayName, BlockPos pos, WaypointColor color) {
+        sendWaypoint(player, key, displayName, pos, color, WaypointVisibilityType.LOCAL);
+    }
+
     public static void sendWaypoint(ServerPlayer player, String key, BlockPos pos, WaypointColor color, WaypointVisibilityType type) {
-        PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new AddWaypointPacket(key, pos, color, type), player);
+        sendWaypoint(player, key, Component.empty(), pos, color, type);
     }
 
     public static void sendWaypoint(ServerPlayer player, String key, BlockPos pos, WaypointColor color) {
-        PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new AddWaypointPacket(key, pos, color, WaypointVisibilityType.LOCAL), player);
+        sendWaypoint(player, key, pos, color, WaypointVisibilityType.LOCAL);
+    }
+
+    public static void sendWaypoint(ServerPlayer player, String key, Component displayName, BlockPos pos, WaypointColor color, WaypointVisibilityType type) {
+        PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new AddWaypointPacket(key, displayName, pos, color, type), player);
     }
 
     public static void removeWaypoint(ServerPlayer player, String key, BlockPos pos) {
@@ -42,13 +51,19 @@ public class WaypointUtil {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void addWayPoint(BlockPos pos, String name, @Nullable WaypointColor color, WaypointVisibilityType type){
+    public static void addWayPoint(BlockPos pos, String name, @Nullable Component displayName, @Nullable WaypointColor color, WaypointVisibilityType type){
         if (Minecraft.getInstance().player != null && Minecraft.getInstance().level != null) {
             ArrayList<Waypoint> waypoints = getWaypoints(Minecraft.getInstance().player);
             if(waypoints.stream().anyMatch((waypoint -> isEqualWaypoint(waypoint, name, pos)))){
                 return;
             }
-            Waypoint instant = new Waypoint(pos.getX(), pos.getY() + 2, pos.getZ(), name, name.substring(0, 1), color == null ? WaypointColor.getRandom() : color , WaypointPurpose.NORMAL, false);
+            String text;
+            if(displayName != null && !displayName.getContents().toString().equals("empty")) {
+                text = displayName.getString();
+            } else {
+                text = name;
+            }
+            Waypoint instant = new Waypoint(pos.getX(), pos.getY() + 2, pos.getZ(), text, text.substring(0, 1), color == null ? xaero.hud.minimap.waypoint.WaypointColor.getRandom() : color , WaypointPurpose.NORMAL, false);
             instant.setVisibility(type);
             waypoints.add(instant);
             save(Minecraft.getInstance().player);

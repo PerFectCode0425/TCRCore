@@ -40,6 +40,7 @@ public class TCRENLangGenerator extends TCRLangProvider {
         StartScreenHandler.onGenerateEN(this);
         BanPortalScreenHandler.onGenerateEN(this);
 
+        this.add("item.domesticationinnovation.collar_tag.tcr_info", "It allows for special enchantments to be applied to pets.");
         this.addTCRItemInfo(net.blay09.mods.waystones.item.ModItems.warpStone, "Click the §6[Scroll]§r button in the inventory to teleport to activated waystones!");
         this.addTCRItemInfo("§cWarning! This item may cause important items to be sucked into the backpack and become invalid!", net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.ADVANCED_MAGNET_UPGRADE.get(), net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.MAGNET_UPGRADE.get(), net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.PICKUP_UPGRADE.get());
         this.addTCRItemInfo(ItemRegistry.BOTTLE_OF_BLOOD.get(), "Brewed using §c[Crystallized Blood Marrow]§r, a drop from §d[Nehemoth]§r");
@@ -68,8 +69,8 @@ public class TCRENLangGenerator extends TCRLangProvider {
 
         this.add(TCRItems.DRAGON_FLUTE.get(), "Dragon Flute");
         this.addItemUsageInfo(TCRItems.DRAGON_FLUTE.get(), "Right-click to capture a dragon; right-click again to release it.");
-        this.add(TCRItems.RESONANCE_STONE.get(), "Resonance Stone");
-        this.addItemUsageInfo(TCRItems.RESONANCE_STONE.get(), "Can resonate with the location of the Angel's seal");
+        this.add(TCRItems.LAND_RESONANCE_STONE.get(), "Land Resonance Stone");
+        this.addInfo("resonance_stone_usage", "Can resonate with the location of the Angel's seal");
         this.add(TCRItems.CORE_FLINT.get(), "Core Flint");
         this.addItemUsageInfo(TCRItems.CORE_FLINT.get(), "Use on an Obsidian Frame to open a Nether Portal.");
         this.add(TCRItems.PROOF_OF_ADVENTURE.get(), "Proof of Adventure");
@@ -88,6 +89,7 @@ public class TCRENLangGenerator extends TCRLangProvider {
         this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "It bears an ancient oracle hinting at the locations of scattered embers. Show it to the The Sanctuary Keeper in the The Sanctuary; it might aid your adventure!");
         this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "§cIn multiplayer mode, do not occupy other players'! Everyone must submit their own!", 2);
 
+        this.addInfo("resonance_stone_working", "[%s] Resonating... Please wait patiently...");
         this.addInfo("containing_dragon", "Type: [%s]");
         this.addInfo("dragon_owner", "Owner: [%s]");
         this.addInfo("only_work_on_dragon", "Only can capture dragon.");
@@ -190,11 +192,7 @@ public class TCRENLangGenerator extends TCRLangProvider {
         this.addInfo("press_to_open_map", "§6[M]§f to view the map");
 
         this.addInfo("godness_statue_pos", "Goddess Statue");
-        this.addInfo("storm_pos", "Location of the Storm Echo: Sky Island");
-        this.addInfo("cursed_pos", "Location of the Cursed Echo: Ice Maze");
-        this.addInfo("desert_pos", "Location of the Desert Echo: Chimera's Prison");
-        this.addInfo("flame_pos", "Location of the Flame Echo: Underworld Arena");
-        this.addInfo("abyss_pos", "Location of the Abyss Echo: Ribbit Village");
+        this.addInfo("eye_pos_mark", "Location of [%s]: [%s]");
 
         this.addAdvancement("dragon_tame", "Dragon Tamer", "Tame Skrythe");
         this.addAdvancement(TCRCoreMod.MOD_ID, "The Casket of Reveries", "Where the dream begins. Head to the The Sanctuary to find the The Sanctuary Keeper.");

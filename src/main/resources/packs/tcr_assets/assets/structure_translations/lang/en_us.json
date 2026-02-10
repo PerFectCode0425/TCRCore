@@ -1,4 +1,8 @@
 {
+  "_comment": "Battle Tower",
+  "structure.ba_bt.land_tower": "Land Tower",
+  "structure.ba_bt.ocean_tower": "Ocean Tower",
+  "structure.ba_bt.core_tower": "Core Tower",
   "structure.tcrcore.underworld_arena": "Infernal Arena",
   "_comment": "Dodo's mob",
   "structure.dodosmobs.jungle_prison": "Chimera's Prison",

@@ -110,7 +110,7 @@ public class WorldUtil {
                 structureSet,
                 playerPos,
                 20000,
-                false
+                true//跳过已找？
         );
 
         if (result != null) {

@@ -284,9 +284,6 @@ public class TCRPlayer {
                             }
 
                             // 设置方向和粒子效果
-                            from = serverPlayer.getEyePosition();
-                            Vec3 target = new Vec3(pos.getX(), serverPlayer.getEyeY(), pos.getY());
-                            dir = target.subtract(from).normalize();
                         }
 
                         if (stage <= 5) {
@@ -302,6 +299,12 @@ public class TCRPlayer {
                         }
                     });
         }
+    }
+
+    public void playDirectionParticle(Vec3 from, Vec3 to) {
+        this.from = from;
+        this.dir = to.subtract(from).normalize();
+        this.spawnParticleTimer = this.particleCount;
     }
 
     public void syncToClient(ServerPlayer serverPlayer) {

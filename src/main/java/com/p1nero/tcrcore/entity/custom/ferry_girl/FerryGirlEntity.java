@@ -157,7 +157,12 @@ public class FerryGirlEntity extends PathfinderMob implements IEntityNpc, GeoEnt
                 PlayerDataManager.ferryGirlTalked.put(player, true);
             }
             CompoundTag tag = new CompoundTag();
-            tag.putBoolean("can_go_overworld", TCRQuestManager.hasFinished(serverPlayer, TCRQuests.TALK_TO_CHRONOS_1));
+            boolean canGoOverworld = TCRQuestManager.hasFinished(serverPlayer, TCRQuests.TALK_TO_CHRONOS_1);
+            //必须追踪现在的任务才能去主世界
+            if(TCRQuestManager.hasQuest(serverPlayer, TCRQuests.TALK_TO_FERRY_GIRL_1) && !TCRQuestManager.getCurrentQuest(serverPlayer).equals(TCRQuests.TALK_TO_FERRY_GIRL_1)) {
+                canGoOverworld = false;
+            }
+            tag.putBoolean("can_go_overworld", canGoOverworld);
             this.sendDialogTo(serverPlayer, tag);
         }
         return InteractionResult.sidedSuccess(level().isClientSide);

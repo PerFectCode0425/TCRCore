@@ -3,10 +3,12 @@ package com.p1nero.tcrcore.capability;
 import com.p1nero.tcrcore.TCRCoreMod;
 import com.p1nero.tcrcore.capability.TCRQuestManager.Quest;
 import com.p1nero.tcrcore.entity.TCREntities;
+import com.p1nero.tcrcore.item.TCRItems;
 import com.p1nero.tcrcore.utils.WorldUtil;
 import com.p1nero.tcrcore.worldgen.TCRDimensions;
 import net.magister.bookofdragons.item.ModItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class TCRQuests {
@@ -27,8 +29,11 @@ public class TCRQuests {
     //前往获取大地之眼
     public static Quest USE_RESONANCE_STONE_1;
     public static Quest GET_DESERT_EYE;
+    //奇美拉支线
+    public static Quest BONE_CHIMERA_QUEST;
 
     public static void init() {
+
         TALK_TO_AINE_1 = TCRQuestManager.create("talk_to_aine_1")
                 .shortDescParam(TCREntities.AINE_IRIS.get().getDescription())
                 .descParam(TCREntities.AINE_IRIS.get().getDescription(), TCREntities.AINE_IRIS.get().getDescription())
@@ -53,6 +58,19 @@ public class TCRQuests {
                 .descParam(TCREntities.FERRY_GIRL.get().getDescription(), TCREntities.FERRY_GIRL.get().getDescription())
                 .withIcon(SIDE_QUEST_1)
                 .withTrackingPos(new BlockPos(WorldUtil.FERRY_GIRL_POS.above(1)), TCRDimensions.SANCTUM_LEVEL_KEY);
+
+        USE_RESONANCE_STONE_1 = TCRQuestManager.create("use_resonance_stone_1")
+                .shortDescParam(TCRItems.LAND_RESONANCE_STONE.get().getDescription())
+                .descParam(TCRItems.LAND_RESONANCE_STONE.get().getDescription());
+
+        GET_DESERT_EYE = TCRQuestManager.create("get_desert_eye")
+                .shortDescParam(com.github.L_Ender.cataclysm.init.ModItems.DESERT_EYE.get().getDescription())
+                .descParam(TCRItems.LAND_RESONANCE_STONE.get().getDescription(), com.github.L_Ender.cataclysm.init.ModItems.DESERT_EYE.get().getDescription(), com.github.L_Ender.cataclysm.init.ModItems.DESERT_EYE.get().getDescription());
+
+        BONE_CHIMERA_QUEST = TCRQuestManager.create("bone_chimera_quest")
+                .withIcon(SIDE_QUEST_1)
+                .descParam(TCRItems.LAND_RESONANCE_STONE.get().getDescription())
+                .shortDescParam(Component.translatable("structure.dodosmobs.jungle_prison"));
 
     }
 }
