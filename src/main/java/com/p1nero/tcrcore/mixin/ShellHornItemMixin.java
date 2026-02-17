@@ -46,8 +46,9 @@ public class ShellHornItemMixin extends Item {
 
         InteractionResultHolder<ItemStack> ar = super.use(world, player, hand);
         if (player instanceof ServerPlayer serverPlayer) {
-            if(!TCRQuestManager.hasQuest(player, TCRQuests.GET_CURSED_EYE) || TCRQuests.GET_CURSED_EYE.isFinished(serverPlayer)) {
+            if(!(TCRQuestManager.hasQuest(player, TCRQuests.GET_CURSED_EYE) || TCRQuests.GET_CURSED_EYE.isFinished(serverPlayer))) {
                 player.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), false);
+                cir.setReturnValue(ar);
                 return;
             }
             serverPlayer.level().playSound(null, player.blockPosition().above(),

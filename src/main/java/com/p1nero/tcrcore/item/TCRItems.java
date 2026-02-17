@@ -66,11 +66,11 @@ public class TCRItems {
     );
 
     public static final RegistryObject<Item> CORE_RESONANCE_STONE = REGISTRY.register("core_resonance_stone",
-            () -> new ResonanceStoneItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant(), ResourceLocation.parse(WorldUtil.CORE_GOLEM), 50, Level.OVERWORLD, (serverPlayer) ->
+            () -> new ResonanceStoneItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant(), ResourceLocation.parse(WorldUtil.CORE_GOLEM), -56, Level.OVERWORLD, (serverPlayer) ->
                     TCRQuestManager.hasQuest(serverPlayer, TCRQuests.USE_CORE_RESONANCE_STONE),
                     ((pos, serverPlayer) ->
                     {
-                        WaypointUtil.sendWaypoint(serverPlayer, "eye_pos_mark", TCRCoreMod.getInfo("eye_pos_mark", ModItems.CURSED_EYE.get().getDescription(), Component.translatable("structure.aquamirae.ice_maze")), pos, WaypointColor.DARK_GREEN);
+                        WaypointUtil.sendWaypoint(serverPlayer, "eye_pos_mark", TCRCoreMod.getInfo("eye_pos_mark", ModItems.MONSTROUS_EYE.get().getDescription(), Component.translatable("structure.ba_bt.core_tower")), pos, WaypointColor.DARK_RED);
                         TCRQuests.USE_CORE_RESONANCE_STONE.finish(serverPlayer, true);
                         TCRQuests.GET_MONST_EYE.start(serverPlayer);
                     }))

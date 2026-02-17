@@ -167,13 +167,29 @@ public class AineIrisEntity extends PathfinderMob implements IEntityNpc, GeoEnti
             DialogNode next = new DialogNode(dBuilder.ans(20, KeyMappings.SPELLBOOK_CAST_ACTIVE_KEYMAP.getTranslatedKeyMessage().copy().withStyle(ChatFormatting.GOLD)), dBuilder.opt(-1))
                     .addChild(new DialogNode(dBuilder.ans(21), dBuilder.opt(-1))
                             .addExecutable(dialogueScreen -> {
-                                dialogueScreen.setPicture(MP_DESC);
+//                                dialogueScreen.setPicture(MP_DESC);
                                 //TODO 调整插图
                             })
                             .addChild(learnt)
                             .addChild(root));
             root.addChild(next);
 
+        } else if(TCRQuests.TALK_TO_AINE_1.equals(currentQuest)) {
+            //聊聊最近的冒险（没啥用，纯增加氛围
+            root = new DialogNode(dBuilder.ans(24, localPlayer.getDisplayName()));
+            DialogNode easy = new DialogNode(dBuilder.ans(25), dBuilder.opt(11));
+            DialogNode hard = new DialogNode(dBuilder.ans(25), dBuilder.opt(12));
+
+            DialogNode next = new DialogNode(dBuilder.ans(26), dBuilder.opt(13, TCREntities.AINE.get().getDescription()))
+                    .addChild(new DialogNode(dBuilder.ans(27), dBuilder.opt(14))
+                            .addChild(new DialogNode(dBuilder.ans(28), dBuilder.opt(15))
+                                    .addChild(new DialogNode(dBuilder.ans(29), dBuilder.opt(16))
+                                            .addLeaf(dBuilder.opt(-2), 9))));
+            easy.addChild(next);
+            hard.addChild(next);
+
+            root.addChild(easy)
+                    .addChild(hard);
         } else {
             if(PlayerDataManager.chonosTalked.get(localPlayer)) {
                 root.addChild(aboutChronos);
@@ -242,9 +258,15 @@ public class AineIrisEntity extends PathfinderMob implements IEntityNpc, GeoEnti
         }
 
         if(code == 8) {
+            //打开奥术铁砧
             BlockState blockState = serverPlayer.level().getBlockState(WorldUtil.ARCANE_ANVIL_BLOCK_POS);
             serverPlayer.openMenu(blockState.getMenuProvider(serverPlayer.level(), WorldUtil.ARCANE_ANVIL_BLOCK_POS));
             serverPlayer.awardStat(Stats.INTERACT_WITH_ANVIL);
+        }
+
+        if(code == 9) {
+            //闲聊
+            TCRQuests.TALK_TO_AINE_1.finish(serverPlayer);
         }
 
         this.setConversingPlayer(null);

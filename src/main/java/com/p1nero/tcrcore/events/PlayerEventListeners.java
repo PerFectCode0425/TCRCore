@@ -21,18 +21,15 @@ import com.p1nero.tcrcore.utils.ItemUtil;
 import com.p1nero.tcrcore.utils.WorldUtil;
 import com.p1nero.tcrcore.worldgen.TCRDimensions;
 import com.wintercogs.beyonddimensions.Api.DataBase.DimensionsNet;
-import com.wintercogs.beyonddimensions.Api.DataBase.Stack.ItemStackType;
 import com.yesman.epicskills.registry.entry.EpicSkillsItems;
 import com.yesman.epicskills.registry.entry.EpicSkillsSkillTrees;
 import com.yesman.epicskills.skilltree.SkillTree;
 import com.yesman.epicskills.world.capability.SkillTreeProgression;
-import io.redspace.ironsspellbooks.IronsSpellbooks;
 import net.blay09.mods.waystones.block.ModBlocks;
 import net.genzyuro.uniqueaccessories.registry.UAItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -40,7 +37,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -53,7 +49,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -524,7 +519,7 @@ public class PlayerEventListeners {
                 if(!PlayerDataManager.monstEyeBlessed.get(player)) {
                     TCRQuests.BLESS_ON_THE_GODNESS_STATUE.start(player);
                 }
-                TCRQuests.TALK_TO_AINE_MAGIC.start(player);
+                TCRQuests.TALK_TO_AINE_1.start(player);
                 TCRQuests.TALK_TO_CHRONOS_7.start(player);
             }
 

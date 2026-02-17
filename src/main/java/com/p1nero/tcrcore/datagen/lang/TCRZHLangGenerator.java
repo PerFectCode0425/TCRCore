@@ -97,7 +97,7 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addQuest(TCRQuests.GET_MONST_EYE, "巨兽之章", "寻回[%s]", "[%s]为我们标记了[%s]所散落的位置，快出发去寻回[%s]吧！\n\n§a[提示]:§f[%s]或藏匿于地下高塔之中，你需要有破开黑曜石屏障的力量！");
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_7, "巨兽之章", "和%s对话", "[%s]已经寻回，快回主城找%s汇报吧！她将告诉我们下一步该做什么。");
 
-        this.addQuest(TCRQuests.TALK_TO_AINE_1, "间章", "和%s聊聊", "收集神之眼的旅途至今已归还一半祭坛了，和%s聊聊感想吧！");
+        this.addQuest(TCRQuests.TALK_TO_AINE_1, "间章", "和%s聊聊", "收集神之眼的旅途至今已归还一半祭坛了，和%s聊聊吧！");
 //        this.addQuest(TCRQuests., "", "", "");
 
         this.addEffect(TCREffects.INVULNERABLE, "无敌");
@@ -416,8 +416,18 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addDialogOption(TCREntities.AINE.get(), 9, "§6我已学会");
         this.addDialogOption(TCREntities.AINE.get(), 10, "§a再说一遍");
         this.addDialogAnswer(TCREntities.AINE.get(), 23, "不过，[%s]的使用次数是有限的！当你用尽后，只要在主城里使用，它就会自动回满！踏上魔法的道路吧！救——世——主！");
-        this.addDialogAnswer(TCREntities.AINE.get(), 24, "");
-        this.addDialogAnswer(TCREntities.AINE.get(), 25, "");
+        this.addDialogAnswer(TCREntities.AINE.get(), 24, "%s，最近冒险还顺利吗？");
+        this.addDialogOption(TCREntities.AINE.get(), 11, "轻轻松松！");
+        this.addDialogOption(TCREntities.AINE.get(), 12, "累死我了！");
+        this.addDialogAnswer(TCREntities.AINE.get(), 25, "本姑娘在这儿研究资料也累坏了，要不是来之前说好了由你自己完成，不然我也想和你一起去冒险呢。");
+        this.addDialogOption(TCREntities.AINE.get(), 13, "%s");
+        this.addDialogAnswer(TCREntities.AINE.get(), 26, "嗯？");
+        this.addDialogOption(TCREntities.AINE.get(), 14, "我觉得不对劲");
+        this.addDialogAnswer(TCREntities.AINE.get(), 27, "怎么啦？");
+        this.addDialogOption(TCREntities.AINE.get(), 15, "祂们似乎都认识我");
+        this.addDialogAnswer(TCREntities.AINE.get(), 28, "说什么胡话，怎么会有这种事？我看是你最近冒险太累出幻觉了吧，你也该注意多多休息！");
+        this.addDialogOption(TCREntities.AINE.get(), 16, "我是认真的");
+        this.addDialogAnswer(TCREntities.AINE.get(), 29, "好啦好啦，等我们归还了所有的神之眼，一切问题一定都能得到解答的！");
 
         this.addDialogOption(TCREntities.ORNN.get(), -2, "结束对话");
         this.addDialogOption(TCREntities.ORNN.get(), -1, "继续");

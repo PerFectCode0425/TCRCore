@@ -295,7 +295,7 @@ public class TCRQuests {
 
         GET_MONST_EYE = TCRQuestManager.create("get_monst_eye")
                 .shortDescParam(com.github.L_Ender.cataclysm.init.ModItems.MONSTROUS_EYE.get().getDescription().copy().withStyle(ChatFormatting.DARK_RED))
-                .descParam(TCRItems.CORE_RESONANCE_STONE.get().getDescription().copy().withStyle(ChatFormatting.DARK_RED), com.github.L_Ender.cataclysm.init.ModItems.MONSTROUS_EYE.get().getDescription().copy().withStyle(ChatFormatting.DARK_RED), com.github.L_Ender.cataclysm.init.ModItems.MONSTROUS_EYE.get().getDescription().copy().withStyle(ChatFormatting.DARK_RED));
+                .descParam(TCRItems.CORE_RESONANCE_STONE.get().getDescription().copy().withStyle(ChatFormatting.DARK_RED), com.github.L_Ender.cataclysm.init.ModItems.MONSTROUS_EYE.get().getDescription().copy().withStyle(ChatFormatting.DARK_RED), com.github.L_Ender.cataclysm.init.ModItems.MONSTROUS_EYE.get().getDescription().copy().withStyle(ChatFormatting.DARK_RED), com.github.L_Ender.cataclysm.init.ModItems.MONSTROUS_EYE.get().getDescription().copy().withStyle(ChatFormatting.DARK_RED));
 
         TALK_TO_CHRONOS_7 = TCRQuestManager.create("talk_to_chronos_7")
                 .shortDescParam(TCREntities.CHRONOS_SOL.get().getDescription())

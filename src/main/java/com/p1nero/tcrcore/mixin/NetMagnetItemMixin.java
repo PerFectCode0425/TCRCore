@@ -33,21 +33,21 @@ import java.util.List;
 @Mixin(NetMagnetItem.class)
 public abstract class NetMagnetItemMixin extends BaseMachineItem {
 
-    @Shadow protected abstract void fluidCollect(FilterMode filterMode, List<IStackType<?>> filterSlots, UnifiedStorage storage, Level level, AABB searchArea);
+    @Shadow(remap = false) protected abstract void fluidCollect(FilterMode filterMode, List<IStackType<?>> filterSlots, UnifiedStorage storage, Level level, AABB searchArea);
 
-    @Shadow protected abstract boolean matchesFilter(FilterMode filterMode, List<IStackType<?>> filterSlots, IStackType<?> otherStack);
+    @Shadow(remap = false) protected abstract boolean matchesFilter(FilterMode filterMode, List<IStackType<?>> filterSlots, IStackType<?> otherStack);
 
-    @Shadow protected abstract AABB getSearchArea(HopperRangeMode hopperRangeMode, Level level, Vec3i pos);
+    @Shadow(remap = false) protected abstract AABB getSearchArea(HopperRangeMode hopperRangeMode, Level level, Vec3i pos);
 
-    @Shadow protected abstract List<ItemEntity> refreshItemEntityCache(HopperNBTMode hopperNBTMode, Level level, AABB searchArea);
+    @Shadow(remap = false) protected abstract List<ItemEntity> refreshItemEntityCache(HopperNBTMode hopperNBTMode, Level level, AABB searchArea);
 
-    @Shadow protected abstract List<ExperienceOrb> refreshXpEntityCache(Level level, AABB searchArea);
+    @Shadow(remap = false) protected abstract List<ExperienceOrb> refreshXpEntityCache(Level level, AABB searchArea);
 
     public NetMagnetItemMixin(Properties properties) {
         super(properties);
     }
 
-    @Inject(method = "workContent", at = @At("HEAD"))
+    @Inject(method = "workContent", at = @At("HEAD"), remap = false, cancellable = true)
     private void tcr$workContent(ItemStack stack, Level level, Entity holder, int slotId, boolean isSelected, CallbackInfo ci) {
         super.workContent(stack, level, holder, slotId, isSelected);
 
@@ -119,6 +119,7 @@ public abstract class NetMagnetItemMixin extends BaseMachineItem {
         {
             fluidCollect(filterMode, filterSlots, storage, level, searchArea);
         }
+        ci.cancel();
     }
 
 }
