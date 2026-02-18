@@ -2,6 +2,7 @@ package com.p1nero.tcrcore.events;
 
 import com.brass_amber.ba_bt.entity.hostile.golem.CoreGolem;
 import com.brass_amber.ba_bt.entity.hostile.golem.LandGolem;
+import com.brass_amber.ba_bt.entity.hostile.golem.NetherGolem;
 import com.brass_amber.ba_bt.entity.hostile.golem.OceanGolem;
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.Ender_Guardian_Entity;
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.Ignis_Entity;
@@ -268,12 +269,18 @@ public class LivingEntityEventListeners {
             }
 
             if (livingEntity instanceof CoreGolem) {
+                if (!PlayerDataManager.flameEyeGotten.get(player)) {
+                    ItemUtil.addItemEntity(player, ModItems.FLAME_EYE.get(), 1, ChatFormatting.RED.getColor().intValue());
+                    player.connection.send(new ClientboundSoundPacket(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 1.0F, 1.0F, player.getRandom().nextInt()));
+                }
+            }
+
+            if (livingEntity instanceof NetherGolem) {
                 if (!PlayerDataManager.monstEyeGotten.get(player)) {
                     ItemUtil.addItemEntity(player, ModItems.MONSTROUS_EYE.get(), 1, ChatFormatting.DARK_RED.getColor().intValue());
                     player.connection.send(new ClientboundSoundPacket(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 1.0F, 1.0F, player.getRandom().nextInt()));
                 }
             }
-
 
         });
 

@@ -60,10 +60,11 @@ public abstract class VillagerMixin extends AbstractVillager {
             if (mainHand.is(Items.EMERALD)) {
                 CommandSourceStack commandSourceStack = serverPlayer.createCommandSourceStack().withPermission(2).withSuppressedOutput();
                 if(!PlayerDataManager.swordSoaringUnlocked.get(serverPlayer) && WorldUtil.isInStructure(serverPlayer, WorldUtil.SKY_ISLAND)) {
-                    Objects.requireNonNull(serverPlayer.getServer()).getCommands().performPrefixedCommand(commandSourceStack, "/skilltree unlock @s sword_soaring:sword_soaring_skills");
-                    serverPlayer.displayClientMessage(TCRCoreMod.getInfo("unlock_new_skill_page").withStyle(ChatFormatting.AQUA), false);
-                    level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundSource.PLAYERS, 1.0F, 1.0F);
-                    PlayerDataManager.swordSoaringUnlocked.put(serverPlayer, true);
+                    //换进天域再送
+//                    Objects.requireNonNull(serverPlayer.getServer()).getCommands().performPrefixedCommand(commandSourceStack, "/skilltree unlock @s sword_soaring:sword_soaring_skills");
+//                    serverPlayer.displayClientMessage(TCRCoreMod.getInfo("unlock_new_skill_page").withStyle(ChatFormatting.AQUA), false);
+//                    level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundSource.PLAYERS, 1.0F, 1.0F);
+//                    PlayerDataManager.swordSoaringUnlocked.put(serverPlayer, true);
                 } else {
                     //即返回原村民的交互操作，不拦截了
                     return;

@@ -38,6 +38,7 @@ public class TCRItemModelProvider extends ItemModelProvider {
         simpleItem(TCRItems.OCEAN_RESONANCE_STONE);
         simpleItem(TCRItems.CURSED_RESONANCE_STONE);
         simpleItem(TCRItems.CORE_RESONANCE_STONE);
+        simpleItem(TCRItems.NETHER_RESONANCE_STONE);
         simpleItem(TCRItems.MAGIC_BOTTLE);
         withExistingItemTexture(TCRItems.NECROMANCY_SCROLL, ItemRegistry.MAGIC_CLOTH);
     }

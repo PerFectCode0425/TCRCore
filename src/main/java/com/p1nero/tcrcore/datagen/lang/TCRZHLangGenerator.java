@@ -70,7 +70,7 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         //主线·深渊之眼
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_2, "海洋之章", "和%s对话", "经过漫长的等待，%s已完成充能。快回去找%s吧！她在圣殿里等你。");
         this.addQuest(TCRQuests.GO_TO_OVERWORLD_OCEAN, "海洋之章", "前往Overworld", "[%s]已完成充能，该前往Overworld使用它了！它将为我们指引[%s]的位置！");
-        this.addQuest(TCRQuests.USE_OCEAN_RESONANCE_STONE, "海洋之章", "使用[%s]", "你已经抵达了主世界，快使用[%s]吧！它将为我们指引[%s]的位置！到底有什么样的冒险在等着我们呢？");
+        this.addQuest(TCRQuests.USE_OCEAN_RESONANCE_STONE, "海洋之章", "使用[%s]", "你已经抵达了Overworld，快使用[%s]吧！它将为我们指引[%s]的位置！到底有什么样的冒险在等着我们呢？");
         this.addQuest(TCRQuests.GET_OCEAN_EYE, "海洋之章", "寻回[%s]", "[%s]为我们标记了[%s]所散落的位置，快出发去寻回[%s]吧！\n\n§a[提示]:[%s§a]可能藏匿于方块之中！ \n\n§4[注意]：若获取后无法完成任务，请尝试关闭可能自动拾取物品的插件，并扔出去后重新拾取！");
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_3, "海洋之章", "和%s对话", "[%s]已经寻回，快回主城找%s汇报吧！她将告诉我们下一步该做什么。\n\n本次我们还取回了[%s]，这里面究竟蕴藏了什么秘密？顺便问问吧！");
 
@@ -90,15 +90,22 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addQuest(TCRQuests.TRY_TO_LEARN_MAGIC, "魔法之章", "尝试淬灵", "[%s]为我们揭示了这个世界的魔法，现在，按照%s所说的，尝试将卷轴里的法术淬灵在武器上吧！\n\n§a[提示]：%s处解锁了新的对话选项！");
         this.addQuest(TCRQuests.TALK_TO_AINE_MAGIC_2, "魔法之章", "和%s对话", "你已经学会了将法术淬灵在武器上啦，快去和%s聊聊吧！她将教会你如何运用好魔法！");
 
-        //主线·巨兽之眼
-        this.addQuest(TCRQuests.TALK_TO_CHRONOS_6, "巨兽之章", "和%s对话", "经过漫长的等待，%s已完成充能。快回去找%s吧！她在圣殿里等你。");
-        this.addQuest(TCRQuests.GO_TO_OVERWORLD_CORE, "巨兽之章", "前往Overworld", "[%s]已完成充能，该前往Overworld使用它了！它将为我们指引[%s]的位置！");
-        this.addQuest(TCRQuests.USE_CORE_RESONANCE_STONE, "巨兽之章", "使用[%s]", "你已经抵达了主世界，快使用[%s]吧！它将为我们指引[%s]的位置！到底有什么样的冒险在等着我们呢？");
-        this.addQuest(TCRQuests.GET_MONST_EYE, "巨兽之章", "寻回[%s]", "[%s]为我们标记了[%s]所散落的位置，快出发去寻回[%s]吧！\n\n§a[提示]:§f[%s]或藏匿于地下高塔之中，你需要有破开黑曜石屏障的力量！");
-        this.addQuest(TCRQuests.TALK_TO_CHRONOS_7, "巨兽之章", "和%s对话", "[%s]已经寻回，快回主城找%s汇报吧！她将告诉我们下一步该做什么。");
+        //主线·烈焰之眼
+        this.addQuest(TCRQuests.TALK_TO_CHRONOS_6, "烈焰之章", "和%s对话", "经过漫长的等待，%s已完成充能。快回去找%s吧！她在圣殿里等你。");
+        this.addQuest(TCRQuests.GO_TO_OVERWORLD_CORE, "烈焰之章", "前往Overworld", "[%s]已完成充能，该前往Overworld使用它了！它将为我们指引[%s]的位置！");
+        this.addQuest(TCRQuests.USE_CORE_RESONANCE_STONE, "烈焰之章", "使用[%s]", "你已经抵达了Overworld，快使用[%s]吧！它将为我们指引[%s]的位置！到底有什么样的冒险在等着我们呢？");
+        this.addQuest(TCRQuests.GET_FLAME_EYE, "烈焰之章", "寻回[%s]", "[%s]为我们标记了[%s]所散落的位置，快出发去寻回[%s]吧！\n\n§a[提示]:§f[%s]或藏匿于地下高塔之中，你需要有破开黑曜石屏障的力量！");
+        this.addQuest(TCRQuests.TALK_TO_CHRONOS_7, "烈焰之章", "和%s对话", "[%s]已经寻回，快回主城找%s汇报吧！她将告诉我们下一步该做什么。");
 
         this.addQuest(TCRQuests.TALK_TO_AINE_1, "间章", "和%s聊聊", "收集神之眼的旅途至今已归还一半祭坛了，和%s聊聊吧！");
-//        this.addQuest(TCRQuests., "", "", "");
+
+        //主线·地狱之章
+        this.addQuest(TCRQuests.TALK_TO_CHRONOS_8, "地狱之章", "和%s对话", "经过漫长的等待，%s已完成充能。快回去找%s吧！她在圣殿里等你。");
+        this.addQuest(TCRQuests.GO_TO_NETHER, "地狱之章", "前往Nether", "散落在Overworld的神之眼皆已寻回，共鸣石或许无法在Overworld发挥作用。按%s所说，使用[%s]点燃黑曜石框架打开地狱之门（Gate of the Nether）吧！");
+        this.addQuest(TCRQuests.USE_NETHER_RESONANCE_STONE, "地狱之章", "使用[%s]", "你已经抵达The Nether，快使用[%s]吧！它将为我们指引[%s]的位置！到底有什么样的冒险在等着我们呢？");
+        this.addQuest(TCRQuests.GET_MONST_EYE, "地狱之章", "寻回[%s]", "[%s]为我们标记了[%s]所散落的位置，快出发去寻回[%s]吧！ \n\n§a[提示]：建议装备[%s]");
+        this.addQuest(TCRQuests.TALK_TO_CHRONOS_9, "地狱之章", "和%s对话", "[%s]已经寻回，快回主城找%s汇报吧！她将告诉我们下一步该做什么。");
+        //        this.addQuest(TCRQuests., "", "", "");
 
         this.addEffect(TCREffects.INVULNERABLE, "无敌");
         this.addEffect(TCREffects.SOUL_INCINERATOR, "灵魂火");
@@ -126,9 +133,9 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addKeyMapping(TCRKeyMappings.RIPTIDE, "激流");
         this.addKeyMapping(TCRKeyMappings.SHOW_QUESTS, "隐藏/显示指引");
 
-        this.add("skill_tree.sword_soaring.unlock_tip", "与§6[天空岛]§r村民用绿宝石交易解锁");
+        this.add("skill_tree.sword_soaring.unlock_tip", "推进主线任务习得");
         this.add("unlock_tip.tcrcore.battleborn.water_avoid1", "使用§d[紫水晶块]§f向§6[呱呱]§f交易习得");
-        this.add("unlock_tip.tcrcore.battleborn.fire_avoid", "击败§6[骸骨奇美拉]§r习得");
+        this.add("unlock_tip.tcrcore.battleborn.fire_avoid", "推进主线任务习得");
         this.add("unlock_tip.tcrcore.get_vatansever", "获得§d「卫疆刃」§f后解锁");
         this.addSkill("water_avoid", "避水咒", "可在水下自由呼吸！");
         this.addSkill("fire_avoid", "避火咒", "免疫火焰伤害！");
@@ -147,6 +154,7 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.add(TCRItems.OCEAN_RESONANCE_STONE.get(), "海洋共鸣石");
         this.add(TCRItems.CURSED_RESONANCE_STONE.get(), "诅咒共鸣石");
         this.add(TCRItems.CORE_RESONANCE_STONE.get(), "炉心共鸣石");
+        this.add(TCRItems.NETHER_RESONANCE_STONE.get(), "地狱共鸣石");
         this.addInfo("resonance_stone_usage", "可与使徒封印的位置共鸣。");
         this.add(TCRItems.CORE_FLINT.get(), "炉心火石");
         this.addItemUsageInfo(TCRItems.CORE_FLINT.get(), "在黑曜石框架上使用，可打开地狱之门。");
@@ -242,8 +250,9 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addInfo("reset_when_no_player", "当幻境内没有玩家存在时，离开幻境过久，幻境将会重置！");
         this.addInfo("on_full_set", "套装效果");
         this.addInfo("unlock_new_ftb_page", "解锁了新的任务界面，请打开§6[任务书]§r查看");
-        this.addInfo("unlock_new_skill_page", "解锁了新的技能书界面，按§6[K]§r查看");
-        this.addInfo("unlock_new_skill", "解锁了[%s]! 按§6[K]§r查看");
+        this.addInfo("unlock_new_skill_page", "解锁了新的技能书界面！");
+        this.addInfo("unlock_new_skill", "解锁了[%s]! ");
+        this.addInfo("unlock_new_skill_sub", "按§6[%s]§r查看解锁的新技能");
         this.addInfo("hit_barrier", "前面的区域，以后再来探索吧！");
 
         this.addInfo("death_info", "§6敌人过于强大时，可以尝试搭配不同技能组合！");
@@ -376,7 +385,15 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 20, "这是...%s？！");
         this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 21, "既然如此，这份记忆便可以让共鸣石提前恢复魔力，吾这就将回响注入共鸣石之中，阁下务必把祂的火种收回！");
         this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 22, "请阁下将神之眼归位到祭坛上吧！没想到掌管冥界的使徒（Angel），终将自己踏入冥界...");
-        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 23, "");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 23, "请阁下将神之眼归位到祭坛上吧！你在灰烬里埋藏复活的密码，将锈蚀的锁熔成流淌的金河…");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 24, "阁下，散落在主世界（Overworld）的神之眼皆已寻回，共鸣石或许无法在主世界发挥作用。若共鸣石没有回应，或许该去其它维度试试。");
+        this.addDialogOption(TCREntities.CHRONOS_SOL.get(), 9, "其它维度？");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 25, "创世之初，世界分为了四个维度，分别是主世界（The Overworld），地狱（The Nether），天域（The Aether），和终界（The End），分别由各自的使徒所掌管。");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 26, "黑潮入侵后，祂们的灵魂也永远留在了那里。吾用[%s]的力量为阁下打造了[%s]。用[%s]点燃黑曜石框架，即可打开地狱之门！");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 27, "阁下要是准备好了，就前往地狱使用共鸣石吧！在这之前，阁下请接受赐福，以免受火焰之灾！");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 28, "");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 29, "");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 30, "");
 
         this.addDialogOption(TCREntities.AINE.get(), -4, "§6法术淬灵");
         this.addDialogOption(TCREntities.AINE.get(), -3, "§6法术交易");

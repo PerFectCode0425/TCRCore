@@ -4,6 +4,7 @@ import com.p1nero.dialog_lib.network.packet.BasePacket;
 import com.p1nero.tcrcore.TCRCoreMod;
 import com.p1nero.tcrcore.client.TCRKeyMappings;
 import com.wintercogs.beyonddimensions.ShortCutKey.DimensionsShortKeys;
+import com.yesman.epicskills.client.input.EpicSkillsKeyMappings;
 import dev.ftb.mods.ftbquests.client.FTBQuestsClient;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -20,6 +21,7 @@ public record PlayTitlePacket(int id) implements BasePacket {
     public static final int RIPTIDE_TUTORIAL = 4;
     public static final int UNLOCK_NEW_CHAPTER = 5;
     public static final int OPEN_BACKPACK_TUTORIAL = 6;
+    public static final int UNLOCK_NEW_SKILL = 7;
 
     @Override
     public void encode(FriendlyByteBuf buf) {
@@ -56,6 +58,10 @@ public record PlayTitlePacket(int id) implements BasePacket {
                 case OPEN_BACKPACK_TUTORIAL -> {
                     Minecraft.getInstance().gui.setTitle(Component.literal(""));
                     Minecraft.getInstance().gui.setSubtitle(TCRCoreMod.getInfo("open_backpack_tutorial", DimensionsShortKeys.OPEN_GUI_KEY.getTranslatedKeyMessage().copy().withStyle(ChatFormatting.GOLD)));
+                }
+                case UNLOCK_NEW_SKILL -> {
+                    Minecraft.getInstance().gui.setTitle(Component.literal(""));
+                    Minecraft.getInstance().gui.setSubtitle(TCRCoreMod.getInfo("unlock_new_skill_sub", EpicSkillsKeyMappings.OPEN_SKILL_TREE.getTranslatedKeyMessage().copy().withStyle(ChatFormatting.GOLD)));
                 }
             }
         }

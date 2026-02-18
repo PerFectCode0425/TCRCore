@@ -241,9 +241,13 @@ public class TCRPlayer {
             if(PlayerDataManager.desertEyeGotten.get(serverPlayer) && !TCRQuests.TALK_TO_CHRONOS_2.isFinished(serverPlayer)) {
                 TCRQuests.TALK_TO_CHRONOS_2.start(serverPlayer);
             }
-            //开启巨兽章
+            //开启烈焰章
             if(PlayerDataManager.cursedEyeGotten.get(serverPlayer) && !TCRQuests.TALK_TO_CHRONOS_6.isFinished(serverPlayer)) {
                 TCRQuests.TALK_TO_CHRONOS_6.start(serverPlayer);
+            }
+            //开启地狱章
+            if(PlayerDataManager.flameEyeGotten.get(serverPlayer) && !TCRQuests.TALK_TO_CHRONOS_8.isFinished(serverPlayer)) {
+                TCRQuests.TALK_TO_CHRONOS_8.start(serverPlayer);
             }
             resonanceStoneInCooldown = false;
         }

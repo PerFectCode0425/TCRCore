@@ -60,9 +60,9 @@ public class TCRENLangGenerator extends TCRLangProvider {
         this.addKeyMapping(TCRKeyMappings.RIPTIDE, "Riptide");
         this.addKeyMapping(TCRKeyMappings.SHOW_QUESTS, "Show/Hide Task");
 
-        this.add("skill_tree.sword_soaring.unlock_tip", "Unlocked by interacting with villagers in §6[Sky Island]§r using emeralds");
+        this.add("skill_tree.sword_soaring.unlock_tip", "Unlocked by Advancing the main quest");
         this.add("unlock_tip.tcrcore.battleborn.water_avoid1", "Learned by trading with §6[Ribbit]§f using §d[Block of Amethyst]§f");
-        this.add("unlock_tip.tcrcore.battleborn.fire_avoid", "Learned by defeating the §6[Bone Chimera]§r");
+        this.add("unlock_tip.tcrcore.battleborn.fire_avoid", "Unlocked by Advancing the main quest");
         this.add("unlock_tip.tcrcore.get_vatansever", "Unlocks after obtaining the §d[Vatansever]§f");
         this.addSkill("water_avoid", "Water Avoidance Charm", "Allows breathing underwater!");
         this.addSkill("fire_avoid", "Fire Avoidance Charm", "Immunity to fire damage!");
@@ -81,6 +81,7 @@ public class TCRENLangGenerator extends TCRLangProvider {
         this.add(TCRItems.OCEAN_RESONANCE_STONE.get(), "Ocean Resonance Stone");
         this.add(TCRItems.CURSED_RESONANCE_STONE.get(), "Cursed Resonance Stone");
         this.add(TCRItems.CORE_RESONANCE_STONE.get(), "Core Resonance Stone");
+        this.add(TCRItems.NETHER_RESONANCE_STONE.get(), "Nether Resonance Stone");
         this.addInfo("resonance_stone_usage", "Can resonate with the location of the Angel's seal");
         this.add(TCRItems.CORE_FLINT.get(), "Core Flint");
         this.addItemUsageInfo(TCRItems.CORE_FLINT.get(), "Use on an Obsidian Frame to open a Nether Portal.");
@@ -174,8 +175,9 @@ public class TCRENLangGenerator extends TCRLangProvider {
         this.addInfo("reset_when_no_player", "If no players remain in the Cloudland, leaving for too long will reset the Cloudland!");
         this.addInfo("on_full_set", "Full Set Effect");
         this.addInfo("unlock_new_ftb_page", "A new quest page has been unlocked. Please open the §6[Quest Book]§r to check");
-        this.addInfo("unlock_new_skill_page", "A new skill book interface has been unlocked. Press §6[K]§r to check");
-        this.addInfo("unlock_new_skill", "Unlocked [%s]! Press §6[K]§r to check");
+        this.addInfo("unlock_new_skill_page", "A new skill book interface has been unlocked!");
+        this.addInfo("unlock_new_skill", "Unlocked [%s]!");
+        this.addInfo("unlock_new_skill_sub", "Press §6[%s]§r to check new skill");
         this.addInfo("hit_barrier", "This area is not available yet. Come back later!");
 
         this.addInfo("death_info", "§6When enemies are too powerful, try combining different skills!");

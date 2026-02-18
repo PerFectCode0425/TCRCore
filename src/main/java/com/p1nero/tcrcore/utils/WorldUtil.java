@@ -66,6 +66,7 @@ public class WorldUtil {
     public static final String OCEAN_GOLEM = "ba_bt:ocean_tower";
     public static final String LAND_GOLEM = "ba_bt:land_tower";
     public static final String CORE_GOLEM = "ba_bt:core_tower";
+    public static final String NETHER_GOLEM = "nightfall_invade:gate_of_disaster";
     public static Vec2i storm, flame, abyss, cursed, desert;
 
     public static List<MapColor> surfaceMaterials = Arrays.asList(MapColor.WATER, MapColor.ICE);

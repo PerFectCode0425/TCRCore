@@ -7,12 +7,20 @@ import com.p1nero.dialog_lib.api.entity.EntityDialogueExtension;
 import com.p1nero.dialog_lib.api.entity.IEntityDialogueExtension;
 import com.p1nero.dialog_lib.client.screen.DialogueScreen;
 import com.p1nero.dialog_lib.client.screen.builder.StreamDialogueScreenBuilder;
+import com.p1nero.dpr.DodgeParryRewardMod;
+import com.p1nero.fast_tpa.network.PacketRelay;
 import com.p1nero.tcrcore.TCRCoreMod;
 import com.p1nero.tcrcore.capability.PlayerDataManager;
 import com.p1nero.tcrcore.capability.TCRQuestManager;
 import com.p1nero.tcrcore.capability.TCRQuests;
 import com.p1nero.tcrcore.gameassets.TCRSkills;
+import com.p1nero.tcrcore.network.TCRPacketHandler;
+import com.p1nero.tcrcore.network.packet.clientbound.PlayTitlePacket;
 import com.p1nero.tcrcore.utils.ItemUtil;
+import com.yesman.epicskills.EpicSkills;
+import com.yesman.epicskills.registry.entry.EpicSkillsSkillTrees;
+import com.yesman.epicskills.skilltree.SkillTree;
+import com.yesman.epicskills.world.capability.SkillTreeProgression;
 import com.yungnickyoung.minecraft.ribbits.entity.RibbitEntity;
 import com.yungnickyoung.minecraft.ribbits.module.EntityTypeModule;
 import net.minecraft.ChatFormatting;
@@ -20,6 +28,8 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -31,6 +41,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.p1nero.ss.gameassets.skills.SwordControllerSkills;
 
 import java.util.Objects;
 
@@ -110,14 +121,16 @@ public class RibbitDialogExtension implements IEntityDialogueExtension<RibbitEnt
         if(i == 1) {
             TCRQuests.GIVE_AMETHYST_BLOCK_TO_RIBBITS.finish(player, true);
             ItemUtil.addItemEntity(player, artifacts.registry.ModItems.CHARM_OF_SINKING.get(), 1);
-            if(!PlayerDataManager.waterAvoidUnlocked.get(player)) {
-                CommandSourceStack commandSourceStack = player.createCommandSourceStack().withPermission(2).withSuppressedOutput();
-                player.getMainHandItem().shrink(12);
-                Objects.requireNonNull(player.getServer()).getCommands().performPrefixedCommand(commandSourceStack, "/skilltree unlock @s dodge_parry_reward:passive tcrcore:water_avoid true");
-                player.displayClientMessage(TCRCoreMod.getInfo("unlock_new_skill", Component.translatable(TCRSkills.WATER_AVOID.getTranslationKey()).withStyle(ChatFormatting.AQUA)), false);
-                player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundSource.PLAYERS, 1.0F, 1.0F);
-                PlayerDataManager.waterAvoidUnlocked.put(player, true);
-            }
+            player.getMainHandItem().shrink(12);
+            player.getCapability(SkillTreeProgression.SKILL_TREE_PROGRESSION).ifPresent(skillTreeProgression -> {
+                ResourceKey<SkillTree> resourceKey = ResourceKey.create(SkillTree.SKILL_TREE_REGISTRY_KEY, ResourceLocation.fromNamespaceAndPath(DodgeParryRewardMod.MOD_ID, "passive"));
+                skillTreeProgression.unlockTree(resourceKey, player);
+                skillTreeProgression.unlockNode(resourceKey, TCRSkills.WATER_AVOID, player);
+            });
+            PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new PlayTitlePacket(PlayTitlePacket.UNLOCK_NEW_SKILL), player);
+            player.displayClientMessage(TCRCoreMod.getInfo("unlock_new_skill", Component.translatable(TCRSkills.WATER_AVOID.getTranslationKey()).withStyle(ChatFormatting.AQUA)), false);
+            player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundSource.PLAYERS, 1.0F, 1.0F);
+            PlayerDataManager.waterAvoidUnlocked.put(player, true);
         }
         if(i == 2) {
             //开始交易

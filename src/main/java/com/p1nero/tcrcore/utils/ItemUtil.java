@@ -107,33 +107,33 @@ public class ItemUtil {
 
     public static CustomColorItemEntity addItemEntity(Entity spawnOn, Item item, int count){
         CustomColorItemEntity itemEntity = new CustomColorItemEntity(spawnOn.level(), spawnOn.getX(), spawnOn.getY(), spawnOn.getZ(), item.getDefaultInstance().copyWithCount(count));
-        itemEntity.setPickUpDelay(40);
+        itemEntity.setPickUpDelay(20);
         spawnOn.level().addFreshEntity(itemEntity);
         return itemEntity;
     }
 
     public static CustomColorItemEntity addItemEntity(Entity spawnOn, ItemStack item, int count){
         CustomColorItemEntity itemEntity = new CustomColorItemEntity(spawnOn.level(), spawnOn.getX(), spawnOn.getY(), spawnOn.getZ(), item.copyWithCount(count));
-        itemEntity.setPickUpDelay(40);
+        itemEntity.setPickUpDelay(20);
         spawnOn.level().addFreshEntity(itemEntity);
         return itemEntity;
     }
 
     public static CustomColorItemEntity addItemEntity(Entity spawnOn, ItemStack item){
         CustomColorItemEntity itemEntity = new CustomColorItemEntity(spawnOn.level(), spawnOn.getX(), spawnOn.getY(), spawnOn.getZ(), item);
-        itemEntity.setPickUpDelay(40);
+        itemEntity.setPickUpDelay(20);
         spawnOn.level().addFreshEntity(itemEntity);
         return itemEntity;
     }
     public static CustomColorItemEntity addItemEntity(ServerLevel level, BlockPos pos, ItemStack item){
         CustomColorItemEntity itemEntity = new CustomColorItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), item);
-        itemEntity.setPickUpDelay(40);
+        itemEntity.setPickUpDelay(20);
         level.addFreshEntity(itemEntity);
         return itemEntity;
     }
     public static CustomColorItemEntity addItemEntity(ServerLevel level, double x, double y, double z, ItemStack item){
         CustomColorItemEntity itemEntity = new CustomColorItemEntity(level, x, y, z, item);
-        itemEntity.setPickUpDelay(40);
+        itemEntity.setPickUpDelay(20);
         level.addFreshEntity(itemEntity);
         return itemEntity;
     }

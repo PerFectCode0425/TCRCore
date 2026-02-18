@@ -1,6 +1,7 @@
 package com.p1nero.tcrcore.events;
 
 import com.aetherteam.aether.data.resources.registries.AetherDimensions;
+import com.github.L_Ender.cataclysm.init.ModItems;
 import com.hm.efn.gameasset.EFNSkills;
 import com.obscuria.aquamirae.registry.AquamiraeItems;
 import com.p1nero.cataclysm_dimension.worldgen.CataclysmDimensions;
@@ -309,9 +310,9 @@ public class PlayerEventListeners {
             //允许创造进
             if (!serverPlayer.isCreative()) {
                 if (event.getDimension() == Level.NETHER) {
-                    if (!PlayerDataManager.canEnterNether.get(serverPlayer)) {
+                    if (!(TCRQuests.GO_TO_NETHER.isFinished(serverPlayer) || TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_NETHER))) {
                         event.setCanceled(true);
-                        serverPlayer.displayClientMessage(TCRCoreMod.getInfo("can_not_enter_dim"), true);
+                        serverPlayer.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
                     }
                 }
 
@@ -321,7 +322,6 @@ public class PlayerEventListeners {
                         serverPlayer.displayClientMessage(TCRCoreMod.getInfo("can_not_enter_dim"), true);
                     }
                 }
-
 
                 if (CataclysmDimensions.LEVELS.contains(event.getDimension())) {
                     ServerLevel targetLevel = serverPlayer.server.getLevel(event.getDimension());
@@ -385,7 +385,10 @@ public class PlayerEventListeners {
                 }
             }
             if(event.getTo().equals(Level.NETHER)) {
-
+                if(TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_NETHER)) {
+                    TCRQuests.GO_TO_NETHER.finish(serverPlayer, true);
+                    TCRQuests.USE_NETHER_RESONANCE_STONE.start(serverPlayer);
+                }
             }
             if(event.getTo().equals(Level.END)) {
 
@@ -458,7 +461,11 @@ public class PlayerEventListeners {
                 player.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
                 event.setCanceled(true);
             }
-            if(!TCRQuests.USE_CORE_RESONANCE_STONE.isFinished(player) && event.getItem().getItem().is(com.github.L_Ender.cataclysm.init.ModItems.MONSTROUS_EYE.get())) {
+            if(!TCRQuests.USE_CORE_RESONANCE_STONE.isFinished(player) && event.getItem().getItem().is(ModItems.FLAME_EYE.get())) {
+                player.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
+                event.setCanceled(true);
+            }
+            if(!TCRQuests.USE_NETHER_RESONANCE_STONE.isFinished(player) && event.getItem().getItem().is(ModItems.MONSTROUS_EYE.get())) {
                 player.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
                 event.setCanceled(true);
             }
@@ -476,15 +483,15 @@ public class PlayerEventListeners {
         if (event.getEntity() instanceof ServerPlayer player) {
 
             //持有任务时捡起来才推进进度
-            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_DESERT_EYE) && itemStack.is(com.github.L_Ender.cataclysm.init.ModItems.DESERT_EYE.get())) {
-                giveOracleEffect(player, com.github.L_Ender.cataclysm.init.ModItems.DESERT_EYE.get());
+            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_DESERT_EYE) && itemStack.is(ModItems.DESERT_EYE.get())) {
+                giveOracleEffect(player, ModItems.DESERT_EYE.get());
                 PlayerDataManager.desertEyeGotten.put(player, true);
                 //完成收回眼睛的任务
                 TCRQuests.GET_DESERT_EYE.finish(player, true);
                 TCRQuests.TALK_TO_CHRONOS_1.start(player);
             }
-            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_OCEAN_EYE) && itemStack.is(com.github.L_Ender.cataclysm.init.ModItems.ABYSS_EYE.get())) {
-                giveOracleEffect(player, com.github.L_Ender.cataclysm.init.ModItems.ABYSS_EYE.get());
+            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_OCEAN_EYE) && itemStack.is(ModItems.ABYSS_EYE.get())) {
+                giveOracleEffect(player, ModItems.ABYSS_EYE.get());
                 PlayerDataManager.abyssEyeGotten.put(player, true);
                 TCRQuests.GET_OCEAN_EYE.finish(player, true);
                 //点神像和点祭坛
@@ -496,8 +503,8 @@ public class PlayerEventListeners {
                 }
                 TCRQuests.TALK_TO_CHRONOS_3.start(player);
             }
-            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_CURSED_EYE) && itemStack.is(com.github.L_Ender.cataclysm.init.ModItems.CURSED_EYE.get())) {
-                giveOracleEffect(player, com.github.L_Ender.cataclysm.init.ModItems.CURSED_EYE.get());
+            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_CURSED_EYE) && itemStack.is(ModItems.CURSED_EYE.get())) {
+                giveOracleEffect(player, ModItems.CURSED_EYE.get());
                 PlayerDataManager.cursedEyeGotten.put(player, true);
                 TCRQuests.GET_CURSED_EYE.finish(player, true);
                 if(!PlayerDataManager.cursedEyeActivated.get(player)) {
@@ -509,8 +516,21 @@ public class PlayerEventListeners {
                 TCRQuests.TALK_TO_AINE_MAGIC.start(player);
                 TCRQuests.TALK_TO_CHRONOS_5.start(player);
             }
-            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_MONST_EYE) && itemStack.is(com.github.L_Ender.cataclysm.init.ModItems.MONSTROUS_EYE.get())) {
-                giveOracleEffect(player, com.github.L_Ender.cataclysm.init.ModItems.MONSTROUS_EYE.get());
+            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_FLAME_EYE) && itemStack.is(ModItems.FLAME_EYE.get())) {
+                giveOracleEffect(player, ModItems.FLAME_EYE.get());
+                PlayerDataManager.flameEyeGotten.put(player, true);
+                TCRQuests.GET_FLAME_EYE.finish(player, true);
+                if(!PlayerDataManager.flameEyeActivated.get(player)) {
+                    TCRQuests.PUT_FLAME_EYE_ON_ALTAR.start(player);
+                }
+                if(!PlayerDataManager.flameEyeBlessed.get(player)) {
+                    TCRQuests.BLESS_ON_THE_GODNESS_STATUE.start(player);
+                }
+                TCRQuests.TALK_TO_AINE_1.start(player);
+                TCRQuests.TALK_TO_CHRONOS_7.start(player);
+            }
+            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_MONST_EYE) && itemStack.is(ModItems.MONSTROUS_EYE.get())) {
+                giveOracleEffect(player, ModItems.MONSTROUS_EYE.get());
                 PlayerDataManager.monstEyeGotten.put(player, true);
                 TCRQuests.GET_MONST_EYE.finish(player, true);
                 if(!PlayerDataManager.monstEyeActivated.get(player)) {
@@ -519,8 +539,7 @@ public class PlayerEventListeners {
                 if(!PlayerDataManager.monstEyeBlessed.get(player)) {
                     TCRQuests.BLESS_ON_THE_GODNESS_STATUE.start(player);
                 }
-                TCRQuests.TALK_TO_AINE_1.start(player);
-                TCRQuests.TALK_TO_CHRONOS_7.start(player);
+                TCRQuests.TALK_TO_CHRONOS_9.start(player);
             }
 
             if (itemStack.is(AquamiraeItems.SHELL_HORN.get()) && !PlayerDataManager.cursedEyeGotten.get(player)) {

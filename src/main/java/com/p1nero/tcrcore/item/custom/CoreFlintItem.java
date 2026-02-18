@@ -31,11 +31,19 @@ public class CoreFlintItem extends SimpleDescriptionItem{
         BlockPos blockpos = context.getClickedPos();
         BlockState blockstate = level.getBlockState(blockpos);
         //替换原来的打开地狱传送门的方式
-        if(blockstate.is(Blocks.OBSIDIAN)) {
-            Optional<PortalShape> optional = PortalShape.findEmptyPortalShape(level, blockpos, Direction.Axis.X);
-            optional = net.minecraftforge.event.ForgeEventFactory.onTrySpawnPortal(level, blockpos, optional);
-            optional.ifPresent(PortalShape::createPortalBlocks);
-            return InteractionResult.sidedSuccess(level.isClientSide());
+        if(blockstate.is(Blocks.OBSIDIAN) && inPortalDimension(level)) {
+            BlockPos[] poses = new BlockPos[] {blockpos.above(), blockpos.below(), blockpos.west(), blockpos.east(), blockpos.north(), blockpos.south()};
+            for(BlockPos pos : poses) {
+                if(level.getBlockState(pos).is(Blocks.OBSIDIAN)) {
+                    continue;
+                }
+                Optional<PortalShape> optional = PortalShape.findEmptyPortalShape(level, pos, Direction.Axis.X);
+                optional = net.minecraftforge.event.ForgeEventFactory.onTrySpawnPortal(level, pos, optional);
+                if(optional.isPresent()) {
+                    optional.get().createPortalBlocks();
+                    return InteractionResult.sidedSuccess(level.isClientSide());
+                }
+            }
         }
         if (!CampfireBlock.canLight(blockstate) && !CandleBlock.canLight(blockstate) && !CandleCakeBlock.canLight(blockstate)) {
             BlockPos blockpos1 = blockpos.relative(context.getClickedFace());
@@ -60,5 +68,9 @@ public class CoreFlintItem extends SimpleDescriptionItem{
 
             return InteractionResult.sidedSuccess(level.isClientSide());
         }
+    }
+
+    private static boolean inPortalDimension(Level level) {
+        return level.dimension() == Level.OVERWORLD || level.dimension() == Level.NETHER;
     }
 }

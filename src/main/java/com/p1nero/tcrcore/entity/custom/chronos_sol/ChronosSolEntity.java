@@ -8,21 +8,32 @@ import com.p1nero.dialog_lib.api.entity.custom.IEntityNpc;
 import com.p1nero.dialog_lib.api.entity.goal.LookAtConservingPlayerGoal;
 import com.p1nero.dialog_lib.client.screen.DialogueScreen;
 import com.p1nero.dialog_lib.client.screen.builder.StreamDialogueScreenBuilder;
+import com.p1nero.dpr.DodgeParryRewardMod;
+import com.p1nero.fast_tpa.network.PacketRelay;
 import com.p1nero.tcr_bosses.entity.TCRBossEntities;
 import com.p1nero.tcrcore.TCRCoreMod;
 import com.p1nero.tcrcore.capability.*;
 import com.p1nero.tcrcore.entity.TCREntities;
+import com.p1nero.tcrcore.gameassets.TCRSkills;
 import com.p1nero.tcrcore.item.TCRItems;
+import com.p1nero.tcrcore.network.TCRPacketHandler;
+import com.p1nero.tcrcore.network.packet.clientbound.PlayTitlePacket;
 import com.p1nero.tcrcore.utils.ItemUtil;
 import com.p1nero.tcrcore.utils.WorldUtil;
+import com.yesman.epicskills.skilltree.SkillTree;
+import com.yesman.epicskills.world.capability.SkillTreeProgression;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -215,7 +226,21 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
             //充能完毕，去开始领炉心共鸣石
             root = new DialogNode(dBuilder.ans(16))
                     .addLeaf(dBuilder.opt(-4, TCRItems.CORE_RESONANCE_STONE.get().getDescription()), 7);
-        } else {
+        } else if(TCRQuests.TALK_TO_CHRONOS_7.equals(currentQuest)) {
+            //找回烈焰眼
+            treeBuilder.start(dBuilder.ans(12, ModItems.FLAME_EYE.get().getDescription()))
+                    .addOption(dBuilder.opt(7, ModItems.FLAME_EYE.get().getDescription()), dBuilder.ans(23))
+                    .addFinalOption(-2, 8);
+            return treeBuilder.build();
+        }  else if(TCRQuests.TALK_TO_CHRONOS_8.equals(currentQuest)) {
+            //充能完毕，去开始领地狱共鸣石
+            treeBuilder.start(dBuilder.ans(24))
+                    .addOption(9, 25)
+                    .addOption(dBuilder.opt(-1), dBuilder.ans(26,ModItems.FLAME_EYE.get().getDescription(), TCRItems.CORE_FLINT.get().getDescription().copy().withStyle(ChatFormatting.GOLD), TCRItems.CORE_FLINT.get().getDescription()))
+                    .addOption(-1, 27)
+                    .addFinalOption(dBuilder.opt(-4, TCRItems.CORE_FLINT.get().getDescription()), 9);
+            return treeBuilder.build();
+        }  else {
             //默认的情况
 
             if(PlayerDataManager.aineTalked.get(localPlayer)) {
@@ -292,8 +317,33 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
         //领炉心共鸣石
         if(code == 7) {
             TCRQuests.TALK_TO_CHRONOS_6.finish(player);
-            ItemUtil.addItemEntity(player, TCRItems.CORE_RESONANCE_STONE.get(), 1, ChatFormatting.BLUE.getColor());
+            ItemUtil.addItemEntity(player, TCRItems.CORE_RESONANCE_STONE.get(), 1, ChatFormatting.RED.getColor());
             TCRQuests.GO_TO_OVERWORLD_CORE.start(player);
+        }
+
+        //找回烈焰眼后
+        if(code == 8) {
+            TCRQuests.TALK_TO_CHRONOS_7.finish(player);
+            TCRPlayer tcrPlayer = TCRCapabilityProvider.getTCRPlayer(player);
+            tcrPlayer.startWaitingResonanceStoneCharge(player);
+        }
+
+        //领地狱共鸣石
+        if(code == 9) {
+            TCRQuests.TALK_TO_CHRONOS_8.finish(player);
+            ItemUtil.addItemEntity(player, TCRItems.CORE_FLINT.get(), 1, ChatFormatting.DARK_RED.getColor());
+            ItemUtil.addItemEntity(player, TCRItems.NETHER_RESONANCE_STONE.get(), 1, ChatFormatting.DARK_RED.getColor());
+            TCRQuests.GO_TO_NETHER.start(player);
+            PlayerDataManager.canEnterNether.put(player, true);
+            player.getCapability(SkillTreeProgression.SKILL_TREE_PROGRESSION).ifPresent(skillTreeProgression -> {
+                ResourceKey<SkillTree> resourceKey = ResourceKey.create(SkillTree.SKILL_TREE_REGISTRY_KEY, ResourceLocation.fromNamespaceAndPath(DodgeParryRewardMod.MOD_ID, "passive"));
+                skillTreeProgression.unlockTree(resourceKey, player);
+                skillTreeProgression.unlockNode(resourceKey, TCRSkills.FIRE_AVOID, player);
+            });
+            PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new PlayTitlePacket(PlayTitlePacket.UNLOCK_NEW_SKILL), player);
+            player.displayClientMessage(TCRCoreMod.getInfo("unlock_new_skill", Component.translatable(TCRSkills.FIRE_AVOID.getTranslationKey()).withStyle(ChatFormatting.RED)), false);
+            player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundSource.PLAYERS, 1.0F, 1.0F);
+            PlayerDataManager.fireAvoidUnlocked.put(player, true);
         }
 
         this.setConversingPlayer(null);

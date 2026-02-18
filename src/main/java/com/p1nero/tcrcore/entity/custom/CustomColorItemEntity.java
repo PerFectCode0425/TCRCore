@@ -4,6 +4,7 @@ import com.github.L_Ender.cataclysm.init.ModItems;
 import com.p1nero.tcrcore.TCRCoreMod;
 import com.p1nero.tcrcore.entity.TCREntities;
 import com.p1nero.tcrcore.item.TCRItems;
+import com.yesman.epicskills.registry.entry.EpicSkillsItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -20,6 +21,7 @@ import java.util.List;
 
 public class CustomColorItemEntity extends ItemEntity {
     private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(CustomColorItemEntity.class, EntityDataSerializers.INT);
+
     public CustomColorItemEntity(EntityType<? extends ItemEntity> p_31991_, Level p_31992_) {
         super(p_31991_, p_31992_);
     }
@@ -37,20 +39,25 @@ public class CustomColorItemEntity extends ItemEntity {
         this.lifespan = p_149667_.getEntityLifespan(p_149663_);
     }
 
+    /**
+     * 赦免关键任务道具，防止爆炸
+     */
     @Override
     public boolean hurt(@NotNull DamageSource damageSource, float value) {
-        if(!damageSource.isCreativePlayer()
-                && List.of(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(),
-                ModItems.MONSTROUS_EYE.get(),
-                ModItems.VOID_EYE.get(),
-                ModItems.MECH_EYE.get(),
-                ModItems.ABYSS_EYE.get(),
-                ModItems.STORM_EYE.get(),
-                ModItems.CURSED_EYE.get(),
-                ModItems.FLAME_EYE.get(),
-                ModItems.DESERT_EYE.get())
-                .contains(getItem().getItem())) {
-            return false;
+        if (!damageSource.isCreativePlayer()) {
+            if (List.of(
+                            EpicSkillsItems.ABILIITY_STONE.get(),
+                            ModItems.MONSTROUS_EYE.get(),
+                            ModItems.VOID_EYE.get(),
+                            ModItems.MECH_EYE.get(),
+                            ModItems.ABYSS_EYE.get(),
+                            ModItems.STORM_EYE.get(),
+                            ModItems.CURSED_EYE.get(),
+                            ModItems.FLAME_EYE.get(),
+                            ModItems.DESERT_EYE.get())
+                    .contains(getItem().getItem())
+                    || this.getItem().getDescriptionId().contains(TCRCoreMod.MOD_ID))
+                return false;
         }
         return super.hurt(damageSource, value);
     }
@@ -81,7 +88,7 @@ public class CustomColorItemEntity extends ItemEntity {
         return false;
     }
 
-    public void setTeamColor(int color){
+    public void setTeamColor(int color) {
         this.getEntityData().set(COLOR, color);
     }
 
