@@ -414,8 +414,16 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 32, "[%s]？此乃死亡使徒体内力量汇集而成的精华，可以打开[%s]的大门！");
         this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 33, "但吾已无力为阁下开启[%s]，或许需要借助魔女阁下的力量，才能激发其中的魔力，打开轮回之门。");
         this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 34, "在共鸣石完成充能之前，阁下先去找%s看看[%s]吧！");
-        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 35, "");
-        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 36, "");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 35, "咳咳，阁下，接下来，咳咳...");
+        this.addDialogOption(TCREntities.CHRONOS_SOL.get(), 12, "%s，你怎么了？");
+        this.addDialogOption(TCREntities.CHRONOS_SOL.get(), 13, "你看起来很糟糕");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 36, "咳咳，神之眼回到祭坛之后，我感觉我的力量逐渐在消退...或许黑潮的诅咒快轮到我了吧...");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 37, "归还神之眼之旅至今，仅剩天域使徒（Sky Angel），和虚无使徒（Void Angel）的神之眼尚未归还...随着[死亡使徒之眼]归还，天堂之门也随之打开。");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 38, "传言生灵死后，善者入天堂，恶者下地狱，善恶不分者遁入虚无，而死亡使徒与灵魂使徒（Soul Angel），则掌管冥河，安排亡灵们的去向。");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 39, "黑潮过后，阴阳平衡被打乱，亡灵也不断涌入主世界，无法轮回。");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 40, "出发吧，趁我的力量还未完全消退，§6以生命之源浇灌萤石所筑之框，即可开启天堂之门！§f待阁下步入天境（The Aether），再以共鸣石寻[%s]之所在吧。");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 41, "天域凶险，吾将赐予阁下§6[御剑(Sword Soaring)]§f的祝福！");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 42, "");
 
         this.addDialogOption(TCREntities.AINE.get(), -4, "§6法术淬灵");
         this.addDialogOption(TCREntities.AINE.get(), -3, "§6法术交易");
@@ -469,7 +477,7 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addDialogOption(TCREntities.AINE.get(), 17, "%s？");
         this.addDialogAnswer(TCREntities.AINE.get(), 29, "好啦好啦，等我们归还了所有的神之眼，一切问题一定都能得到解答的！");
         this.addDialogAnswer(TCREntities.AINE.get(), 30, "嗯...智库里说，注入恶魂之泪，就可以激活它，打开[%s]的传送门！");
-        this.addDialogAnswer(TCREntities.AINE.get(), 31, "[%s]是介于冥界和主世界之间的地带，在[%s]内，我们可以借助召唤祭坛，觐见往昔的使徒");
+        this.addDialogAnswer(TCREntities.AINE.get(), 31, "§6[%s§6]是介于冥界和主世界之间的地带，在[%s§6]内，我们可以借助召唤祭坛，觐见往昔的使徒");
         this.addDialogAnswer(TCREntities.AINE.get(), 32, "或许我们可以进去瞧瞧，说不定可以从记忆中获取祂们的力量！");
         this.addDialogAnswer(TCREntities.AINE.get(), 33, "");
         this.addDialogAnswer(TCREntities.AINE.get(), 34, "");

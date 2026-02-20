@@ -5,10 +5,8 @@ import com.p1nero.cataclysm_dimension.worldgen.CataclysmDimensions;
 import com.p1nero.cataclysm_dimension.worldgen.portal.CDNetherTeleporter;
 import com.p1nero.cataclysm_dimension.worldgen.portal.CDTeleporter;
 import com.p1nero.tcrcore.TCRCoreMod;
-import com.p1nero.tcrcore.capability.TCRQuestManager;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -32,6 +30,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractAltarBlockEntity extends BlockEntity {
@@ -141,12 +141,11 @@ public abstract class AbstractAltarBlockEntity extends BlockEntity {
 
     public static <T extends BlockEntity> void tick(Level pLevel, BlockPos pPos, BlockState state, T t) {
         if(t instanceof AbstractAltarBlockEntity abstractAltarBlockEntity) {
-            if(pLevel.isClientSide) {
-                LocalPlayer localPlayer = Minecraft.getInstance().player;
-                if(localPlayer == null) {
+            if(FMLEnvironment.dist == Dist.CLIENT) {
+                if(Minecraft.getInstance().player == null) {
                     return;
                 }
-                if(abstractAltarBlockEntity.isActivated(localPlayer)) {
+                if(abstractAltarBlockEntity.isActivated(Minecraft.getInstance().player)) {
                     if(pLevel.getGameTime() % 10 == 0) {
                         double rx = pPos.getX() + pLevel.getRandom().nextFloat();
                         double ry = pPos.getY() + pLevel.getRandom().nextFloat();

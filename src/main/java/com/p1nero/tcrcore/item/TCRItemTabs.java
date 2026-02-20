@@ -39,5 +39,7 @@ public class TCRItemTabs {
                 output.accept(TCRItems.MYSTERIOUS_WEAPONS.get());
                 output.accept(TCRItems.NECROMANCY_SCROLL.get());
                 output.accept(TCRItems.MAGIC_BOTTLE.get());
+                output.accept(TCRItems.WITHER_SOUL_STONE.get());
+                output.accept(TCRItems.WITHER_SOUL_STONE_ACTIVATED.get());
             }).build());
 }

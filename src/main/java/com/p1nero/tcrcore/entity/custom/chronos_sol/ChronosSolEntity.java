@@ -50,6 +50,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.p1nero.ss.SwordSoaringMod;
+import net.p1nero.ss.gameassets.skills.FlyingSkills;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -260,6 +262,21 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
             return treeBuilder.build();
         } else if(TCRQuests.TALK_TO_CHRONOS_11.equals(currentQuest)) {
             //充能完去领天域共鸣石
+            DialogNode whatWrong = new DialogNode(dBuilder.ans(36), dBuilder.opt(12, TCREntities.CHRONOS_SOL.get().getDescription()));
+            DialogNode youLookTerrible = new DialogNode(dBuilder.ans(36), dBuilder.opt(13, TCREntities.CHRONOS_SOL.get().getDescription()));
+
+            DialogNode next = new DialogNode(dBuilder.ans(37), dBuilder.opt(-1))
+                    .addChild(new DialogNode(dBuilder.ans(38), dBuilder.opt(-1))
+                            .addChild(new DialogNode(dBuilder.ans(39), dBuilder.opt(-1))
+                                    .addChild(new DialogNode(dBuilder.ans(40, ModItems.STORM_EYE.get().getDescription().copy().withStyle(ChatFormatting.AQUA)), dBuilder.opt(-1))
+                                            .addLeaf(dBuilder.opt(-4, TCRItems.SKY_RESONANCE_STONE.get().getDescription().copy().withStyle(ChatFormatting.AQUA)), 12))));
+
+            whatWrong.addChild(next);
+            youLookTerrible.addChild(next);
+            root = new DialogNode(dBuilder.ans(35));
+
+            root.addChild(whatWrong)
+                    .addChild(youLookTerrible);
 
         } else {
             //默认的情况
@@ -379,6 +396,24 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
             TCRQuests.TALK_TO_AINE_SAMSARA.start(player);
             TCRPlayer tcrPlayer = TCRCapabilityProvider.getTCRPlayer(player);
             tcrPlayer.startWaitingResonanceStoneCharge(player);
+        }
+
+        //出发天域
+        if(code == 12) {
+            TCRQuests.TALK_TO_CHRONOS_11.finish(player);
+            ItemUtil.addItemEntity(player, TCRItems.SKY_RESONANCE_STONE.get(), 1, ChatFormatting.AQUA.getColor());
+            TCRQuests.GO_TO_AETHER.start(player);
+            PlayerDataManager.canEnterAether.put(player, true);
+            player.getCapability(SkillTreeProgression.SKILL_TREE_PROGRESSION).ifPresent(skillTreeProgression -> {
+                ResourceKey<SkillTree> resourceKey = ResourceKey.create(SkillTree.SKILL_TREE_REGISTRY_KEY, ResourceLocation.fromNamespaceAndPath(SwordSoaringMod.MOD_ID, "sword_soaring_skills"));
+                skillTreeProgression.unlockTree(resourceKey, player);
+                skillTreeProgression.unlockNode(resourceKey, FlyingSkills.SWORD_SOARING_ELYTRA_MASTER, player);
+                skillTreeProgression.unlockNode(resourceKey, FlyingSkills.SWORD_SOARING_MASTER, player);
+            });
+            PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new PlayTitlePacket(PlayTitlePacket.UNLOCK_NEW_SKILL), player);
+            player.displayClientMessage(TCRCoreMod.getInfo("unlock_new_skill", Component.translatable(FlyingSkills.SWORD_SOARING_MASTER.getTranslationKey()).withStyle(ChatFormatting.AQUA)), false);
+            player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundSource.PLAYERS, 1.0F, 1.0F);
+            PlayerDataManager.fireAvoidUnlocked.put(player, true);
         }
 
         this.setConversingPlayer(null);

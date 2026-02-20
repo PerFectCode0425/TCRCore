@@ -15,9 +15,12 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import static net.minecraft.client.renderer.blockentity.BeaconRenderer.BEAM_LOCATION;
 
+@OnlyIn(Dist.CLIENT)
 public class AltarBlockRenderer <T extends AbstractAltarBlockEntity> implements BlockEntityRenderer<T> {
     private ItemStack stack = null;
     public AltarBlockRenderer(BlockEntityRendererProvider.Context context) {

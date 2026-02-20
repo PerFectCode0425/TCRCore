@@ -204,6 +204,7 @@ dependencies {
     implementation ("libs:tcrmodfilter:1.0.4")
 //    implementation fg.deobf("libs:pbf:1.1.0")
     implementation fg.deobf("curse.maven:p1neros-primal-arena-dimension-1369741:7147163")
+    implementation fg.deobf("curse.maven:summoningrituals-671040:5446506")
     implementation fg.deobf("libs:ef_spell_hud:1.1.0")
     implementation fg.deobf("libs:WeaponsOfMiracles:2.0.11:")
 //    implementation ("curse.maven:preloading-tricks-1372086:7210447")

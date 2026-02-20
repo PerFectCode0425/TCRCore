@@ -28,6 +28,7 @@ public class PlayerDataManager {
     public static BoolData wraithonKilled = new BoolData("wraithonKilled", false);
     public static BoolData tudigongGiftGet = new BoolData("tudigongGiftGet", false);
     public static BoolData canEnterNether = new BoolData("canEnterNether", false);
+    public static BoolData canEnterAether = new BoolData("canEnterAether", false);
     public static BoolData canEnterEnd = new BoolData("canEnterEnd", false);
     public static BoolData swordSoaringUnlocked = new BoolData("sword_soaring_avoid_unlocked", false);
     public static BoolData fireAvoidUnlocked = new BoolData("fire_avoid_unlocked", false);
