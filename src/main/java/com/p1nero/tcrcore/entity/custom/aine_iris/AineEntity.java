@@ -120,8 +120,6 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
         DialogNode aboutThisWorld = new DialogNode(dBuilder.ans(2), dBuilder.opt(1))
                 .addLeaf(dBuilder.opt(-2));
 
-        DialogNode enterDim;//TODO 进入轮回绝境
-
         if(currentQuest.equals(TCRQuests.TALK_TO_AINE_0)) {
             if(PlayerDataManager.chonosTalked.get(localPlayer)) {
                 root.addChild(aboutChronos);

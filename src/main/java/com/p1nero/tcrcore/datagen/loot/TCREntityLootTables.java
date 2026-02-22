@@ -28,6 +28,7 @@ public class TCREntityLootTables extends EntityLootSubProvider {
         this.add(TCREntities.ORNN.get(), emptyLootTable());
         this.add(TCREntities.TUTORIAL_GOLEM.get(), emptyLootTable());
         this.add(TCREntities.AINE.get(), emptyLootTable());
+        this.add(TCREntities.FAKE_SKY_GOLEM.get(), emptyLootTable());
 //        this.add(ModEntities.THE_LEVIATHAN.get(), LootTable.lootTable().withPool(
 //                        LootPool.lootPool()
 //                                .setRolls(UniformGenerator.between(1.0F, 2.0F))

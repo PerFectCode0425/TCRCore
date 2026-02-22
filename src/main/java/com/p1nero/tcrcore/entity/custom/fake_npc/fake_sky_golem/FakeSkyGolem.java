@@ -72,15 +72,13 @@ public class FakeSkyGolem extends FakeNPCEntity {
         DialogNode c3 = builder.newNode(2, 2);
         DialogNode c4 = builder.newNode(2, 3);
 
-        DialogNode c5 = builder.newNode(3, 4);
-        DialogNode c6 = builder.newNode(3, 5);
-
-        DialogNode explain = new DialogNode(dBuilder.ans(3, TCRItems.DIVINE_FRAGMENT.get().getDescription()), dBuilder.opt(-1));
+        DialogNode c5 = new DialogNode(dBuilder.ans(3, TCRItems.DIVINE_FRAGMENT.get().getDescription()), dBuilder.opt(4));
+        DialogNode c6 = new DialogNode(dBuilder.ans(3, TCRItems.DIVINE_FRAGMENT.get().getDescription()), dBuilder.opt(5));
 
         DialogNode c7 = new DialogNode(dBuilder.ans(5), dBuilder.opt(6));
         DialogNode c8 = new DialogNode(dBuilder.ans(5), dBuilder.opt(7));
 
-        DialogNode talkBefore = new DialogNode(dBuilder.ans(6, BTEntityType.SKY_GOLEM.get().getDescription().copy().append("?"), dBuilder.opt(8)));
+        DialogNode talkBefore = new DialogNode(dBuilder.ans(6, BTEntityType.SKY_GOLEM.get().getDescription().copy().append("?")), dBuilder.opt(8));
 
         DialogNode soga = new DialogNode(dBuilder.ans(7, TCREntities.CHRONOS_SOL.get().getDescription()), dBuilder.opt(8));
 
@@ -91,7 +89,7 @@ public class FakeSkyGolem extends FakeNPCEntity {
                         .addChild(new DialogNode(dBuilder.ans(10), dBuilder.opt(-1))
                                 .addChild(back)));
 
-        DialogNode whatBlackTide = new DialogNode(dBuilder.ans(11), dBuilder.opt(-1))
+        DialogNode whatBlackTide = new DialogNode(dBuilder.ans(11), dBuilder.opt(10))
                 .addChild(new DialogNode(dBuilder.ans(12), dBuilder.opt(-1))
                         .addChild(new DialogNode(dBuilder.ans(13), dBuilder.opt(-1))
                                 .addChild(new DialogNode(dBuilder.ans(14), dBuilder.opt(-1))
@@ -111,11 +109,10 @@ public class FakeSkyGolem extends FakeNPCEntity {
         c7.addChild(talkBefore);
         c8.addChild(talkBefore);
 
-        explain.addChild(c7);
-        explain.addChild(c8);
-
-        c5.addChild(explain);
-        c6.addChild(explain);
+        c5.addChild(c7)
+                .addChild(c8);
+        c6.addChild(c7)
+                .addChild(c8);
 
         c3.addChild(c5)
                 .addChild(c6);
@@ -143,6 +140,7 @@ public class FakeSkyGolem extends FakeNPCEntity {
             }
             TCRQuests.TALK_TO_SKY_GOLEM.finish(player);
         }
+        setConversingPlayer(null);
     }
 
     /**

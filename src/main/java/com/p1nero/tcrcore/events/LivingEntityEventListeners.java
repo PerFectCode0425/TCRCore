@@ -1,5 +1,6 @@
 package com.p1nero.tcrcore.events;
 
+import com.aetherteam.aether.block.dungeon.DoorwayBlock;
 import com.brass_amber.ba_bt.entity.hostile.golem.*;
 import com.brass_amber.ba_bt.init.BTItems;
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.Ender_Guardian_Entity;
@@ -13,7 +14,6 @@ import com.github.L_Ender.cataclysm.entity.InternalAnimationMonster.IABossMonste
 import com.github.L_Ender.cataclysm.init.ModItems;
 import com.github.dodo.dodosmobs.entity.InternalAnimationMonster.IABossMonsters.Bone_Chimera_Entity;
 import com.hm.efn.registries.EFNItem;
-import com.legacy.lost_aether.registry.LCBlocks;
 import com.merlin204.sg.item.SGItems;
 import com.obscuria.aquamirae.Aquamirae;
 import com.obscuria.aquamirae.AquamiraeUtils;
@@ -29,6 +29,7 @@ import com.p1nero.tcrcore.client.sound.CorneliaMusicPlayer;
 import com.p1nero.tcrcore.client.sound.WraithonMusicPlayer;
 import com.p1nero.tcrcore.gameassets.TCRSkills;
 import com.p1nero.tcrcore.item.TCRItems;
+import com.p1nero.tcrcore.mixin.AbstractGolemInvoker;
 import com.p1nero.tcrcore.save_data.TCRDimSaveData;
 import com.p1nero.tcrcore.utils.EntityUtil;
 import com.p1nero.tcrcore.utils.ItemUtil;
@@ -37,6 +38,7 @@ import com.p1nero.tcrcore.worldgen.TCRDimensions;
 import com.yesman.epicskills.registry.entry.EpicSkillsItems;
 import net.kenddie.fantasyarmor.item.FAItems;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.MutableComponent;
@@ -59,14 +61,13 @@ import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -85,6 +86,7 @@ import yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 @Mod.EventBusSubscriber(modid = TCRCoreMod.MOD_ID)
 public class LivingEntityEventListeners {
@@ -380,7 +382,12 @@ public class LivingEntityEventListeners {
         //似了换地狱傀儡出来
         if(livingEntity instanceof EnderDragon enderDragon) {
             enderDragon.discard();
-            //TODO 生成终末傀儡以及出场动画
+            //TODO 似了掉钥匙，开末地傀儡用
+        }
+
+        //关闭屏障
+        if(livingEntity instanceof SkyGolem skyGolem) {
+            handleNearByBlock(skyGolem.level(), skyGolem.getEntityData().get(((AbstractGolemInvoker)skyGolem).getSpawnPosKey()), 20, blockState -> setInvisible(blockState, true));
         }
 
         if (livingEntity instanceof ServerPlayer serverPlayer && !event.isCanceled()) {
@@ -408,17 +415,19 @@ public class LivingEntityEventListeners {
         }
     }
 
-    public static BlockState convertBlock(BlockState state) {
-        if (state.is(LCBlocks.locked_gale_stone)) {
-            return LCBlocks.gale_stone.defaultBlockState();
-        } else if (state.is(LCBlocks.locked_light_gale_stone)) {
-            return LCBlocks.light_gale_stone.defaultBlockState();
-        } else if (state.is(LCBlocks.trapped_gale_stone)) {
-            return LCBlocks.gale_stone.defaultBlockState();
-        } else if (state.is(LCBlocks.trapped_light_gale_stone)) {
-            return LCBlocks.light_gale_stone.defaultBlockState();
-        } else {
-            return !state.is(LCBlocks.boss_doorway_gale_stone) && !state.is(LCBlocks.boss_doorway_light_gale_stone) ? null : Blocks.AIR.defaultBlockState();
+    public static void handleNearByBlock(Level level, BlockPos center, int r, Consumer<BlockState> handler) {
+        for(BlockPos pos : BlockPos.betweenClosed(center.getX() - r, center.getY() -r,  center.getZ() - r,center.getX() + r, center.getY() + r, center.getZ() + r)) {
+            BlockState state = level.getBlockState(pos);
+            handler.accept(state);
+        }
+    }
+
+    /**
+     * 转换boss门方块
+     */
+    public static void setInvisible(BlockState state, boolean invisible) {
+        if(state.getBlock() instanceof DoorwayBlock) {
+            state.setValue(DoorwayBlock.INVISIBLE, invisible);
         }
     }
 
@@ -450,9 +459,10 @@ public class LivingEntityEventListeners {
      */
     @SubscribeEvent
     public static void onLivingSpawn(MobSpawnEvent.PositionCheck event) {
-        if (event.getLevel().getLevel().dimension() == TCRDimensions.SANCTUM_LEVEL_KEY && event.getEntity() instanceof Enemy) {
-            event.setResult(Event.Result.DENY);
-        }
+        //交给incontrol
+//        if (event.getLevel().getLevel().dimension() == TCRDimensions.SANCTUM_LEVEL_KEY && event.getEntity() instanceof Enemy) {
+//            event.setResult(Event.Result.DENY);
+//        }
     }
 
     public static Set<EntityType<?>> illegalEntityTypes = new HashSet<>();
@@ -479,6 +489,11 @@ public class LivingEntityEventListeners {
 
         if (event.getEntity() instanceof Arterius arterius) {
             arterius.setInBattle(false);
+        }
+
+        //开启屏障
+        if(event.getEntity() instanceof SkyGolem skyGolem) {
+            handleNearByBlock(skyGolem.level(), skyGolem.getEntityData().get(((AbstractGolemInvoker)skyGolem).getSpawnPosKey()), 20, blockState -> setInvisible(blockState, false));
         }
 
         ServerLevel serverLevel = (ServerLevel) event.getEntity().level();

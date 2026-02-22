@@ -49,6 +49,7 @@
     "ShellHornItemMixin",
     "SkillContainerMixin",
     "SkillTreeGameEventsMixin",
+    "AbstractGolemInvoker",
     "TakeDamageEventAttackMixin",
     "TerribleSwordItemMixin",
     "ThirstforBloodItemMixin",
