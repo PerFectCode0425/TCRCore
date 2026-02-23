@@ -2,7 +2,9 @@ package com.p1nero.tcrcore.entity;
 
 import com.p1nero.tcrcore.TCRCoreMod;
 import com.p1nero.tcrcore.entity.custom.CustomColorItemEntity;
+import com.p1nero.tcrcore.entity.custom.SimpleMobPatch;
 import com.p1nero.tcrcore.entity.custom.aine_iris.AineEntity;
+import com.p1nero.tcrcore.entity.custom.fake_npc.fake_end_golem.FakeEndGolem;
 import com.p1nero.tcrcore.entity.custom.fake_npc.fake_sky_golem.FakeSkyGolem;
 import com.p1nero.tcrcore.entity.custom.ferry_girl.FerryGirlEntity;
 import com.p1nero.tcrcore.entity.custom.chronos_sol.ChronosSolEntity;
@@ -21,6 +23,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import yesman.epicfight.api.forgeevent.EntityPatchRegistryEvent;
 import yesman.epicfight.gameasset.Armatures;
+import yesman.epicfight.world.capabilities.entitypatch.Factions;
 import yesman.epicfight.world.capabilities.entitypatch.mob.IronGolemPatch;
 
 @Mod.EventBusSubscriber(modid = TCRCoreMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -45,6 +48,8 @@ public class TCREntities {
     public static final RegistryObject<EntityType<FakeSkyGolem>> FAKE_SKY_GOLEM = register("fake_sky_golem",
             EntityType.Builder.<FakeSkyGolem>of(FakeSkyGolem::new, MobCategory.CREATURE).sized(0.6f, 1.9f).fireImmune());
 
+    public static final RegistryObject<EntityType<FakeEndGolem>> FAKE_END_GOLEM = register("fake_end_golem",
+            EntityType.Builder.<FakeEndGolem>of(FakeEndGolem::new, MobCategory.CREATURE).sized(0.6f, 1.9f).fireImmune());
 
     public static final RegistryObject<EntityType<TutorialGolem>> TUTORIAL_GOLEM = register("tutorial_golem",
             EntityType.Builder.of(TutorialGolem::new, MobCategory.CREATURE).sized(1.4F, 2.7f).fireImmune());
@@ -60,20 +65,24 @@ public class TCREntities {
         event.put(ORNN.get(), ChronosSolEntity.setAttributes());
         event.put(AINE.get(), ChronosSolEntity.setAttributes());
         event.put(FAKE_SKY_GOLEM.get(), ChronosSolEntity.setAttributes());
+        event.put(FAKE_END_GOLEM.get(), ChronosSolEntity.setAttributes());
         event.put(TUTORIAL_GOLEM.get(), TutorialGolem.setAttributes());
 
     }
 
     @SubscribeEvent
     public static void setPatch(EntityPatchRegistryEvent event) {
-        //BOSS
         event.getTypeEntry().put(TUTORIAL_GOLEM.get(), (entity) -> IronGolemPatch::new);
+        event.getTypeEntry().put(FAKE_SKY_GOLEM.get(), (entity) -> () -> new SimpleMobPatch<>(Factions.VILLAGER));
+        event.getTypeEntry().put(FAKE_END_GOLEM.get(), (entity) -> () -> new SimpleMobPatch<>(Factions.VILLAGER));
     }
 
     @SubscribeEvent
     public static void setArmature(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             Armatures.registerEntityTypeArmature(TUTORIAL_GOLEM.get(), Armatures.IRON_GOLEM);
+            Armatures.registerEntityTypeArmature(FAKE_SKY_GOLEM.get(), Armatures.BIPED);
+            Armatures.registerEntityTypeArmature(FAKE_END_GOLEM.get(), Armatures.BIPED);
         });
     }
 

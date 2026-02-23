@@ -190,6 +190,10 @@ public class FerryGirlEntity extends PathfinderMob implements IEntityNpc, GeoEnt
 
         DialogNode root = new DialogNode(dBuilder.ans(0), dBuilder.opt(-3));
 
+        if(PlayerDataManager.gameCleared.get(localPlayer)) {
+            root = new DialogNode(dBuilder.ans(-1), dBuilder.opt(-3));
+        }
+
         DialogNode whoAreU = new DialogNode(dBuilder.ans(1, TCREntities.CHRONOS_SOL.get().getDescription(), TCRItems.ARTIFACT_TICKET.get().getDescription().copy().withStyle(ChatFormatting.GOLD), TCRItems.ARTIFACT_TICKET.get().getDescription().copy().withStyle(ChatFormatting.GOLD)), dBuilder.opt(0))
                 .addChild(root);
 
@@ -223,8 +227,10 @@ public class FerryGirlEntity extends PathfinderMob implements IEntityNpc, GeoEnt
             return treeBuilder.buildWith(root);
         }
 
-        if (PlayerDataManager.chonosTalked.get(localPlayer)) {
-            root.addChild(aboutChronos);
+        if(!PlayerDataManager.gameCleared.get(localPlayer)) {
+            if (PlayerDataManager.chronosTalked.get(localPlayer)) {
+                root.addChild(aboutChronos);
+            }
         }
         if (PlayerDataManager.ornnTalked.get(localPlayer)) {
             root.addChild(aboutOrnn);

@@ -87,6 +87,10 @@ public class WorldUtil {
         return entity.level().dimension() == TCRDimensions.SANCTUM_LEVEL_KEY;
     }
 
+    public static boolean inReal(Entity entity) {
+        return entity.level().dimension() == TCRDimensions.REAL_LEVEL_KEY;
+    }
+
     public static boolean inMainLandRange(Entity entity) {
         return entity.position().subtract(CENTER_POS).horizontalDistance() < 250;
     }

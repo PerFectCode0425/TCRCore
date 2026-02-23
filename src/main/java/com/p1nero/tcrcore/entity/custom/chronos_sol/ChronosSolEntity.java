@@ -18,6 +18,7 @@ import com.p1nero.tcrcore.gameassets.TCRSkills;
 import com.p1nero.tcrcore.item.TCRItems;
 import com.p1nero.tcrcore.network.TCRPacketHandler;
 import com.p1nero.tcrcore.network.packet.clientbound.PlayTitlePacket;
+import com.p1nero.tcrcore.save_data.TCRDimSaveData;
 import com.p1nero.tcrcore.utils.ItemUtil;
 import com.p1nero.tcrcore.utils.WorldUtil;
 import com.yesman.epicskills.skilltree.SkillTree;
@@ -46,7 +47,6 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -54,6 +54,11 @@ import net.p1nero.ss.SwordSoaringMod;
 import net.p1nero.ss.gameassets.skills.FlyingSkills;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.merlin204.wraithon.WraithonMod;
+import org.merlin204.wraithon.entity.WraithonEntities;
+import org.merlin204.wraithon.entity.wraithon.WraithonEntity;
+import org.merlin204.wraithon.util.WraithonFieldTeleporter;
+import org.merlin204.wraithon.worldgen.WraithonDimensions;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -139,9 +144,12 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
 
     @Override
     protected @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
+        //通关就不可交互，假装看不见～
+        if(!canInteract(player)) {
+            return InteractionResult.FAIL;
+        }
         if (player instanceof ServerPlayer serverPlayer) {
             CompoundTag tag = new CompoundTag();
-            tag.putInt("current_quest_id", TCRQuestManager.getCurrentQuestId(player));
             this.sendDialogTo(serverPlayer, tag);
         }
         return InteractionResult.sidedSuccess(level().isClientSide);
@@ -151,8 +159,7 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
     @OnlyIn(Dist.CLIENT)
     public DialogueScreen getDialogueScreen(CompoundTag compoundTag) {
         LocalPlayer localPlayer = Minecraft.getInstance().player;
-        int currentQuestId = compoundTag.getInt("current_quest_id");
-        TCRQuestManager.Quest currentQuest = TCRQuestManager.getQuestById(currentQuestId);
+        TCRQuestManager.Quest currentQuest = TCRQuestManager.getCurrentQuest(localPlayer);
         StreamDialogueScreenBuilder treeBuilder = new StreamDialogueScreenBuilder(this, TCRCoreMod.MOD_ID);
         DialogueComponentBuilder dBuilder = treeBuilder.getComponentBuildr();
 
@@ -294,7 +301,18 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
             root.addChild(chronos)
                     .addChild(known);
 
-        }  else {
+        } else if(TCRQuests.TALK_TO_CHRONOS_END.equals(currentQuest) || TCRQuests.KILL_MAD_CHRONOS.equals(currentQuest)) {
+            //进维度打架
+            root = new DialogNode(dBuilder.ans(48));
+            DialogNode c1 = new DialogNode(dBuilder.ans(48), dBuilder.opt(14, TCREntities.CHRONOS_SOL.get().getDescription()));
+            DialogNode c2 = new DialogNode(dBuilder.ans(48), dBuilder.opt(7, ModItems.VOID_EYE.get().getDescription()));
+            DialogNode next = new DialogNode(dBuilder.ans(49), dBuilder.opt(16, TCREntities.CHRONOS_SOL.get().getDescription()))
+                    .addExecutable(dialogueScreen -> ChronosSolGeoRenderer.useRedTexture = true)
+                    .addLeaf(dBuilder.opt(17, TCREntities.CHRONOS_SOL.get().getDescription()), 14);
+            c1.addChild(next);
+            c2.addChild(next);
+            root.addChild(c1).addChild(c2);
+        } else {
             //默认的情况
 
             if(PlayerDataManager.aineTalked.get(localPlayer)) {
@@ -322,7 +340,7 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
             TCRQuests.TALK_TO_FERRY_GIRL_0.start(player);
             TCRQuests.TALK_TO_ORNN_0.start(player);
             ItemUtil.addItemEntity(player, TCRItems.LAND_RESONANCE_STONE.get(), 1, ChatFormatting.YELLOW.getColor());
-            PlayerDataManager.chonosTalked.put(player, true);
+            PlayerDataManager.chronosTalked.put(player, true);
         }
 
         //拿回大地眼睛后的对话
@@ -432,10 +450,35 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
             PlayerDataManager.swordSoaringUnlocked.put(player, true);
         }
 
+        //去末地
         if(code == 13) {
             TCRQuests.TALK_TO_CHRONOS_12.finish(player);
             TCRQuests.GO_TO_OVERWORLD_END.start(player);
             ItemUtil.addItemEntity(player, TCRItems.END_RESONANCE_STONE.get(), 1, ChatFormatting.LIGHT_PURPLE.getColor());
+        }
+
+        //打战灵
+        if(code == 14) {
+            if(TCRQuestManager.hasQuest(player, TCRQuests.TALK_TO_CHRONOS_END)) {
+                TCRQuests.TALK_TO_CHRONOS_END.finish(player, true);
+            }
+            if(!TCRQuestManager.hasQuest(player, TCRQuests.KILL_MAD_CHRONOS)) {
+                TCRQuests.KILL_MAD_CHRONOS.start(player);
+            }
+            ServerLevel wraithonDim = player.server.getLevel(WraithonDimensions.SANCTUM_OF_THE_WRAITHON_LEVEL_KEY);
+            if(wraithonDim != null) {
+                player.changeDimension(wraithonDim, new WraithonFieldTeleporter());
+                if(wraithonDim.getEntities(WraithonEntities.WRAITHON.get(), (Entity::isAlive)).isEmpty()) {
+                    TCRDimSaveData saveData = TCRDimSaveData.get(wraithonDim);
+                    if(!saveData.isBossSummoned()) {
+                        WraithonEntity wraithonEntity = WraithonEntities.WRAITHON.get().spawn(wraithonDim, WraithonMod.WRAITHON_SPAWN_POS, MobSpawnType.MOB_SUMMONED);
+                        if(wraithonEntity != null) {
+                            saveData.setBossSummoned(true);
+                        }
+                    }
+                }
+            }
+
         }
 
         this.setConversingPlayer(null);
@@ -464,4 +507,12 @@ public class ChronosSolEntity extends PathfinderMob implements IEntityNpc, GeoEn
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
     }
+
+    /**
+     * 通关了就不可对话了
+     */
+    public boolean canInteract(Player player) {
+        return !PlayerDataManager.gameCleared.get(player);
+    }
+    
 }

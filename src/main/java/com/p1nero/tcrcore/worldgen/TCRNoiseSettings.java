@@ -13,6 +13,7 @@ import java.util.List;
 
 public class TCRNoiseSettings {
     public static final ResourceKey<NoiseGeneratorSettings> SEA = createNoiseGeneratorKey("sea");
+    public static final ResourceKey<NoiseGeneratorSettings> AIR = createNoiseGeneratorKey("air");
 
     private static ResourceKey<NoiseGeneratorSettings> createNoiseGeneratorKey(String name) {
         return ResourceKey.create(Registries.NOISE_SETTINGS, ResourceLocation.fromNamespaceAndPath(TCRCoreMod.MOD_ID, name));
@@ -23,6 +24,18 @@ public class TCRNoiseSettings {
                 new NoiseSettings(0, 256, 1, 2),
                 Blocks.WATER.defaultBlockState(),
                 Blocks.WATER.defaultBlockState(),
+                new NoiseRouter(DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero()),
+                CDSurfaceRuleData.overworld(),
+                List.of(),
+                63,
+                true,
+                false,
+                false,
+                true));
+        context.register(AIR, new NoiseGeneratorSettings(
+                new NoiseSettings(0, 256, 1, 2),
+                Blocks.AIR.defaultBlockState(),
+                Blocks.AIR.defaultBlockState(),
                 new NoiseRouter(DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero()),
                 CDSurfaceRuleData.overworld(),
                 List.of(),

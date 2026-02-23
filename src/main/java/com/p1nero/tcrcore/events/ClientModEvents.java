@@ -12,6 +12,8 @@ import com.p1nero.tcrcore.client.item_renderer.RenderDualBokken;
 import com.p1nero.tcrcore.client.item_renderer.RenderTheIncinerator;
 import com.p1nero.tcrcore.entity.TCREntities;
 import com.p1nero.tcrcore.entity.custom.aine_iris.AineIrisRenderer;
+import com.p1nero.tcrcore.entity.custom.fake_npc.fake_end_golem.FakeEndGolem;
+import com.p1nero.tcrcore.entity.custom.fake_npc.fake_end_golem.FakeEndGolemRenderer;
 import com.p1nero.tcrcore.entity.custom.fake_npc.fake_sky_golem.FakeSkyGolemRenderer;
 import com.p1nero.tcrcore.entity.custom.ferry_girl.FerryGirlGeoRenderer;
 import com.p1nero.tcrcore.entity.custom.chronos_sol.ChronosSolGeoRenderer;
@@ -46,6 +48,7 @@ public class ClientModEvents {
         EntityRenderers.register(TCREntities.ORNN.get(), OrnnlGeoRenderer::new);
         EntityRenderers.register(TCREntities.AINE.get(), AineIrisRenderer::new);
         EntityRenderers.register(TCREntities.FAKE_SKY_GOLEM.get(), FakeSkyGolemRenderer::new);
+        EntityRenderers.register(TCREntities.FAKE_END_GOLEM.get(), FakeEndGolemRenderer::new);
         EntityRenderers.register(TCREntities.TUTORIAL_GOLEM.get(), TutorialGolemRenderer::new);
 
         BlockTooltipHandler.registerBlockTooltip(TCRBlocks.ABYSS_ALTAR_BLOCK,
@@ -82,6 +85,8 @@ public class ClientModEvents {
         EntityRendererProvider.Context context = event.getContext();
         event.addPatchedEntityRenderer(TCREntities.TUTORIAL_GOLEM.get(), (entityType) -> new PIronGolemRenderer(context, entityType).initLayerLast(context, entityType));
         event.addPatchedEntityRenderer(EntityType.DROWNED, (entityType -> new PHumanoidRenderer<>(Meshes.BIPED_OLD_TEX, context, entityType)));
+        event.addPatchedEntityRenderer(TCREntities.FAKE_SKY_GOLEM.get(), (entityType -> new PHumanoidRenderer<>(Meshes.BIPED_OLD_TEX, context, entityType)));
+        event.addPatchedEntityRenderer(TCREntities.FAKE_END_GOLEM.get(), (entityType -> new PHumanoidRenderer<>(Meshes.BIPED_OLD_TEX, context, entityType)));
     }
 
     @SubscribeEvent

@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "tcrcore.refmap.json",
   "mixins": [
+    "AbstractGolemInvoker",
     "AdditionalWanderingTradesMixin",
     "AdvancedCombatGoalMixin",
     "AetherMixin",
@@ -18,6 +19,7 @@
     "BaseFireBlockMixin",
     "BasicAttackMixin",
     "BasicMultipleAttackAnimationMixin",
+    "BedBlockMixin",
     "BoatItemMixin",
     "Bone_ChimeraMixin",
     "BTMonolithMixin",
@@ -49,7 +51,6 @@
     "ShellHornItemMixin",
     "SkillContainerMixin",
     "SkillTreeGameEventsMixin",
-    "AbstractGolemInvoker",
     "TakeDamageEventAttackMixin",
     "TerribleSwordItemMixin",
     "ThirstforBloodItemMixin",

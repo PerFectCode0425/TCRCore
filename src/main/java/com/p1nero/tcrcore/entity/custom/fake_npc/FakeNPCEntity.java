@@ -81,4 +81,8 @@ public abstract class FakeNPCEntity extends PathfinderMob implements IEntityNpc,
         }
     }
 
+    @Override
+    public boolean removeWhenFarAway(double p_21542_) {
+        return false;
+    }
 }

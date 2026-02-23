@@ -1,6 +1,7 @@
 package com.p1nero.tcrcore.events;
 
 import com.brass_amber.ba_bt.entity.hostile.golem.*;
+import com.brass_amber.ba_bt.init.BTEntityType;
 import com.brass_amber.ba_bt.init.BTItems;
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.Ender_Guardian_Entity;
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.Ignis_Entity;
@@ -28,10 +29,11 @@ import com.p1nero.tcrcore.capability.TCRQuestManager;
 import com.p1nero.tcrcore.capability.TCRQuests;
 import com.p1nero.tcrcore.client.sound.CorneliaMusicPlayer;
 import com.p1nero.tcrcore.client.sound.WraithonMusicPlayer;
+import com.p1nero.tcrcore.entity.TCREntities;
+import com.p1nero.tcrcore.entity.custom.fake_npc.fake_end_golem.FakeEndGolem;
 import com.p1nero.tcrcore.entity.custom.fake_npc.fake_sky_golem.FakeSkyGolem;
 import com.p1nero.tcrcore.gameassets.TCRSkills;
 import com.p1nero.tcrcore.item.TCRItems;
-import com.p1nero.tcrcore.mixin.AbstractGolemInvoker;
 import com.p1nero.tcrcore.save_data.TCRDimSaveData;
 import com.p1nero.tcrcore.utils.EntityUtil;
 import com.p1nero.tcrcore.utils.ItemUtil;
@@ -40,6 +42,7 @@ import com.p1nero.tcrcore.worldgen.TCRDimensions;
 import com.yesman.epicskills.registry.entry.EpicSkillsItems;
 import net.kenddie.fantasyarmor.item.FAItems;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.MutableComponent;
@@ -52,6 +55,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.IronGolem;
@@ -62,11 +66,13 @@ import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -83,6 +89,7 @@ import yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch;
 import yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -309,6 +316,21 @@ public class LivingEntityEventListeners {
                 }
             }
 
+            if (livingEntity instanceof EndGolem) {
+                if(TCRQuestManager.hasQuest(player, TCRQuests.GET_VOID_EYE)) {
+                    FakeEndGolem fakeEndGolem = new FakeEndGolem(player);
+                    fakeEndGolem.setPos(player.position());
+                    player.serverLevel().addFreshEntity(fakeEndGolem);
+                }
+            }
+
+            if(livingEntity instanceof FakeEndGolem) {
+                if (!PlayerDataManager.voidEyeGotten.get(player) && TCRQuests.GO_TO_THE_END.isFinished(player)) {
+                    ItemUtil.addItemEntity(player, ModItems.VOID_EYE.get(), 1, ChatFormatting.LIGHT_PURPLE.getColor().intValue());
+                    player.connection.send(new ClientboundSoundPacket(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 1.0F, 1.0F, player.getRandom().nextInt()));
+                }
+            }
+
         });
 
         if (livingEntity.level() instanceof ServerLevel serverLevel) {
@@ -333,6 +355,8 @@ public class LivingEntityEventListeners {
             //打似战灵处理通关
             if (livingEntity instanceof WraithonEntity wraithonEntity && !wraithonEntity.isDead()) {
                 serverLevel.players().forEach(serverPlayer -> {
+                    TCRQuests.KILL_MAD_CHRONOS.finish(serverPlayer, true);
+                    PlayerDataManager.gameCleared.put(serverPlayer, true);
                     TCRCapabilityProvider.getTCRPlayer(serverPlayer).setTickAfterBossDieLeft(600);
                 });
             }
@@ -347,9 +371,15 @@ public class LivingEntityEventListeners {
                 livingEntity.getPersistentData().putBoolean("already_respawn", true);
             }
 
-            //末影龙掉个钥匙
+            //末影龙似了直接连战末地傀儡
             if (livingEntity instanceof EnderDragon) {
-                ItemUtil.addItemEntity(livingEntity, BTItems.END_MONOLITH_KEY.get(), 1, ChatFormatting.GOLD.getColor().intValue());
+                if(livingEntity.getServer() != null) {
+                    ServerLevel end = livingEntity.getServer().getLevel(Level.END);
+                    if(end != null && end.getEntities(BTEntityType.END_GOLEM.get(), (LivingEntity::isAlive)).isEmpty()) {
+                        BlockPos spawnPos = WorldUtil.getSurfaceBlockPos(end, 0, 0).above(5);
+                        BTEntityType.END_GOLEM.get().spawn(end, spawnPos, MobSpawnType.MOB_SUMMONED);
+                    }
+                }
             }
 
             if (livingEntity instanceof Bone_Chimera_Entity boneChimeraEntity && WorldUtil.isInStructure(livingEntity, WorldUtil.BONE_CHIMERA_STRUCTURE) && !livingEntity.getPersistentData().getBoolean("already_respawn")) {
@@ -399,8 +429,8 @@ public class LivingEntityEventListeners {
         if (livingEntity instanceof ServerPlayer serverPlayer && !event.isCanceled()) {
             serverPlayer.displayClientMessage(TCRCoreMod.getInfo("death_info"), false);
             ServerLevel wraithonLevel = serverPlayer.server.getLevel(WraithonDimensions.SANCTUM_OF_THE_WRAITHON_LEVEL_KEY);
-            if (wraithonLevel.players().isEmpty()) {
-                wraithonLevel.getAllEntities().forEach(Entity::discard);
+            if (wraithonLevel != null && wraithonLevel.players().isEmpty()) {
+                EntityUtil.safelyClearAll(wraithonLevel);
                 TCRDimSaveData.get(wraithonLevel).setBossSummoned(false);
             }
 
@@ -449,10 +479,10 @@ public class LivingEntityEventListeners {
      */
     @SubscribeEvent
     public static void onLivingSpawn(MobSpawnEvent.PositionCheck event) {
-        //交给incontrol
-//        if (event.getLevel().getLevel().dimension() == TCRDimensions.SANCTUM_LEVEL_KEY && event.getEntity() instanceof Enemy) {
-//            event.setResult(Event.Result.DENY);
-//        }
+        //保险，incontrol也有一份？
+        if (WorldUtil.inMainLandRange(event.getEntity()) || WorldUtil.inReal(event.getEntity()) && event.getEntity() instanceof Enemy) {
+            event.setResult(Event.Result.DENY);
+        }
     }
 
     public static Set<EntityType<?>> illegalEntityTypes = new HashSet<>();
@@ -522,6 +552,13 @@ public class LivingEntityEventListeners {
             AttributeModifier healthBoost = new AttributeModifier(uuid, "Dragon Health Boost", -0.6, AttributeModifier.Operation.MULTIPLY_BASE);
             enderDragon.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(healthBoost);
             enderDragon.setHealth(enderDragon.getMaxHealth());
+
+            //移除末地傀儡和末地假傀儡
+            List<EndGolem> list1 = List.copyOf(serverLevel.getEntities(BTEntityType.END_GOLEM.get(), LivingEntity::isAlive));
+            list1.forEach(Entity::discard);
+            List<FakeEndGolem> list2 = List.copyOf(serverLevel.getEntities(TCREntities.FAKE_END_GOLEM.get(), LivingEntity::isAlive));
+            list2.forEach(Entity::discard);
+
         }
 
         //血给多点，假装很强大

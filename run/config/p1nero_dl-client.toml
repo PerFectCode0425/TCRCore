@@ -16,4 +16,7 @@ enable_ans_background = false
 enable_opt_background = false
 #使用[渐变背景框]或[边框背景框]
 faded_background = true
+#对话框宽度
+#Range: > 100
+dialog_width = 300
 

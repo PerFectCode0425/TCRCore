@@ -19,6 +19,7 @@ import com.p1nero.tcrcore.network.packet.clientbound.OpenCustomDialogPacket;
 import com.p1nero.tcrcore.network.packet.clientbound.PlayItemPickupParticlePacket;
 import com.p1nero.tcrcore.network.packet.clientbound.PlayTitlePacket;
 import com.p1nero.tcrcore.save_data.TCRDimSaveData;
+import com.p1nero.tcrcore.utils.EntityUtil;
 import com.p1nero.tcrcore.utils.ItemUtil;
 import com.p1nero.tcrcore.utils.WorldUtil;
 import com.p1nero.tcrcore.worldgen.TCRDimensions;
@@ -78,9 +79,7 @@ import yesman.epicfight.skill.SkillSlots;
 import yesman.epicfight.world.capabilities.EpicFightCapabilities;
 import yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Mod.EventBusSubscriber(modid = TCRCoreMod.MOD_ID)
 public class PlayerEventListeners {
@@ -361,8 +360,8 @@ public class PlayerEventListeners {
             TCRCapabilityProvider.syncPlayerDataToClient(serverPlayer);
             if (event.getFrom() == WraithonDimensions.SANCTUM_OF_THE_WRAITHON_LEVEL_KEY) {
                 ServerLevel wraithonLevel = serverPlayer.server.getLevel(WraithonDimensions.SANCTUM_OF_THE_WRAITHON_LEVEL_KEY);
-                if (wraithonLevel.players().isEmpty()) {
-                    wraithonLevel.getAllEntities().forEach(Entity::discard);
+                if (wraithonLevel != null && wraithonLevel.players().isEmpty()) {
+                    EntityUtil.safelyClearAll(wraithonLevel);
                     TCRDimSaveData.get(wraithonLevel).setBossSummoned(false);
                 }
             }
@@ -413,6 +412,14 @@ public class PlayerEventListeners {
             if(event.getTo().equals(PBF1Dimensions.SANCTUM_OF_THE_BATTLE_LEVEL_KEY)) {
                 if(TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_SAMSARA)) {
                     TCRQuests.GO_TO_SAMSARA.finish(serverPlayer, true);
+                }
+            }
+
+            //维度没有人就重制末影龙，方便多人
+            if(event.getFrom().equals(Level.END)) {
+                ServerLevel end = serverPlayer.server.getLevel(Level.END);
+                if(end != null && end.players().isEmpty() && end.getDragonFight() != null) {
+                    end.getDragonFight().tryRespawn();
                 }
             }
             updateHealth(serverPlayer, event.getFrom());
@@ -593,6 +600,19 @@ public class PlayerEventListeners {
                 }
                 TCRQuests.TALK_TO_AINE_2.start(player);
                 TCRQuests.TALK_TO_CHRONOS_12.start(player);
+            }
+
+            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_VOID_EYE) && itemStack.is(ModItems.VOID_EYE.get())) {
+                giveOracleEffect(player, ModItems.VOID_EYE.get());
+                PlayerDataManager.voidEyeGotten.put(player, true);
+                TCRQuests.GET_VOID_EYE.finish(player, true);
+                if(!PlayerDataManager.voidEyeActivated.get(player)) {
+                    TCRQuests.PUT_VOID_EYE_ON_ALTAR.start(player);
+                }
+                if(!PlayerDataManager.voidEyeBlessed.get(player)) {
+                    TCRQuests.BLESS_ON_THE_GODNESS_STATUE.start(player);
+                }
+                TCRQuests.TALK_TO_CHRONOS_END.start(player);
             }
 
             if (itemStack.is(AquamiraeItems.SHELL_HORN.get()) && !PlayerDataManager.cursedEyeGotten.get(player)) {

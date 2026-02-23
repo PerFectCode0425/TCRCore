@@ -1,6 +1,5 @@
 package com.p1nero.tcrcore.utils;
 
-import com.yesman.epicskills.registry.entry.EpicSkillsSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
@@ -17,10 +16,19 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 public class EntityUtil {
+
+    public static void safelyClearAll(ServerLevel serverLevel) {
+        List<Entity> newList = new ArrayList<>();
+        serverLevel.getAllEntities().forEach(newList::add);
+        for(Entity entity : newList) {
+            entity.discard();
+        }
+    }
 
     public static void playLocalSound(ServerPlayer player, SoundEvent soundEvent) {
         player.connection.send(new ClientboundSoundPacket(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(soundEvent), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 1.0F, 1.0F, player.getRandom().nextInt()));

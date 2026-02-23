@@ -30,6 +30,7 @@ public record EndScreenCallbackPacket() implements BasePacket {
             if (overworld != null) {
                 if(player.level().dimension() != TCRDimensions.SANCTUM_LEVEL_KEY) {
                     PlayerDataManager.wraithonKilled.put(serverPlayer, true);
+                    //TODO 传送去哦咩爹多
                     serverPlayer.changeDimension(overworld, new PositionTeleporter(new BlockPos(WorldUtil.START_POS)));
                 }
             }

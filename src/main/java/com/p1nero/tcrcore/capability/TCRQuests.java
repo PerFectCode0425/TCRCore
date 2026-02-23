@@ -127,6 +127,9 @@ public class TCRQuests {
     public static Quest TALK_TO_CHRONOS_END;
     public static Quest KILL_MAD_CHRONOS;
 
+    //后日谈
+    public static Quest TALK_TO_AINE_GAME_CLEAR;
+
     public static void init() {
 
         WAIT_RESONANCE_STONE_CHARGE = TCRQuestManager.create("wait_resonance_stone_charge")
@@ -506,9 +509,15 @@ public class TCRQuests {
 
         TALK_TO_CHRONOS_END = TCRQuestManager.create("talk_to_chronos_end")
                 .shortDescParam(TCREntities.CHRONOS_SOL.get().getDescription())
-                .descParam(ModItems.VOID_EYE.get().getDescription());
+                .descParam(ModItems.VOID_EYE.get().getDescription())
+                .withTrackingPos(new BlockPos(WorldUtil.CHRONOS_SOL_BLOCK_POS.above(4)), TCRDimensions.SANCTUM_LEVEL_KEY);
 
-        KILL_MAD_CHRONOS = TCRQuestManager.create("kill_mad_chronos");
+        KILL_MAD_CHRONOS = TCRQuestManager.create("kill_mad_chronos")
+                .withTrackingPos(new BlockPos(WorldUtil.CHRONOS_SOL_BLOCK_POS.above(4)), TCRDimensions.SANCTUM_LEVEL_KEY);
+
+        TALK_TO_AINE_GAME_CLEAR = TCRQuestManager.create("talk_to_aine_game_clear")
+                .shortDescParam(TCREntities.AINE.get().getDescription())
+                .withTrackingPos(new BlockPos(WorldUtil.AINE_POS.above(2)), TCRDimensions.SANCTUM_LEVEL_KEY);
 
     }
 }

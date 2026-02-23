@@ -18,9 +18,12 @@ public class PlayerDataManager {
     private final static Set<String> EXISTING_ID = new HashSet<>();
     public static DoubleData currentQuestId = new DoubleData("currentQuestId", 0);
 
+    //通关标记
+    public static BoolData gameCleared = new BoolData("gameCleared", false);
+
     public static BoolData aineTalked = new BoolData("aineTalked", false);
     public static BoolData ornnTalked = new BoolData("ornnTalked", false);
-    public static BoolData chonosTalked = new BoolData("chonosTalked", false);
+    public static BoolData chronosTalked = new BoolData("chronosTalked", false);
     public static BoolData ferryGirlTalked = new BoolData("ferryGirlTalked", false);
     public static BoolData ferryGirlGiftGet = new BoolData("ferryGirlGiftGet", false);
     public static BoolData wraithonKilled = new BoolData("wraithonKilled", false);
