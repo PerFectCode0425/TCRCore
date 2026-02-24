@@ -232,11 +232,43 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
                     .addOption(dBuilder.ans(36, com.github.L_Ender.cataclysm.init.ModItems.VOID_EYE.get().getDescription(), localPlayer.getDisplayName()), dBuilder.opt(-1))
                     .addFinalOption(dBuilder.opt(-2), 11);
         } else if (TCRQuests.TALK_TO_AINE_GAME_CLEAR.equals(currentQuest)) {
-            //后日谈，可以询问所有事 TODO
-            root = new DialogNode(dBuilder.ans(37, localPlayer.getDisplayName()))
-                    .addChild(dBuilder.ans(38), dBuilder.opt(-1));
+            //后日谈，可以询问所有事
+            root = new DialogNode(dBuilder.ans(37, localPlayer.getDisplayName()));
+            DialogNode askRoot = new DialogNode(dBuilder.ans(38), dBuilder.opt(-1));
 
-//            DialogNode aboutChronos2 = new DialogNode()
+            DialogNode aboutYou = new DialogNode(dBuilder.ans(39), dBuilder.opt(19))
+                    .addChild(askRoot);
+            DialogNode aboutAngel = new DialogNode(dBuilder.ans(40), dBuilder.opt(20))
+                    .addChild(askRoot);
+            DialogNode aboutBlackTide = new DialogNode(dBuilder.ans(41), dBuilder.opt(21))
+                    .addChild(new DialogNode(dBuilder.ans(42), dBuilder.opt(-1))
+                            .addChild(askRoot));
+
+            DialogNode aboutFuture = new DialogNode(dBuilder.ans(43), dBuilder.opt(22))
+                    .addChild(askRoot);
+
+            DialogNode c1 = new DialogNode(dBuilder.ans(49), dBuilder.opt(27))
+                    .addLeaf(dBuilder.opt(-2), 13);
+            DialogNode c2 = new DialogNode(dBuilder.ans(49), dBuilder.opt(28))
+                    .addLeaf(dBuilder.opt(-2), 13);
+            DialogNode c3 = new DialogNode(dBuilder.ans(49), dBuilder.opt(29))
+                    .addLeaf(dBuilder.opt(-2), 13);
+
+            DialogNode next = new DialogNode(dBuilder.ans(44), dBuilder.opt(23))
+                    .addChild(new DialogNode(dBuilder.ans(45), dBuilder.opt(24))
+                            .addChild(new DialogNode(dBuilder.ans(46, localPlayer.getDisplayName()), dBuilder.opt(25))
+                                    .addChild(new DialogNode(dBuilder.ans(47), dBuilder.opt(25))
+                                            .addChild(new DialogNode(dBuilder.ans(48), dBuilder.opt(26))
+                                                    .addChild(c1)
+                                                    .addChild(c2)
+                                                    .addChild(c3)))));
+            askRoot.addChild(aboutYou)
+                    .addChild(aboutAngel)
+                    .addChild(aboutBlackTide)
+                    .addChild(aboutFuture)
+                    .addChild(next);
+
+            root.addChild(askRoot);
         } else {
             if (!PlayerDataManager.gameCleared.get(localPlayer)) {
                 if (PlayerDataManager.chronosTalked.get(localPlayer)) {
@@ -337,6 +369,10 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
         }
 
         if (code == 12) {
+            TCRQuests.TALK_TO_AINE_GAME_CLEAR.finish(serverPlayer);
+        }
+
+        if(code == 13) {
             TCRQuests.TALK_TO_AINE_GAME_CLEAR.finish(serverPlayer);
         }
 

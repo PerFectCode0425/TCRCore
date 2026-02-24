@@ -53,14 +53,14 @@
           {
             "title": "建模",
             "names": [
-              "Ao22333",
-              "XVIII-凌"
+              "Ao22333"
             ]
           },
           {
             "title": "材质贴图",
             "names": [
               "一只路过的小吴",
+              "Ao22333",
               "XVIII-凌",
               "yu_moooo",
               "脚踏梯子hill"
@@ -81,19 +81,25 @@
         ]
       },
       {
-        "discipline": "Boss AI设计",
+        "discipline": "怪物AI设计",
         "titles": [
           {
-            "title": "",
+            "title": "Boss",
             "names": [
-              "ShelMarow",
-              "XVIII-凌"
+              "XVIII-凌",
+              "ShelMarow"
+            ]
+          },
+          {
+            "title": "常规人型怪",
+            "names": [
+              "气球恶魔"
             ]
           }
         ]
       },
       {
-        "discipline": "主城场景制作",
+        "discipline": "主城场景设计",
         "titles": [
           {
             "title": "",
@@ -166,7 +172,8 @@
             "title": "广告招租",
             "names": [
               "广告招租",
-              "有意者联系 P1nero"
+              "有意者联系 P1nero",
+              "gaylordfocker@foxmail.com"
             ]
           }
         ]
@@ -180,7 +187,13 @@
         "discipline": "",
         "titles": [
           {
-            "title": "I18n（其他语言的译者可以在此处加上你的名字）",
+            "title": "所有赞助者们",
+            "names": [
+              ""
+            ]
+          },
+          {
+            "title": "译者（其他语言的译者记得在此处加上你的名字）",
             "names": [
               "zh_cn, en_us - P1nero, KamiKaguya"
             ]

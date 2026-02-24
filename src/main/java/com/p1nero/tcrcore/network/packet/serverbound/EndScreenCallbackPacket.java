@@ -26,15 +26,14 @@ public record EndScreenCallbackPacket() implements BasePacket {
     @Override
     public void execute(Player player) {
         if (player instanceof ServerPlayer serverPlayer && player.getServer() != null) {
-            ServerLevel overworld = player.getServer().getLevel(TCRDimensions.SANCTUM_LEVEL_KEY);
-            if (overworld != null) {
-                if(player.level().dimension() != TCRDimensions.SANCTUM_LEVEL_KEY) {
+            ServerLevel real = player.getServer().getLevel(TCRDimensions.REAL_LEVEL_KEY);
+            if (real != null) {
+                if(player.level().dimension() != TCRDimensions.REAL_LEVEL_KEY) {
                     PlayerDataManager.wraithonKilled.put(serverPlayer, true);
-                    //TODO 传送去哦咩爹多
-                    serverPlayer.changeDimension(overworld, new PositionTeleporter(new BlockPos(WorldUtil.START_POS)));
+                    serverPlayer.changeDimension(real, new PositionTeleporter(new BlockPos(WorldUtil.BED_POS)));
+                    //TODO 摆放一圈boss
                 }
             }
-            player.displayClientMessage(TCRCoreMod.getInfo("to_be_continue"), false);
         }
     }
 }

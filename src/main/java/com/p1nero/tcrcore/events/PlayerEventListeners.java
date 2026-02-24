@@ -312,6 +312,12 @@ public class PlayerEventListeners {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             //允许创造进
             if (!serverPlayer.isCreative()) {
+                if(event.getDimension() == TCRDimensions.REAL_LEVEL_KEY) {
+                    if(TCRQuests.TALK_TO_AINE_GAME_CLEAR.isFinished(serverPlayer) || TCRQuestManager.hasQuest(serverPlayer, TCRQuests.TALK_TO_AINE_GAME_CLEAR)) {
+                        event.setCanceled(true);
+                        serverPlayer.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
+                    }
+                }
                 if (event.getDimension() == Level.NETHER) {
                     if (!(TCRQuests.GO_TO_NETHER.isFinished(serverPlayer) || TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_NETHER))) {
                         event.setCanceled(true);
@@ -430,6 +436,14 @@ public class PlayerEventListeners {
             if(event.getTo().equals(TCRDimensions.REAL_LEVEL_KEY)) {
                 serverPlayer.serverLevel().setBlockAndUpdate(new BlockPos(WorldUtil.BED_POS).east(), Blocks.WHITE_BED.defaultBlockState().setValue(BlockStateProperties.BED_PART, BedPart.HEAD).setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST));
                 serverPlayer.serverLevel().setBlockAndUpdate(new BlockPos(WorldUtil.BED_POS), Blocks.WHITE_BED.defaultBlockState().setValue(BlockStateProperties.BED_PART, BedPart.FOOT).setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST));
+            }
+
+            //没人就清空
+            if(event.getFrom().equals(TCRDimensions.REAL_LEVEL_KEY)) {
+                ServerLevel real = serverPlayer.server.getLevel(TCRDimensions.REAL_LEVEL_KEY);
+                if(real != null && real.players().isEmpty()) {
+                    EntityUtil.safelyClearAll(real);
+                }
             }
 
             updateHealth(serverPlayer, event.getFrom());
