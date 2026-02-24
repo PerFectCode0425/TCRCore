@@ -32,6 +32,7 @@ import net.blay09.mods.waystones.block.ModBlocks;
 import net.genzyuro.uniqueaccessories.registry.UAItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.resources.ResourceKey;
@@ -55,6 +56,8 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
@@ -355,7 +358,7 @@ public class PlayerEventListeners {
     }
 
     @SubscribeEvent
-    public static void onPlayerEnterDim(PlayerEvent.PlayerChangedDimensionEvent event) {
+    public static void onPlayerEnteredDim(PlayerEvent.PlayerChangedDimensionEvent event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             TCRCapabilityProvider.syncPlayerDataToClient(serverPlayer);
             if (event.getFrom() == WraithonDimensions.SANCTUM_OF_THE_WRAITHON_LEVEL_KEY) {
@@ -422,6 +425,13 @@ public class PlayerEventListeners {
                     end.getDragonFight().tryRespawn();
                 }
             }
+
+            //摆床
+            if(event.getTo().equals(TCRDimensions.REAL_LEVEL_KEY)) {
+                serverPlayer.serverLevel().setBlockAndUpdate(new BlockPos(WorldUtil.BED_POS).east(), Blocks.WHITE_BED.defaultBlockState().setValue(BlockStateProperties.BED_PART, BedPart.HEAD).setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST));
+                serverPlayer.serverLevel().setBlockAndUpdate(new BlockPos(WorldUtil.BED_POS), Blocks.WHITE_BED.defaultBlockState().setValue(BlockStateProperties.BED_PART, BedPart.FOOT).setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST));
+            }
+
             updateHealth(serverPlayer, event.getFrom());
             updateHealth(serverPlayer, event.getTo());
         }

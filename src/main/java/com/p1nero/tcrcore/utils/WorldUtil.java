@@ -35,6 +35,7 @@ import java.util.regex.Pattern;
 
 public class WorldUtil {
     //维度翻译名
+    public static final MutableComponent REAL_NAME = Component.translatable("travelerstitles.tcrcore.real");
     public static final MutableComponent SANCTUM_NAME = Component.translatable("travelerstitles.tcrcore.sanctum");
     public static final MutableComponent OVERWORLD_NAME = Component.translatable("travelerstitles.minecraft.overworld");
     public static final MutableComponent AETHER_NAME = Component.translatable("travelerstitles.aether.the_aether");
@@ -52,6 +53,8 @@ public class WorldUtil {
     public static final Vec3i VOID_EYE_ALTAR_POS = new Vec3i(-116, 83, -206);
     public static final Vec3i MONST_EYE_ALTAR_POS = new Vec3i(-104, 83, -206);
 
+    //一些关键定位
+    public static final Vec3i BED_POS = new Vec3i(0, 96, 0);
     public static final Vec3i ORNN_POS = new Vec3i(-224, 80, -99);
     public static final BlockPos SMITH_BLOCK_POS = new BlockPos(-226, 77, -100);
     public static final Vec3i AINE_POS = new Vec3i(-115, 80, -127);

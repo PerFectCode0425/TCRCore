@@ -1,6 +1,7 @@
 package com.p1nero.tcrcore.entity.custom.fake_npc;
 
 import com.p1nero.dialog_lib.api.entity.custom.IEntityNpc;
+import com.p1nero.dialog_lib.api.entity.goal.LookAtConservingPlayerGoal;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -26,6 +27,15 @@ public abstract class FakeNPCEntity extends PathfinderMob implements IEntityNpc,
 
     public FakeNPCEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        LivingEntity owner = this.getOwner();
+        if(owner != null) {
+            this.getLookControl().setLookAt(owner.getX(), owner.getEyeY(), owner.getZ());
+        }
     }
 
     @Override

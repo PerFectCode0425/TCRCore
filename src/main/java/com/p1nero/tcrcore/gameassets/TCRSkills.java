@@ -18,6 +18,7 @@ public class TCRSkills {
     public static Skill WATER_AVOID;
     public static Skill FIRE_AVOID;
     public static Skill THE_INCINERATOR_INNATE;
+    public static Skill PERFECT_DODGE;//印度闪避
 
     @SubscribeEvent
     public static void buildSkills(SkillBuildEvent event) {
@@ -25,5 +26,6 @@ public class TCRSkills {
         WATER_AVOID = registryWorker.build("water_avoid", SimpleSkill::new, Skill.createBuilder().setCategory(SkillCategories.PASSIVE).setResource(Skill.Resource.NONE));
         FIRE_AVOID = registryWorker.build("fire_avoid", FireAvoidSkill::new, Skill.createBuilder().setCategory(SkillCategories.PASSIVE).setResource(Skill.Resource.NONE));
         THE_INCINERATOR_INNATE = registryWorker.build("the_incinerator_innate", TheIncineratorInnateSkill::new, PECWeaponInnateSkillBase.createBuilder());
+        PERFECT_DODGE = registryWorker.build("perfect_dodge", AvatarSkill::new, PassiveSkill.createPassiveBuilder());
     }
 }

@@ -29,6 +29,7 @@ public class TCRENLangGenerator extends TCRLangProvider {
     protected void addTranslations() {
 
         this.add("travelerstitles.tcrcore.sanctum", "Realm of Dreams");
+        this.add("travelerstitles.tcrcore.real", "The Unreal Reality");
         this.add("travelerstitles.minecraft.overworld", "Overworld");
         this.add("travelerstitles.aether.the_aether", "The Aether");
         this.add("travelerstitles.minecraft.the_nether", "The Nether");
@@ -37,13 +38,15 @@ public class TCRENLangGenerator extends TCRLangProvider {
         this.add("travelerstitles.minecraft.the_end.color", "4f219e");
         this.add("travelerstitles.pbf1.sanctum_of_the_battle1", "Infinite Samsara");
 
+        this.addBiome(TCRBiomes.AIR, "");
+        this.addBiome(TCRBiomes.REAL, "");
+
         this.addEffect(TCREffects.INVULNERABLE, "Invulnerable");
         this.addEffect(TCREffects.SOUL_INCINERATOR, "Soul Fire");
         this.addEffect(PECEffects.SOUL_INCINERATOR, "Soul Fire");
 
         this.add("epicfight.skill_slot.passive4", "Passive 4");
         this.add("epicfight.skill_slot.passive5", "Passive 5");
-        this.addBiome(TCRBiomes.AIR, "Void Region");
 
         StartScreenHandler.onGenerateEN(this);
         FirstEnterCloudlandScreenHandler.onGenerateEN(this);

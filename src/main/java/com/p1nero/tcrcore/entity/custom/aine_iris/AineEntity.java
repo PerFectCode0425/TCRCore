@@ -22,12 +22,14 @@ import com.p1nero.tcrcore.network.packet.clientbound.PlayTitlePacket;
 import com.p1nero.tcrcore.utils.EntityUtil;
 import com.p1nero.tcrcore.utils.ItemUtil;
 import com.p1nero.tcrcore.utils.WorldUtil;
+import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
 import io.redspace.ironsspellbooks.player.KeyMappings;
 import io.redspace.ironsspellbooks.registries.ItemRegistry;
 import moe.plushie.armourers_workshop.init.ModItems;
+import net.acetheeldritchking.cataclysm_spellbooks.registries.CSSchoolRegistry;
 import net.acetheeldritchking.cataclysm_spellbooks.registries.SpellRegistries;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -77,7 +79,16 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
 
     @Nullable
     private Player tradingPlayer;
-    private MerchantOffers offers = new MerchantOffers();
+    private MerchantOffers offers;
+    private MerchantOffers iceOffers = new MerchantOffers();
+    private MerchantOffers fireOffers = new MerchantOffers();
+    private MerchantOffers lightningOffers = new MerchantOffers();
+    private MerchantOffers holyOffers = new MerchantOffers();
+    private MerchantOffers enderOffers = new MerchantOffers();
+    private MerchantOffers bloodOffers = new MerchantOffers();
+    private MerchantOffers evocationOffers = new MerchantOffers();
+    private MerchantOffers natureOffers = new MerchantOffers();
+    private MerchantOffers technomancyOffers = new MerchantOffers();
 
     public AineEntity(EntityType<? extends PathfinderMob> p_21683_, Level p_21684_) {
         super(p_21683_, p_21684_);
@@ -235,7 +246,17 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
                 }
             }
             if (TCRQuests.TALK_TO_AINE_MAGIC.isFinished(localPlayer)) {
-                root.addLeaf(dBuilder.opt(-3), 7);
+                DialogNode learnMagic = new DialogNode(dBuilder.ans(-2), dBuilder.opt(-3))
+                        .addLeaf(SchoolRegistry.ICE.get().getDisplayName(), -1)
+                        .addLeaf(SchoolRegistry.FIRE.get().getDisplayName(), -2)
+                        .addLeaf(SchoolRegistry.LIGHTNING.get().getDisplayName(), -3)
+                        .addLeaf(SchoolRegistry.HOLY.get().getDisplayName(), -4)
+                        .addLeaf(SchoolRegistry.ENDER.get().getDisplayName(), -5)
+                        .addLeaf(SchoolRegistry.BLOOD.get().getDisplayName(), -6)
+                        .addLeaf(SchoolRegistry.EVOCATION.get().getDisplayName(), -7)
+                        .addLeaf(SchoolRegistry.NATURE.get().getDisplayName(), -8)
+                        .addLeaf(CSSchoolRegistry.TECHNOMANCY.get().getDisplayName(), -9);
+                root.addChild(learnMagic);
                 root.addLeaf(dBuilder.opt(-4), 8);
             }
         }
@@ -292,11 +313,6 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
             ItemUtil.addItemEntity(serverPlayer, TCRItems.MAGIC_BOTTLE.get(), 1, ChatFormatting.AQUA.getColor());
         }
 
-        if (code == 7) {
-            //法术交易
-            this.startTrade(serverPlayer);
-        }
-
         if (code == 8) {
             //打开奥术铁砧
             BlockState blockState = serverPlayer.level().getBlockState(WorldUtil.ARCANE_ANVIL_BLOCK_POS);
@@ -322,6 +338,22 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
 
         if (code == 12) {
             TCRQuests.TALK_TO_AINE_GAME_CLEAR.finish(serverPlayer);
+        }
+
+        //法术交易
+        if (code <= -1 && code >= -9) {
+            switch (code) {
+                case -1 -> offers = iceOffers;
+                case -2 -> offers = fireOffers;
+                case -3 -> offers = lightningOffers;
+                case -4 -> offers = holyOffers;
+                case -5 -> offers = enderOffers;
+                case -6 -> offers = bloodOffers;
+                case -7 -> offers = evocationOffers;
+                case -8 -> offers = natureOffers;
+                case -9 -> offers = technomancyOffers;
+            }
+            this.startTrade(serverPlayer);
         }
 
         this.setConversingPlayer(null);
@@ -385,365 +417,373 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
     }
 
     public void initOffers() {
-        offers = new MerchantOffers();
+        iceOffers = new MerchantOffers();
+        fireOffers = new MerchantOffers();
+        lightningOffers = new MerchantOffers();
+        holyOffers = new MerchantOffers();
+        enderOffers = new MerchantOffers();
+        bloodOffers = new MerchantOffers();
+        evocationOffers = new MerchantOffers();
+        natureOffers = new MerchantOffers();
+        technomancyOffers = new MerchantOffers();
         // 冰霜
-        offers.add(new MerchantOffer(
+        iceOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 1),
                 new ItemStack(Items.SNOWBALL, 1),
                 getSpellScroll(SpellRegistry.FROSTBITE_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        iceOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 2),
                 new ItemStack(Items.SNOWBALL, 1),
                 getSpellScroll(SpellRegistry.FROSTWAVE_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        iceOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 3),
                 new ItemStack(Items.ICE, 1),
                 getSpellScroll(SpellRegistry.CONE_OF_COLD_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        iceOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 1),
                 new ItemStack(Items.SNOWBALL, 1),
                 getSpellScroll(SpellRegistry.ICE_SPIKES_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        iceOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 2),
                 new ItemStack(Items.ICE, 1),
                 getSpellScroll(SpellRegistry.ICE_TOMB_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        iceOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 1),
                 new ItemStack(Items.ARROW, 1),
                 getSpellScroll(SpellRegistry.ICICLE_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        iceOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 3),
                 new ItemStack(Items.ICE, 1),
                 getSpellScroll(SpellRegistry.RAY_OF_FROST_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        iceOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 3),
                 new ItemStack(Items.SNOWBALL, 1),
                 getSpellScroll(SpellRegistry.SNOWBALL_SPELL.get()),
                 142857, 0, 0.01f));
 
         // 炽焰
-        offers.add(new MerchantOffer(
+        fireOffers.add(new MerchantOffer(
                 new ItemStack(Items.BLAZE_ROD, 3),
                 new ItemStack(com.github.L_Ender.cataclysm.init.ModItems.BURNING_ASHES.get(), 1),
                 getSpellScroll(SpellRegistries.ASHEN_BREATH.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        fireOffers.add(new MerchantOffer(
                 new ItemStack(Items.BLAZE_ROD, 3),
                 new ItemStack(com.github.L_Ender.cataclysm.init.ModItems.BURNING_ASHES.get(), 1),
                 getSpellScroll(SpellRegistries.BONE_STORM.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        fireOffers.add(new MerchantOffer(
                 new ItemStack(Items.BLAZE_ROD, 2),
                 new ItemStack(com.github.L_Ender.cataclysm.init.ModItems.BURNING_ASHES.get(), 1),
                 getSpellScroll(SpellRegistries.BONE_PIERCE.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        fireOffers.add(new MerchantOffer(
                 new ItemStack(Items.BLAZE_ROD, 5),
                 new ItemStack(com.github.L_Ender.cataclysm.init.ModItems.IGNITIUM_INGOT.get(), 1),
                 getSpellScroll(SpellRegistries.TECTONIC_TREMBLE.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        fireOffers.add(new MerchantOffer(
                 new ItemStack(Items.BLAZE_ROD, 1),
                 new ItemStack(Items.BLAZE_POWDER, 1),
                 getSpellScroll(SpellRegistry.BLAZE_STORM_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        fireOffers.add(new MerchantOffer(
                 new ItemStack(Items.BLAZE_ROD, 1),
                 new ItemStack(Items.SPECTRAL_ARROW, 1),
                 getSpellScroll(SpellRegistry.FIRE_ARROW_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        fireOffers.add(new MerchantOffer(
                 new ItemStack(Items.BLAZE_ROD, 1),
                 new ItemStack(Items.BLAZE_POWDER, 1),
                 getSpellScroll(SpellRegistry.FIRE_BREATH_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        fireOffers.add(new MerchantOffer(
                 new ItemStack(Items.BLAZE_ROD, 3),
                 new ItemStack(Items.MAGMA_CREAM, 1),
                 getSpellScroll(SpellRegistry.FIREBALL_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        fireOffers.add(new MerchantOffer(
                 new ItemStack(Items.BLAZE_ROD, 3),
                 new ItemStack(Items.MAGMA_CREAM, 1),
                 getSpellScroll(SpellRegistry.FLAMING_BARRAGE_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        fireOffers.add(new MerchantOffer(
                 new ItemStack(Items.BLAZE_ROD, 3),
                 new ItemStack(Items.BLAZE_POWDER, 1),
                 getSpellScroll(SpellRegistry.FLAMING_STRIKE_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        fireOffers.add(new MerchantOffer(
                 new ItemStack(Items.BLAZE_ROD, 2),
                 new ItemStack(Items.MAGMA_CREAM, 1),
                 getSpellScroll(SpellRegistry.MAGMA_BOMB_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        fireOffers.add(new MerchantOffer(
                 new ItemStack(Items.BLAZE_ROD, 3),
                 new ItemStack(Items.BLAZE_POWDER, 1),
                 getSpellScroll(SpellRegistry.RAISE_HELL_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        fireOffers.add(new MerchantOffer(
                 new ItemStack(Items.BLAZE_ROD, 1),
                 new ItemStack(Items.BLAZE_POWDER, 1),
                 getSpellScroll(SpellRegistry.SCORCH_SPELL.get()),
                 142857, 0, 0.01f));
 
         // 唤魔
-        offers.add(new MerchantOffer(
+        evocationOffers.add(new MerchantOffer(
                 new ItemStack(Items.EMERALD, 3),
                 new ItemStack(Items.ARROW, 1),
                 getSpellScroll(SpellRegistry.ARROW_VOLLEY_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        evocationOffers.add(new MerchantOffer(
                 new ItemStack(Items.EMERALD, 3),
                 new ItemStack(Items.CREEPER_HEAD, 1),
                 getSpellScroll(SpellRegistry.CHAIN_CREEPER_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        evocationOffers.add(new MerchantOffer(
                 new ItemStack(Items.EMERALD, 1),
                 new ItemStack(Items.GHAST_TEAR, 1),
                 getSpellScroll(SpellRegistry.FANG_STRIKE_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        evocationOffers.add(new MerchantOffer(
                 new ItemStack(Items.EMERALD, 2),
                 new ItemStack(Items.GHAST_TEAR, 1),
                 getSpellScroll(SpellRegistry.FANG_WARD_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        evocationOffers.add(new MerchantOffer(
                 new ItemStack(Items.EMERALD, 1),
                 new ItemStack(Items.FIREWORK_STAR, 1),
                 getSpellScroll(SpellRegistry.FIRECRACKER_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        evocationOffers.add(new MerchantOffer(
                 new ItemStack(Items.EMERALD, 1),
                 new ItemStack(Items.GHAST_TEAR, 1),
                 getSpellScroll(SpellRegistry.GUST_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        evocationOffers.add(new MerchantOffer(
                 new ItemStack(Items.EMERALD, 1),
                 new ItemStack(Items.CREEPER_HEAD, 1),
                 getSpellScroll(SpellRegistry.LOB_CREEPER_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        evocationOffers.add(new MerchantOffer(
                 new ItemStack(Items.EMERALD, 1),
                 new ItemStack(Items.GHAST_TEAR, 1),
                 getSpellScroll(SpellRegistry.SHIELD_SPELL.get()),
                 142857, 0, 0.01f));
 
         // 雷霆
-        offers.add(new MerchantOffer(
+        lightningOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 1),
                 new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
                 getSpellScroll(SpellRegistry.ASCENSION_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        lightningOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 1),
                 new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
                 getSpellScroll(SpellRegistry.BALL_LIGHTNING_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        lightningOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 1),
                 new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
                 getSpellScroll(SpellRegistry.CHAIN_LIGHTNING_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        lightningOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 1),
                 new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
                 getSpellScroll(SpellRegistry.ELECTROCUTE_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        lightningOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 1),
                 new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
                 getSpellScroll(SpellRegistry.LIGHTNING_BOLT_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        lightningOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 1),
                 new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
                 getSpellScroll(SpellRegistry.LIGHTNING_LANCE_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        lightningOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 2),
                 new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
                 getSpellScroll(SpellRegistry.SHOCKWAVE_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        lightningOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 2),
                 new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
                 getSpellScroll(SpellRegistry.THUNDERSTORM_SPELL.get()),
                 142857, 0, 0.01f));
 
         // 末影
-        offers.add(new MerchantOffer(
+        enderOffers.add(new MerchantOffer(
                 new ItemStack(Items.ENDER_EYE, 1),
                 new ItemStack(Items.DRAGON_BREATH, 1),
                 getSpellScroll(SpellRegistry.DRAGON_BREATH_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        enderOffers.add(new MerchantOffer(
                 new ItemStack(Items.ENDER_EYE, 1),
                 new ItemStack(Items.ARROW, 1),
                 getSpellScroll(SpellRegistry.MAGIC_ARROW_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        enderOffers.add(new MerchantOffer(
                 new ItemStack(Items.ENDER_EYE, 1),
                 new ItemStack(ItemRegistry.ARCANE_ESSENCE.get(), 1),
                 getSpellScroll(SpellRegistry.MAGIC_MISSILE_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        enderOffers.add(new MerchantOffer(
                 new ItemStack(Items.ENDER_EYE, 3),
                 new ItemStack(ItemRegistry.ARCANE_ESSENCE.get(), 1),
                 getSpellScroll(SpellRegistry.SHADOW_SLASH.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        enderOffers.add(new MerchantOffer(
                 new ItemStack(Items.ENDER_EYE, 1),
                 new ItemStack(ItemRegistry.ARCANE_ESSENCE.get(), 1),
                 getSpellScroll(SpellRegistry.STARFALL_SPELL.get()),
                 142857, 0, 0.01f));
 
         // 神圣
-        offers.add(new MerchantOffer(
+        holyOffers.add(new MerchantOffer(
                 new ItemStack(Items.GOLDEN_APPLE, 1),
                 new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
                 getSpellScroll(SpellRegistry.BLESSING_OF_LIFE_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        holyOffers.add(new MerchantOffer(
                 new ItemStack(Items.GOLDEN_APPLE, 5),
                 new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
                 getSpellScroll(SpellRegistry.DIVINE_SMITE_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        holyOffers.add(new MerchantOffer(
                 new ItemStack(Items.GOLDEN_APPLE, 1),
                 new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
                 getSpellScroll(SpellRegistry.FORTIFY_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        holyOffers.add(new MerchantOffer(
                 new ItemStack(Items.GOLDEN_APPLE, 5),
                 new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
                 getSpellScroll(SpellRegistry.GREATER_HEAL_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        holyOffers.add(new MerchantOffer(
                 new ItemStack(Items.GOLDEN_APPLE, 1),
                 new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
                 getSpellScroll(SpellRegistry.GUIDING_BOLT_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        holyOffers.add(new MerchantOffer(
                 new ItemStack(Items.GOLDEN_APPLE, 4),
                 new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
                 getSpellScroll(SpellRegistry.HASTE_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        holyOffers.add(new MerchantOffer(
                 new ItemStack(Items.GOLDEN_APPLE, 2),
                 new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
                 getSpellScroll(SpellRegistry.HEAL_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        holyOffers.add(new MerchantOffer(
                 new ItemStack(Items.GOLDEN_APPLE, 1),
                 new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
                 getSpellScroll(SpellRegistry.SUNBEAM_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        holyOffers.add(new MerchantOffer(
                 new ItemStack(Items.GOLDEN_APPLE, 1),
                 new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
                 getSpellScroll(SpellRegistry.WISP_SPELL.get()),
                 142857, 0, 0.01f));
 
         // technomancy
-        offers.add(new MerchantOffer(
+        technomancyOffers.add(new MerchantOffer(
                 new ItemStack(Items.REDSTONE, 3),
                 new ItemStack(ItemRegistry.ENERGIZED_CORE.get(), 1),
                 getSpellScroll(SpellRegistries.LOCK_ON.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        technomancyOffers.add(new MerchantOffer(
                 new ItemStack(Items.REDSTONE, 2),
                 new ItemStack(ItemRegistry.ENERGIZED_CORE.get(), 1),
                 getSpellScroll(SpellRegistries.REBOOT.get()),
                 142857, 0, 0.01f));
 
         // 猩红
-        offers.add(new MerchantOffer(
+        bloodOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 5),
                 new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
                 getSpellScroll(SpellRegistries.FINAL_REND.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        bloodOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 5),
                 new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
                 getSpellScroll(SpellRegistries.HEMORRHAGING_IMPACT.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        bloodOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 3),
                 new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
                 getSpellScroll(SpellRegistries.QUICK_STRIKE.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        bloodOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 1),
                 new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
                 getSpellScroll(SpellRegistry.BLOOD_NEEDLES_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        bloodOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 1),
                 new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
                 getSpellScroll(SpellRegistry.ACUPUNCTURE_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        bloodOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 3),
                 new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
                 getSpellScroll(SpellRegistry.BLOOD_SLASH_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        bloodOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 1),
                 new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
                 getSpellScroll(SpellRegistry.DEVOUR_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        bloodOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 1),
                 new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
                 getSpellScroll(SpellRegistry.RAY_OF_SIPHONING_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        bloodOffers.add(new MerchantOffer(
                 new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 1),
                 new ItemStack(Items.WITHER_SKELETON_SKULL, 1),
                 getSpellScroll(SpellRegistry.WITHER_SKULL_SPELL.get()),
                 142857, 0, 0.01f));
 
         // 自然
-        offers.add(new MerchantOffer(
+        natureOffers.add(new MerchantOffer(
                 new ItemStack(Items.POISONOUS_POTATO, 1),
                 new ItemStack(Items.MOSS_BLOCK, 1),
                 getSpellScroll(SpellRegistry.EARTHQUAKE_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        natureOffers.add(new MerchantOffer(
                 new ItemStack(Items.POISONOUS_POTATO, 1),
                 new ItemStack(Items.SHROOMLIGHT, 1),
                 getSpellScroll(SpellRegistry.FIREFLY_SWARM_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        natureOffers.add(new MerchantOffer(
                 new ItemStack(Items.POISONOUS_POTATO, 1),
                 new ItemStack(Items.ARROW, 1),
                 getSpellScroll(SpellRegistry.POISON_ARROW_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        natureOffers.add(new MerchantOffer(
                 new ItemStack(Items.POISONOUS_POTATO, 1),
                 new ItemStack(Items.MUD, 1),
                 getSpellScroll(SpellRegistry.POISON_BREATH_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        natureOffers.add(new MerchantOffer(
                 new ItemStack(Items.POISONOUS_POTATO, 1),
                 new ItemStack(Items.MUD, 1),
                 getSpellScroll(SpellRegistry.POISON_SPLASH_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        natureOffers.add(new MerchantOffer(
                 new ItemStack(Items.POISONOUS_POTATO, 2),
                 new ItemStack(Items.SPIDER_EYE, 1),
                 getSpellScroll(SpellRegistry.SPIDER_ASPECT_SPELL.get()),
                 142857, 0, 0.01f));
-        offers.add(new MerchantOffer(
+        natureOffers.add(new MerchantOffer(
                 new ItemStack(Items.POISONOUS_POTATO, 3),
                 new ItemStack(Items.MOSS_BLOCK, 1),
                 getSpellScroll(SpellRegistry.STOMP_SPELL.get()),

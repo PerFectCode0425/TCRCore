@@ -31,6 +31,7 @@ public class TCRZHLangGenerator extends TCRLangProvider {
     protected void addTranslations() {
 
         this.add("travelerstitles.tcrcore.sanctum", "梦之领域");
+        this.add("travelerstitles.tcrcore.real", "永远抵达不到的现实");
         this.add("travelerstitles.minecraft.overworld", "记忆中的主世界");
         this.add("travelerstitles.aether.the_aether", "记忆中的天界");
         this.add("travelerstitles.minecraft.the_nether", "记忆中的下界");
@@ -38,6 +39,9 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.add("travelerstitles.minecraft.the_end", "记忆中的终界");
         this.add("travelerstitles.minecraft.the_end.color", "4f219e");
         this.add("travelerstitles.pbf1.sanctum_of_the_battle1", "轮回绝境");
+
+        this.addBiome(TCRBiomes.AIR, "");
+        this.addBiome(TCRBiomes.REAL, "");
 
         this.addQuest(TCRQuests.WAIT_RESONANCE_STONE_CHARGE, "间章", "等待[%s]充能", "[%s]的能量已经耗尽，重新充能需要一段时间。在充能完成之前先去做点别的事吧！\n\n§6[注意]：若不想等待，可使用\"/time add\"命令将时间增加6000。");
         this.addQuest(TCRQuests.PUT_DESERT_EYE_ON_ALTAR, "间章", "将[%s]置于祭坛上", "[%s]已经寻回，快将它归位到圣殿长廊的祭坛上吧！");
@@ -130,7 +134,7 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addQuest(TCRQuests.GET_VOID_EYE, "终末之章", "寻回[%s]", "[%s]就在[%s]，拼尽全力夺回它！");
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_END, "终章", "和%对话", "[%s]已经寻回...你终于集齐了8颗神之眼，是时候准备再创世仪式了。");
         this.addQuest(TCRQuests.KILL_MAD_CHRONOS, "终章", "击败[？？？]", "出现巨大的魔物，拼尽全力战胜祂！");
-        this.addQuest(TCRQuests.TALK_TO_AINE_GAME_CLEAR, "后日谈", "和%对话", "你，真的读懂[远梦之棺（The Casket of Reveries）]了吗？");
+        this.addQuest(TCRQuests.TALK_TO_AINE_GAME_CLEAR, "后日谈", "和%s对话", "你，真的读懂[远梦之棺（The Casket of Reveries）]了吗？");
 
         this.addEffect(TCREffects.INVULNERABLE, "无敌");
         this.addEffect(TCREffects.SOUL_INCINERATOR, "灵魂火");
@@ -138,7 +142,6 @@ public class TCRZHLangGenerator extends TCRLangProvider {
 
         this.add("epicfight.skill_slot.passive4", "被动4");
         this.add("epicfight.skill_slot.passive5", "被动5");
-        this.addBiome(TCRBiomes.AIR, "虚无之地");
 
         StartScreenHandler.onGenerateZH(this);
         FirstEnterCloudlandScreenHandler.onGenerateZH(this);
@@ -436,6 +439,7 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addDialogOption(TCREntities.AINE.get(), -3, "§6法术交易");
         this.addDialogOption(TCREntities.AINE.get(), -2, "结束对话");
         this.addDialogOption(TCREntities.AINE.get(), -1, "继续");
+        this.addDialogAnswer(TCREntities.AINE.get(), -2, "要学习哪个流派（School）呢？");
         this.addDialogAnswer(TCREntities.AINE.get(), -1, "%s, 你来了！今天要做些什么呢？");
         this.addDialogAnswer(TCREntities.AINE.get(), 0, "%s, 你来了！我正在阅读这个世界的智库");
         this.addDialogOption(TCREntities.AINE.get(), 0, "关于%s");
