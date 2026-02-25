@@ -25,7 +25,7 @@ public class BlockEvents {
         }
         if(event.getPlayer().level() instanceof ServerLevel serverLevel) {
             //主城不可破坏
-            if(WorldUtil.inMainLand(event.getPlayer())) {
+            if(WorldUtil.inMainLand(event.getPlayer()) || WorldUtil.inReal(event.getPlayer())) {
                 event.setCanceled(true);
             }
             //不可破坏神像
@@ -68,7 +68,7 @@ public class BlockEvents {
         }
         if(event.getEntity() != null) {
             //主城保护
-            if(WorldUtil.inMainLand(event.getEntity())) {
+            if(WorldUtil.inMainLand(event.getEntity())|| WorldUtil.inReal(event.getEntity())) {
                 event.setCanceled(true);
             }
             //幻境禁止摆放

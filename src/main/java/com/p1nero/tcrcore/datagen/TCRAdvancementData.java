@@ -65,9 +65,6 @@ public class TCRAdvancementData extends ForgeAdvancementProvider {
                     .addCriterion(TCRCoreMod.MOD_ID, InventoryChangeTrigger.TriggerInstance.hasItems(SwordSoaringItems.VATANSEVER.get()))
                     .save(consumer, ResourceLocation.fromNamespaceAndPath(TCRCoreMod.MOD_ID, "vatansever"), existingFileHelper);
 
-            //解锁时装
-            Advancement unlock_skin = registerAdvancement(root, "unlock_skin", FrameType.CHALLENGE, Items.FEATHER, false, false, true);
-
             //ftb解锁武器和盔甲
             Advancement unlock_weapon_armor_book = registerAdvancement(root, "unlock_weapon_armor_book", FrameType.CHALLENGE, TCRItems.MYSTERIOUS_WEAPONS.get(), false, false, true);
 

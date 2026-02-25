@@ -1,11 +1,12 @@
 {
 	"trail_effects": [
 		{
+			"begin_pos": [0.1, -0.2, -0.2],
     		"end_pos": [0.1, -1.2, -2.0],
 			"start_time": 0.6766,
 			"end_time": 1.2166,
 			"fade_time": 1.35,
-			"interpolations": 2,
+			"interpolations": 4,
 			"lifetime": 6,
 			"joint": "Tool_R",
 			"item_skin_hand": "main_hand"

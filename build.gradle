@@ -222,21 +222,20 @@ dependencies {
     implementation fg.deobf("curse.maven:epic-fight-indestructible-915201:7125700")
 
     implementation fg.deobf("curse.maven:epic-fight-wraithon-1354901:7068815")
-    implementation fg.deobf("curse.maven:epic-fight-invincible-1184379:7389802")
+    implementation fg.deobf("maven.modrinth:epic-fight-invincible-lib:${invincible_version}")
     implementation fg.deobf("libs:p1nero_bow:20.13.1.4")
-    implementation fg.deobf("libs:p1nero_ec:20.14.0.5")
-    implementation fg.deobf("libs:epicfightx:1.0.0")
+    implementation fg.deobf("curse.maven:p1neros-epic-x-cataclysm-1325059:7662422")
+    implementation fg.deobf("libs:epicfightx:1.1.0")
     implementation fg.deobf("libs:better_trident_model:1.0.0")
     implementation fg.deobf("curse.maven:sword-soaring-1011068:7305158")
     implementation fg.deobf("libs:dodge_parry_reward:20.12.1")
-    implementation fg.deobf("curse.maven:epic-fight-avalon-1268823:7415398")
-    implementation fg.deobf("curse.maven:p1neros-dialogue-lib-1274526:7539373")
+    implementation fg.deobf("curse.maven:epic-fight-avalon-1268823:7619938")
+    implementation fg.deobf("curse.maven:p1neros-dialogue-lib-1274526:7676495")
     implementation fg.deobf("curse.maven:entity-respawner-1363764:7105518")
 
-    implementation fg.deobf("libs:EpicFightNightfall:3.0")
+    implementation fg.deobf("libs:EpicFight-Nightfall:3.0.5")
     implementation fg.deobf("curse.maven:nightfall-invade-1362602:7366440")
-//    implementation fg.deobf("curse.maven:combat-evolution-1377795:7373729")
-    implementation fg.deobf("libs:CombatEvolution:1.1.19")
+    implementation fg.deobf("curse.maven:combat-evolution-1377795:7647549")
     implementation fg.deobf("libs:tcr_bosses:1.0.0")
     implementation fg.deobf("libs:tcrmeshes:1.0.0")
     implementation fg.deobf("libs:mimic:1.0.0")
@@ -267,8 +266,6 @@ dependencies {
     implementation fg.deobf("libs:bountiful_npc:1.0.3")
 
     implementation fg.deobf("curse.maven:global-shaderpack-properties-1344473:6982618")//全局光影包配置，添加灾变维度用。
-
-//    implementation fg.deobf("curse.maven:p1neros-dialogue-lib-1274526:6971469")
 
     implementation fg.deobf("curse.maven:epic-fight-super-golem-1236331:6861276")
     implementation fg.deobf("curse.maven:epic-fight-super-warden-1272352:6640554")
@@ -305,17 +302,17 @@ dependencies {
 
     //主要boss
     implementation fg.deobf("curse.maven:aether-255308:6134920")
-    implementation fg.deobf("curse.maven:deep-aether-852465:6839617")
+    implementation fg.deobf("curse.maven:structure-gel-api-378802:5278429")
     implementation fg.deobf("curse.maven:aether-lost-content-318602:4927038")
     implementation fg.deobf("libs:ba_bt:3.2.1")
+    implementation fg.deobf("curse.maven:epic-fight-the-leonidas-1445144:7619585")
+    implementation fg.deobf("curse.maven:epic-fight-the-arachne-1445154:7529944")
 
-    implementation fg.deobf("curse.maven:structure-gel-api-378802:5278429")
     implementation fg.deobf("curse.maven:dodos-mobs-1349823:7018547")
     implementation fg.deobf("curse.maven:mowzies-mobs-250498:6586086")
-    implementation fg.deobf("curse.maven:monster-expansion-1336105:7388120")
     implementation fg.deobf("curse.maven:from-the-shadow-reborn-986907:7037169")
     implementation fg.deobf("curse.maven:more-hitboxes-1115989:6942239")
-    implementation fg.deobf("libs:cataclysm_dimension:1.5.6")
+    implementation fg.deobf("curse.maven:cataclysm-dimensions-1303494:7101790")
     implementation fg.deobf("curse.maven:lendercataclysm-551586:6906993")
     implementation fg.deobf("curse.maven:cinematic-cataclysm-1399324:7302287")
     implementation fg.deobf("curse.maven:curios-309927:6418456")
@@ -335,7 +332,7 @@ dependencies {
 
     //结构类
     implementation fg.deobf("curse.maven:ati-structures-964608:6730813")
-
+    implementation fg.deobf("curse.maven:integrated-stronghold-815548:6095052")
     implementation fg.deobf("curse.maven:integrated-villages-661376:6701488")
     implementation fg.deobf("libs:idas_forge:1.12.1")
     implementation fg.deobf("libs:supplementaries:3.1.41")

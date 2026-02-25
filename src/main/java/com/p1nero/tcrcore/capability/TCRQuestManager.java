@@ -16,6 +16,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
@@ -46,6 +47,10 @@ public class TCRQuestManager {
 
     public static Quest getCurrentQuest(Player player) {
         return getQuestById(PlayerDataManager.currentQuestId.getInt(player));
+    }
+
+    public static void setCurrentQuest(Player player, Quest quest) {
+        PlayerDataManager.currentQuestId.put(player, quest.getId());
     }
 
     public static int getCurrentQuestId(Player player) {

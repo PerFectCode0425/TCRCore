@@ -3,16 +3,13 @@ package com.p1nero.tcrcore.capability;
 import com.github.L_Ender.cataclysm.init.ModItems;
 import com.p1nero.fast_tpa.network.PacketRelay;
 import com.p1nero.tcrcore.TCRCoreMod;
-import com.p1nero.tcrcore.datagen.TCRAdvancementData;
 import com.p1nero.tcrcore.network.TCRPacketHandler;
 import com.p1nero.tcrcore.network.packet.clientbound.OpenEndScreenPacket;
 import com.p1nero.tcrcore.network.packet.clientbound.SyncTCRPlayerPacket;
-import com.p1nero.tcrcore.save_data.TCRMainLevelSaveData;
+import com.p1nero.tcrcore.utils.EntityUtil;
 import com.p1nero.tcrcore.utils.ItemUtil;
-import com.p1nero.tcrcore.utils.WaypointUtil;
 import com.p1nero.tcrcore.utils.WorldUtil;
 import com.yesman.epicskills.registry.entry.EpicSkillsItems;
-import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -20,7 +17,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -34,19 +30,16 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.merlin204.wraithon.entity.WraithonEntities;
 import org.merlin204.wraithon.entity.wraithon.WraithonEntity;
 import org.merlin204.wraithon.worldgen.WraithonDimensions;
-import xaero.hud.minimap.waypoint.WaypointColor;
 import yesman.epicfight.world.entity.ai.attribute.EpicFightAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 public class TCRPlayer {
     public static final String PLAYER_NAME = "player_name";
@@ -79,8 +72,9 @@ public class TCRPlayer {
     }
 
     public void finishQuest(TCRQuestManager.Quest quest) {
-        currentQuests.remove(quest);
-        finishedQuests.add(quest.getId());
+        if(currentQuests.remove(quest)) {
+            finishedQuests.add(quest.getId());
+        }
     }
 
     public boolean hasFinished(TCRQuestManager.Quest quest) {
@@ -221,10 +215,40 @@ public class TCRPlayer {
         } else if (player instanceof ServerPlayer serverPlayer) {
             ServerLevel serverLevel = serverPlayer.serverLevel();
             handleTalking(serverPlayer);
-            handleAfterBossFight(serverPlayer);
+            handleAfterFinalBossFight(serverPlayer);
             handleBless(serverLevel, serverPlayer);
             handleParticle(serverPlayer);
             handleResonanceStoneCooldown(serverPlayer);
+            handleUpdateNearestQuest(serverPlayer);
+        }
+    }
+
+    /**
+     * 处理任务靠近自动追踪
+     */
+    private void handleUpdateNearestQuest(ServerPlayer serverPlayer) {
+        if(serverPlayer.tickCount % 10 == 0) {
+            if(WorldUtil.inMainLand(serverPlayer)) {
+                trySearchNearestQuest(WorldUtil.AINE_BLOCK_POS, serverPlayer);
+                trySearchNearestQuest(WorldUtil.ORNN_BLOCK_POS, serverPlayer);
+                trySearchNearestQuest(WorldUtil.CHRONOS_SOL_BLOCK_POS, serverPlayer);
+                trySearchNearestQuest(WorldUtil.FERRY_GIRL_BLOCK_POS, serverPlayer);
+            }
+        }
+    }
+
+    private void trySearchNearestQuest(BlockPos targetPos, ServerPlayer serverPlayer) {
+        if(serverPlayer.position().closerThan(targetPos.getCenter(), 10)) {
+            BlockPos currentTrackingPos = TCRQuestManager.getCurrentQuest(serverPlayer).getTrackingPos();
+            if(currentTrackingPos == null || !currentTrackingPos.closerThan(targetPos, 5)) {
+                for (TCRQuestManager.Quest quest : TCRQuestManager.getQuests(serverPlayer)) {
+                    if(quest.getTrackingPos() != null && quest.getTrackingPos().closerThan(targetPos, 5)) {
+                        TCRQuestManager.setCurrentQuest(serverPlayer, quest);
+                        EntityUtil.playLocalSound(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
+                        break;
+                    }
+                }
+            }
         }
     }
 
@@ -238,7 +262,7 @@ public class TCRPlayer {
         ServerLevel overworld = serverPlayer.server.overworld();
         long currentTime = overworld.getDayTime();
         //冷却结束，根据任务给予共鸣石
-        if(currentTime < resonanceStoneStartTime || currentTime - resonanceStoneStartTime > 6000) {
+        if(currentTime < resonanceStoneStartTime || currentTime - resonanceStoneStartTime > resonanceStoneCooldown) {
             TCRQuests.WAIT_RESONANCE_STONE_CHARGE.finish(serverPlayer, true);
             //开启海洋章，用前一个眼是否完成来判断
             if(PlayerDataManager.desertEyeGotten.get(serverPlayer) && !TCRQuests.TALK_TO_CHRONOS_2.isFinished(serverPlayer)) {
@@ -291,7 +315,7 @@ public class TCRPlayer {
         }
     }
 
-    private void handleAfterBossFight(ServerPlayer player) {
+    private void handleAfterFinalBossFight(ServerPlayer player) {
         //Boss战后的返回倒计时
         if (tickAfterBossDieLeft > 0) {
             tickAfterBossDieLeft--;

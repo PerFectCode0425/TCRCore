@@ -10,6 +10,7 @@ import net.minecraft.world.level.biome.*;
 public class TCRBiomes {
 
     public static final ResourceKey<Biome> AIR = register("air");
+    public static final ResourceKey<Biome> REAL = register("real");
     public static ResourceKey<Biome> register(String name){
         return ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(TCRCoreMod.MOD_ID, name));
     }
@@ -19,7 +20,20 @@ public class TCRBiomes {
         BiomeGenerationSettings.Builder biomeBuilder = new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
         context.register(AIR, new Biome.BiomeBuilder()
                 .hasPrecipitation(false)
-                .downfall(0.5F)
+                .downfall(0.0F)
+                .temperature(0.5F)
+                .generationSettings(biomeBuilder.build())
+                .mobSpawnSettings(spawnBuilder.build())
+                .specialEffects((new BiomeSpecialEffects.Builder())
+                        .waterColor(4159204)
+                        .waterFogColor(329011)
+                        .fogColor(12638463)
+                        .skyColor(8103167)
+                        .build())
+                .build());
+        context.register(REAL, new Biome.BiomeBuilder()
+                .hasPrecipitation(false)
+                .downfall(0.0F)
                 .temperature(0.5F)
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())

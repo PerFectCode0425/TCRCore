@@ -1,6 +1,6 @@
 [
   {
-    "section": "Production Team",
+    "section": "Development Team (All original content below)",
     "disciplines": [
       {
         "discipline": "Author",
@@ -14,40 +14,7 @@
         ]
       },
       {
-        "discipline": "Planner",
-        "titles": [
-          {
-            "title": "",
-            "names": [
-              "P1nero"
-            ]
-          }
-        ]
-      },
-      {
-        "discipline": "Programmer",
-        "titles": [
-          {
-            "title": "",
-            "names": [
-              "P1nero"
-            ]
-          }
-        ]
-      },
-      {
-        "discipline": "Quest Book, Illustrated Handbook, Tutorial Production",
-        "titles": [
-          {
-            "title": "",
-            "names": [
-              "P1nero"
-            ]
-          }
-        ]
-      },
-      {
-        "discipline": "Dialogue Design",
+        "discipline": "Programming",
         "titles": [
           {
             "title": "",
@@ -69,60 +36,97 @@
         ]
       },
       {
-        "discipline": "Art Director",
+        "discipline": "Quest Book & Bestiary",
         "titles": [
           {
             "title": "",
             "names": [
-              "P1nero"
+              "P1nero",
+              "KamiKaguya"
             ]
           }
         ]
       },
       {
-        "discipline": "Background Setting",
+        "discipline": "Art",
         "titles": [
           {
-            "title": "",
+            "title": "Modeling",
             "names": [
-              "P1nero"
+              "Ao22333"
+            ]
+          },
+          {
+            "title": "Texturing",
+            "names": [
+              "一只路过的小吴",
+              "Ao22333",
+              "XVIII-凌",
+              "yu_moooo",
+              "脚踏梯子hill"
+            ]
+          },
+          {
+            "title": "Weight Painting",
+            "names": [
+              "asanginxst"
+            ]
+          },
+          {
+            "title": "Cover Art",
+            "names": [
+              "v4lk"
             ]
           }
         ]
       },
       {
-        "discipline": "External Support",
+        "discipline": "Monster AI Design",
         "titles": [
           {
-            "title": "Sanctuary ",
+            "title": "Boss",
             "names": [
-              "El_mal（玩建筑的牢E）"
+              "XVIII-凌",
+              "ShelMarow"
             ]
           },
           {
-            "title": "Some Animations",
+            "title": "Regular Humanoid Enemies",
             "names": [
-              "merlin204"
-            ]
-          },
-          {
-            "title": "Some Textures",
-            "names": [
-              "一只路过的小吴 Some Items",
-              "XVIII-凌 Some Sword Effects",
-              "Ao Some Skills, npc",
-              "脚踏梯子hill Trail"
-            ]
-          },
-          {
-            "title": "Terrain",
-            "names": [
-              "wonderful艾晨"
+              "气球恶魔"
             ]
           }
-        ,
+        ]
+      },
+      {
+        "discipline": "Main City Scene Design",
+        "titles": [
           {
-            "title": "Create ServerPack",
+            "title": "",
+            "names": [
+              "El_mal（玩建筑的牢E）",
+              "300wan"
+            ]
+          }
+        ]
+      },
+      {
+        "discipline": "Animation Assistance",
+        "titles": [
+          {
+            "title": "",
+            "names": [
+              "merlin204",
+              "asanginxst"
+            ]
+          }
+        ]
+      },
+      {
+        "discipline": "Server-Side Development",
+        "titles": [
+          {
+            "title": "",
             "names": [
               "KamiKaguya"
             ]
@@ -130,16 +134,10 @@
         ]
       },
       {
-        "discipline": "Equipment Support",
+        "discipline": "Trailer Filming Assistance",
         "titles": [
           {
-            "title": "Test Server Sponsorship",
-            "names": [
-              "白露（NHBlock）"
-            ]
-          },
-          {
-            "title": "Assistance in Filming",
+            "title": "",
             "names": [
               "Arcadia"
             ]
@@ -149,22 +147,15 @@
     ]
   },
   {
-    "section": "Closed Beta Contributions",
+    "section": "Apex Hosting",
     "disciplines": [
       {
-        "discipline": "",
+        "discipline": "Rent your server!",
         "titles": [
           {
-            "title": "",
+            "title": "Use the link to get a discount!",
             "names": [
-              "T_muse_Y",
-              "HuaSheng_peanuts",
-              "merlin204",
-              "ShelMarow",
-              "Arcadia",
-              "霖",
-              "32spark",
-              "脚踏梯子hill"
+              "https://apexhost.gg/P1nero"
             ]
           }
         ]
@@ -172,16 +163,17 @@
     ]
   },
   {
-    "section": "Advertising Space Available",
+    "section": "Advertisement Space Available",
     "disciplines": [
       {
-        "discipline": "Advertising Space Available",
+        "discipline": "Advertisement Space Available",
         "titles": [
           {
-            "title": "Advertising Space Available",
+            "title": "Advertisement Space Available",
             "names": [
-              "Advertising Space Available",
-              "Contact P1nero for details"
+              "Advertisement Space Available",
+              "Contact P1nero for inquiries",
+              "gaylordfocker@foxmail.com"
             ]
           }
         ]
@@ -195,19 +187,25 @@
         "discipline": "",
         "titles": [
           {
-            "title": "I18n (Translators for other languages can add your name here)",
+            "title": "All Sponsors",
             "names": [
-              "zh_cn, en_us - P1nero"
+              ""
             ]
           },
           {
-            "title": "Tributes",
+            "title": "Translators (Translators of other languages, remember to add your name here)",
+            "names": [
+              "zh_cn, en_us - P1nero, KamiKaguya"
+            ]
+          },
+          {
+            "title": "Tribute",
             "names": [
               "Yesman",
-              "Super Awesome Baby Team",
+              "超级厉害宝宝(Super Awesome Baby) Team",
               "Minecraft",
               "Minecraft Forge",
-              "And all mods, resource packs, and shader packs used in this modpack."
+              "And all the mods, resource packs, shader packs and their authors used in this pack!"
             ]
           }
         ]

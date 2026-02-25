@@ -20,8 +20,9 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 @OnlyIn(Dist.CLIENT)
 public class ChronosSolGeoRenderer extends GeoEntityRenderer<ChronosSolEntity> {
+
     public static boolean useRedTexture;
-    private final ChronosSolRenderer renderer;
+
     public ChronosSolGeoRenderer(EntityRendererProvider.Context context) {
         super(context, new DefaultedEntityGeoModel<>(ResourceLocation.fromNamespaceAndPath(TCRCoreMod.MOD_ID, "guider")) {
             @Override
@@ -38,22 +39,19 @@ public class ChronosSolGeoRenderer extends GeoEntityRenderer<ChronosSolEntity> {
 
             @Override
             public ResourceLocation getTextureResource(ChronosSolEntity animatable) {
-                if(useRedTexture) {
+                if (useRedTexture) {
                     return ResourceLocation.fromNamespaceAndPath(TCRCoreMod.MOD_ID, "textures/entity/guider_red.png");
                 }
                 return super.getTextureResource(animatable);
             }
         });
-        this.renderer = new ChronosSolRenderer(context);
     }
 
     @Override
     public void render(@NotNull ChronosSolEntity entity, float entityYaw, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight) {
         LocalPlayer localPlayer = Minecraft.getInstance().player;
-        //TODO 对通关者不渲染
-        if(false) {
-            return;
-        } else {
+        //对通关者不渲染
+        if (entity.canInteract(localPlayer)) {
             poseStack.pushPose();
             poseStack.scale(1.25F, 1.25F, 1.25F);
             poseStack.translate(0, 0.25F, 0);

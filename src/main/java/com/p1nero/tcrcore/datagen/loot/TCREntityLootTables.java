@@ -28,6 +28,16 @@ public class TCREntityLootTables extends EntityLootSubProvider {
         this.add(TCREntities.ORNN.get(), emptyLootTable());
         this.add(TCREntities.TUTORIAL_GOLEM.get(), emptyLootTable());
         this.add(TCREntities.AINE.get(), emptyLootTable());
+        this.add(TCREntities.FAKE_SKY_GOLEM.get(), emptyLootTable());
+        this.add(TCREntities.FAKE_END_GOLEM.get(), emptyLootTable());
+        this.add(TCREntities.FAKE_MALEDICTUS_HUMANOID.get(), emptyLootTable());
+        this.add(TCREntities.FAKE_IGNIS_HUMANOID.get(), emptyLootTable());
+        this.add(TCREntities.FAKE_NETHERITE_HUMANOID.get(), emptyLootTable());
+        this.add(TCREntities.FAKE_SCYLLA_HUMANOID.get(), emptyLootTable());
+        this.add(TCREntities.FAKE_ENDER_GUARDIAN_HUMANOID.get(), emptyLootTable());
+        this.add(TCREntities.FAKE_HARBINGER_HUMANOID.get(), emptyLootTable());
+        this.add(TCREntities.FAKE_LEVIATHAN_HUMANOID.get(), emptyLootTable());
+        this.add(TCREntities.FAKE_ANCIENT_REMNANT_HUMANOID.get(), emptyLootTable());
 //        this.add(ModEntities.THE_LEVIATHAN.get(), LootTable.lootTable().withPool(
 //                        LootPool.lootPool()
 //                                .setRolls(UniformGenerator.between(1.0F, 2.0F))

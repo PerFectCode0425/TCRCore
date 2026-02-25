@@ -1,5 +1,6 @@
 package com.p1nero.tcrcore.entity.custom.aine_iris;
 
+import com.aetherteam.aether.block.AetherBlocks;
 import com.obscuria.aquamirae.registry.AquamiraeEntities;
 import com.obscuria.aquamirae.registry.AquamiraeItems;
 import com.p1nero.dialog_lib.api.component.DialogNode;
@@ -21,9 +22,15 @@ import com.p1nero.tcrcore.network.packet.clientbound.PlayTitlePacket;
 import com.p1nero.tcrcore.utils.EntityUtil;
 import com.p1nero.tcrcore.utils.ItemUtil;
 import com.p1nero.tcrcore.utils.WorldUtil;
+import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
+import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
+import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
+import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
 import io.redspace.ironsspellbooks.player.KeyMappings;
+import io.redspace.ironsspellbooks.registries.ItemRegistry;
 import moe.plushie.armourers_workshop.init.ModItems;
-import net.blay09.mods.waystones.block.ModBlocks;
+import net.acetheeldritchking.cataclysm_spellbooks.registries.CSSchoolRegistry;
+import net.acetheeldritchking.cataclysm_spellbooks.registries.SpellRegistries;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -72,7 +79,16 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
 
     @Nullable
     private Player tradingPlayer;
-    private MerchantOffers offers = new MerchantOffers();
+    private MerchantOffers offers;
+    private MerchantOffers iceOffers = new MerchantOffers();
+    private MerchantOffers fireOffers = new MerchantOffers();
+    private MerchantOffers lightningOffers = new MerchantOffers();
+    private MerchantOffers holyOffers = new MerchantOffers();
+    private MerchantOffers enderOffers = new MerchantOffers();
+    private MerchantOffers bloodOffers = new MerchantOffers();
+    private MerchantOffers evocationOffers = new MerchantOffers();
+    private MerchantOffers natureOffers = new MerchantOffers();
+    private MerchantOffers technomancyOffers = new MerchantOffers();
 
     public AineEntity(EntityType<? extends PathfinderMob> p_21683_, Level p_21684_) {
         super(p_21683_, p_21684_);
@@ -80,7 +96,7 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
 
     @Override
     public boolean hurt(@NotNull DamageSource source, float value) {
-        if(source.getEntity() instanceof Player player && player.isCreative()) {
+        if (source.getEntity() instanceof Player player && player.isCreative()) {
             player.displayClientMessage(Component.translatable("/summon " + ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).withStyle(ChatFormatting.RED), false);
             this.discard();
         }
@@ -89,9 +105,10 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
 
     @Override
     protected @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
+        initOffers();
         if (player instanceof ServerPlayer serverPlayer) {
             CompoundTag tag = new CompoundTag();
-            if(!PlayerDataManager.aineTalked.get(player)) {
+            if (!PlayerDataManager.aineTalked.get(player)) {
                 PlayerDataManager.aineTalked.put(player, true);
             }
             this.sendDialogTo(serverPlayer, tag);
@@ -103,7 +120,7 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
     @OnlyIn(Dist.CLIENT)
     public DialogueScreen getDialogueScreen(CompoundTag serverData) {
         LocalPlayer localPlayer = Minecraft.getInstance().player;
-        if(localPlayer == null) {
+        if (localPlayer == null) {
             return null;
         }
         TCRQuestManager.Quest currentQuest = TCRQuestManager.getCurrentQuest(localPlayer);
@@ -114,23 +131,25 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
         //-2结束对话
         DialogNode root = new DialogNode(dBuilder.ans(0, localPlayer.getDisplayName()));//你来了！我正在阅读这个世界的智库？
 
+        if (PlayerDataManager.gameCleared.get(localPlayer)) {
+            root = new DialogNode(dBuilder.ans(-1, localPlayer.getDisplayName()));
+        }
+
         DialogNode aboutChronos = new DialogNode(dBuilder.ans(1), dBuilder.opt(0, TCREntities.CHRONOS_SOL.get().getDescription()))
                 .addLeaf(dBuilder.opt(-2));
 
         DialogNode aboutThisWorld = new DialogNode(dBuilder.ans(2), dBuilder.opt(1))
                 .addLeaf(dBuilder.opt(-2));
 
-        DialogNode enterDim;//TODO 进入轮回绝境
-
-        if(currentQuest.equals(TCRQuests.TALK_TO_AINE_0)) {
-            if(PlayerDataManager.chonosTalked.get(localPlayer)) {
+        if (currentQuest.equals(TCRQuests.TALK_TO_AINE_0)) {
+            if (PlayerDataManager.chronosTalked.get(localPlayer)) {
                 root.addChild(aboutChronos);
                 root.addChild(aboutThisWorld);
             }
             DialogNode aboutSkin = new DialogNode(dBuilder.ans(3), dBuilder.opt(2))
                     .addLeaf(dBuilder.opt(3), 1);
             root.addChild(aboutSkin);
-        } else if(currentQuest.equals(TCRQuests.TALK_TO_AINE_CLOUDLAND)) {
+        } else if (currentQuest.equals(TCRQuests.TALK_TO_AINE_CLOUDLAND)) {
             dialogueScreenBuilder.start(dBuilder.ans(4, localPlayer.getDisplayName()))
                     .addOption(5, 5)
                     .addOption(-1, 6)
@@ -138,7 +157,7 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
                     .addOption(-1, 8)
                     .addFinalOption(-2, 2);
             return dialogueScreenBuilder.build();
-        } else if(TCRQuests.TALK_TO_AINE_ECHO.equals(currentQuest)) {
+        } else if (TCRQuests.TALK_TO_AINE_ECHO.equals(currentQuest)) {
             dialogueScreenBuilder.start(dBuilder.ans(4, localPlayer.getDisplayName()))
                     .addOption(dBuilder.opt(7, AquamiraeItems.SHIP_GRAVEYARD_ECHO.get().getDescription()), dBuilder.ans(9))
                     .addOption(-1, 10)
@@ -147,7 +166,7 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
                     .addOption(dBuilder.opt(8, AquamiraeEntities.CAPTAIN_CORNELIA.get().getDescription(), TCRBossEntities.MALEDICTUS_HUMANOID.get().getDescription()), dBuilder.ans(12, TCRBossEntities.MALEDICTUS_HUMANOID.get().getDescription(), com.github.L_Ender.cataclysm.init.ModItems.CURSED_EYE.get().getDescription()))
                     .addFinalOption(-2, 4);
             return dialogueScreenBuilder.build();
-        } else if(TCRQuests.TALK_TO_AINE_MAGIC.equals(currentQuest)) {
+        } else if (TCRQuests.TALK_TO_AINE_MAGIC.equals(currentQuest)) {
             //学魔法
             dialogueScreenBuilder.start(dBuilder.ans(4, localPlayer.getDisplayName()))
                     .addOption(dBuilder.opt(7, TCRItems.NECROMANCY_SCROLL.get().getDescription()), dBuilder.ans(13, TCRItems.NECROMANCY_SCROLL.get().getDescription()))
@@ -158,7 +177,7 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
                     .addOption(-1, 18)
                     .addFinalOption(-2, 5);
             return dialogueScreenBuilder.build();
-        } else if(TCRQuests.TALK_TO_AINE_MAGIC_2.equals(currentQuest)) {
+        } else if (TCRQuests.TALK_TO_AINE_MAGIC_2.equals(currentQuest)) {
             //介绍施法
             DialogNode learnt = new DialogNode(dBuilder.ans(22, TCRItems.MAGIC_BOTTLE.get().getDescription().copy().withStyle(ChatFormatting.AQUA), TCRItems.MAGIC_BOTTLE.get().getDescription().copy().withStyle(ChatFormatting.AQUA)), dBuilder.opt(9))
                     .addExecutable(dialogueScreen -> {
@@ -182,7 +201,7 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
                             .addChild(root));
             root.addChild(next);
 
-        } else if(TCRQuests.TALK_TO_AINE_1.equals(currentQuest)) {
+        } else if (TCRQuests.TALK_TO_AINE_1.equals(currentQuest)) {
             //聊聊最近的冒险（没啥用，纯增加氛围
             root = new DialogNode(dBuilder.ans(24, localPlayer.getDisplayName()));
             DialogNode easy = new DialogNode(dBuilder.ans(25), dBuilder.opt(11));
@@ -198,22 +217,78 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
 
             root.addChild(easy)
                     .addChild(hard);
-        } else if(TCRQuests.TALK_TO_AINE_SAMSARA.equals(currentQuest)) {
+        } else if (TCRQuests.TALK_TO_AINE_SAMSARA.equals(currentQuest)) {
             //打开轮回绝境
             return dialogueScreenBuilder.start(dBuilder.ans(24, localPlayer.getDisplayName()))
-                    .addOption(dBuilder.opt(7, TCRItems.WITHER_SOUL_STONE.get().getDescription()), dBuilder.ans(30, Items.GHAST_TEAR.getDescription().copy().withStyle(ChatFormatting.AQUA), Component.translatable("travelerstitles.pbf1.sanctum_of_the_battle1").withStyle(ChatFormatting.GOLD)))
-                    .addOption(dBuilder.opt(17, Component.translatable("travelerstitles.pbf1.sanctum_of_the_battle1")), dBuilder.ans(31, Component.translatable("travelerstitles.pbf1.sanctum_of_the_battle1"), Component.translatable("travelerstitles.pbf1.sanctum_of_the_battle1")))
+                    .addOption(dBuilder.opt(7, TCRItems.WITHER_SOUL_STONE.get().getDescription()), dBuilder.ans(30, Items.GHAST_TEAR.getDescription().copy().withStyle(ChatFormatting.AQUA), WorldUtil.SAMSARA_NAME.copy().withStyle(ChatFormatting.GOLD)))
+                    .addOption(dBuilder.opt(17, WorldUtil.SAMSARA_NAME), dBuilder.ans(31, WorldUtil.SAMSARA_NAME, WorldUtil.SAMSARA_NAME))
                     .addOption(-1, 32)
                     .addFinalOption(-2, 10)
                     .build();
+        } else if (TCRQuests.TALK_TO_AINE_2.equals(currentQuest)) {
+            dialogueScreenBuilder.start(dBuilder.ans(33, localPlayer.getDisplayName(), WorldUtil.AETHER_NAME))
+                    .addOption(dBuilder.ans(34, WorldUtil.AETHER_NAME, TCREntities.AINE.get().getDescription()), dBuilder.opt(18, TCREntities.AINE.get().getDescription()))
+                    .addOption(dBuilder.ans(35), dBuilder.opt(13, TCREntities.AINE.get().getDescription()))
+                    .addOption(dBuilder.ans(36, com.github.L_Ender.cataclysm.init.ModItems.VOID_EYE.get().getDescription(), localPlayer.getDisplayName()), dBuilder.opt(-1))
+                    .addFinalOption(dBuilder.opt(-2), 11);
+        } else if (TCRQuests.TALK_TO_AINE_GAME_CLEAR.equals(currentQuest)) {
+            //后日谈，可以询问所有事
+            root = new DialogNode(dBuilder.ans(37, localPlayer.getDisplayName()));
+            DialogNode askRoot = new DialogNode(dBuilder.ans(38), dBuilder.opt(-1));
+
+            DialogNode aboutYou = new DialogNode(dBuilder.ans(39), dBuilder.opt(19))
+                    .addChild(askRoot);
+            DialogNode aboutAngel = new DialogNode(dBuilder.ans(40), dBuilder.opt(20))
+                    .addChild(askRoot);
+            DialogNode aboutBlackTide = new DialogNode(dBuilder.ans(41), dBuilder.opt(21))
+                    .addChild(new DialogNode(dBuilder.ans(42), dBuilder.opt(-1))
+                            .addChild(askRoot));
+
+            DialogNode aboutFuture = new DialogNode(dBuilder.ans(43), dBuilder.opt(22))
+                    .addChild(askRoot);
+
+            DialogNode c1 = new DialogNode(dBuilder.ans(49), dBuilder.opt(27))
+                    .addLeaf(dBuilder.opt(-2), 12);
+            DialogNode c2 = new DialogNode(dBuilder.ans(49), dBuilder.opt(28))
+                    .addLeaf(dBuilder.opt(-2), 12);
+            DialogNode c3 = new DialogNode(dBuilder.ans(49), dBuilder.opt(29))
+                    .addLeaf(dBuilder.opt(-2), 12);
+
+            DialogNode next = new DialogNode(dBuilder.ans(44), dBuilder.opt(23))
+                    .addChild(new DialogNode(dBuilder.ans(45), dBuilder.opt(24))
+                            .addChild(new DialogNode(dBuilder.ans(46, localPlayer.getDisplayName()), dBuilder.opt(25))
+                                    .addChild(new DialogNode(dBuilder.ans(47), dBuilder.opt(25))
+                                            .addChild(new DialogNode(dBuilder.ans(48), dBuilder.opt(26))
+                                                    .addChild(c1)
+                                                    .addChild(c2)
+                                                    .addChild(c3)))));
+            askRoot.addChild(aboutYou)
+                    .addChild(aboutAngel)
+                    .addChild(aboutBlackTide)
+                    .addChild(aboutFuture)
+                    .addChild(next);
+
+            root.addChild(askRoot);
         } else {
-            if(PlayerDataManager.chonosTalked.get(localPlayer)) {
-                root.addChild(aboutChronos);
-                root.addChild(aboutThisWorld);
-                root.addLeaf(dBuilder.opt(-2));
+            if (!PlayerDataManager.gameCleared.get(localPlayer)) {
+                if (PlayerDataManager.chronosTalked.get(localPlayer)) {
+                    root.addChild(aboutChronos);
+                    root.addChild(aboutThisWorld);
+                    root.addLeaf(dBuilder.opt(-2));
+                }
             }
-            if(TCRQuests.TALK_TO_AINE_MAGIC.isFinished(localPlayer)) {
-                root.addLeaf(dBuilder.opt(-3), 7);
+            if (TCRQuests.TALK_TO_AINE_MAGIC.isFinished(localPlayer)) {
+                DialogNode learnMagic = new DialogNode(dBuilder.ans(-2), dBuilder.opt(-3))
+                        .addLeaf(SchoolRegistry.ICE.get().getDisplayName(), -1)
+                        .addLeaf(SchoolRegistry.FIRE.get().getDisplayName(), -2)
+                        .addLeaf(SchoolRegistry.LIGHTNING.get().getDisplayName(), -3)
+                        .addLeaf(SchoolRegistry.HOLY.get().getDisplayName(), -4)
+                        .addLeaf(SchoolRegistry.ENDER.get().getDisplayName(), -5)
+                        .addLeaf(SchoolRegistry.BLOOD.get().getDisplayName(), -6)
+                        .addLeaf(SchoolRegistry.EVOCATION.get().getDisplayName(), -7)
+                        .addLeaf(SchoolRegistry.NATURE.get().getDisplayName(), -8)
+                        .addLeaf(CSSchoolRegistry.TECHNOMANCY.get().getDisplayName(), -9);
+                root.addChild(learnMagic);
                 root.addLeaf(dBuilder.opt(-4), 8);
             }
         }
@@ -224,7 +299,7 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
     @Override
     public void handleNpcInteraction(ServerPlayer serverPlayer, int code) {
         //初次对话&领取时装
-        if(code == 1) {
+        if (code == 1) {
             ItemUtil.addItemEntity(serverPlayer, ModItems.SKIN_TEMPLATE.get(), 20, ChatFormatting.GOLD.getColor());
             ItemUtil.addItemEntity(serverPlayer, ModItems.SKIN_LIBRARY_GLOBAL.get(), 1, ChatFormatting.GOLD.getColor());
             ItemUtil.addItemEntity(serverPlayer, ModItems.SKIN_LIBRARY.get(), 1, ChatFormatting.GOLD.getColor());
@@ -233,11 +308,11 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
             PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new PlayTitlePacket(PlayTitlePacket.UNLOCK_NEW_CHAPTER), serverPlayer);
         }
         //聊幻境
-        if(code == 2) {
+        if (code == 2) {
             TCRQuests.TALK_TO_AINE_CLOUDLAND.finish(serverPlayer);
         }
         //播放解读海船回响特效
-        if(code == 3) {
+        if (code == 3) {
             Vec3 dis = this.position().subtract(serverPlayer.position());
             Vec3 pos = serverPlayer.position().add(dis.scale(0.5F));
             serverPlayer.serverLevel().sendParticles(
@@ -253,44 +328,64 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
             return;
         }
 
-        if(code == 4) {
+        if (code == 4) {
             TCRQuests.TALK_TO_AINE_ECHO.finish(serverPlayer);
             TCRQuests.TALK_TO_CHRONOS_4.start(serverPlayer);
         }
 
-        if(code == 5) {
+        if (code == 5) {
             TCRQuests.TALK_TO_AINE_MAGIC.finish(serverPlayer);
             TCRQuests.TRY_TO_LEARN_MAGIC.start(serverPlayer);
             TCRAdvancementData.finishAdvancement("unlock_magic_and_boss", serverPlayer);
             PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new PlayTitlePacket(PlayTitlePacket.UNLOCK_NEW_CHAPTER), serverPlayer);
         }
 
-        if(code == 6) {
+        if (code == 6) {
             TCRQuests.TALK_TO_AINE_MAGIC_2.finish(serverPlayer);
             ItemUtil.addItemEntity(serverPlayer, TCRItems.MAGIC_BOTTLE.get(), 1, ChatFormatting.AQUA.getColor());
         }
 
-        if(code == 7) {
-            //法术交易
-            this.startTrade(serverPlayer);
-        }
-
-        if(code == 8) {
+        if (code == 8) {
             //打开奥术铁砧
             BlockState blockState = serverPlayer.level().getBlockState(WorldUtil.ARCANE_ANVIL_BLOCK_POS);
             serverPlayer.openMenu(blockState.getMenuProvider(serverPlayer.level(), WorldUtil.ARCANE_ANVIL_BLOCK_POS));
             serverPlayer.awardStat(Stats.INTERACT_WITH_ANVIL);
         }
 
-        if(code == 9) {
+        if (code == 9) {
             //闲聊
             TCRQuests.TALK_TO_AINE_1.finish(serverPlayer);
         }
 
-        if(code == 10) {
+        if (code == 10) {
             TCRQuests.TALK_TO_AINE_SAMSARA.finish(serverPlayer);
+            TCRQuests.GO_TO_SAMSARA.start(serverPlayer);
             TCRAdvancementData.finishAdvancement("unlock_epic_boss", serverPlayer);
             PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new PlayTitlePacket(PlayTitlePacket.UNLOCK_NEW_CHAPTER), serverPlayer);
+        }
+
+        if (code == 11) {
+            TCRQuests.TALK_TO_AINE_2.finish(serverPlayer);
+        }
+
+        if (code == 12) {
+            TCRQuests.TALK_TO_AINE_GAME_CLEAR.finish(serverPlayer);
+        }
+
+        //法术交易
+        if (code <= -1 && code >= -9) {
+            switch (code) {
+                case -1 -> offers = iceOffers;
+                case -2 -> offers = fireOffers;
+                case -3 -> offers = lightningOffers;
+                case -4 -> offers = holyOffers;
+                case -5 -> offers = enderOffers;
+                case -6 -> offers = bloodOffers;
+                case -7 -> offers = evocationOffers;
+                case -8 -> offers = natureOffers;
+                case -9 -> offers = technomancyOffers;
+            }
+            this.startTrade(serverPlayer);
         }
 
         this.setConversingPlayer(null);
@@ -299,16 +394,16 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
     @Override
     public void tick() {
         super.tick();
-        if(!level().isClientSide) {
+        if (!level().isClientSide) {
 
             //位置矫正保险
-            if(tickCount % 100 == 0) {
+            if (tickCount % 100 == 0) {
                 BlockPos myPos = this.getOnPos();
-                if(myPos.getX() != WorldUtil.AINE_POS.getX() || myPos.getZ() != WorldUtil.AINE_POS.getZ()) {
+                if (myPos.getX() != WorldUtil.AINE_POS.getX() || myPos.getZ() != WorldUtil.AINE_POS.getZ()) {
                     this.setPos(new BlockPos(WorldUtil.AINE_POS).getCenter());
                 }
             }
-            if(getConversingPlayer() != null && (getConversingPlayer().isRemoved() || getConversingPlayer().isDeadOrDying() || getConversingPlayer().distanceTo(this) > 5)) {
+            if (getConversingPlayer() != null && (getConversingPlayer().isRemoved() || getConversingPlayer().isDeadOrDying() || getConversingPlayer().distanceTo(this) > 5)) {
                 setConversingPlayer(null);
             }
         }
@@ -332,7 +427,7 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
      * 开始交易
      * 需要改变交易表则去重写 {@link #getOffers()}
      */
-    public void startTrade(ServerPlayer serverPlayer){
+    public void startTrade(ServerPlayer serverPlayer) {
         setTradingPlayer(serverPlayer);
         openTradingScreen(serverPlayer, Component.empty(), 1);
     }
@@ -350,19 +445,387 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
 
     @Override
     public @NotNull MerchantOffers getOffers() {
-        if(offers == null) {
-            initOffers();
-        }
         return offers;
     }
 
     public void initOffers() {
-        offers = new MerchantOffers();
-        //TODO 添加法术交易
-        offers.add(new MerchantOffer(
+        iceOffers = new MerchantOffers();
+        fireOffers = new MerchantOffers();
+        lightningOffers = new MerchantOffers();
+        holyOffers = new MerchantOffers();
+        enderOffers = new MerchantOffers();
+        bloodOffers = new MerchantOffers();
+        evocationOffers = new MerchantOffers();
+        natureOffers = new MerchantOffers();
+        technomancyOffers = new MerchantOffers();
+        // 冰霜
+        iceOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 1),
+                new ItemStack(Items.SNOWBALL, 1),
+                getSpellScroll(SpellRegistry.FROSTBITE_SPELL.get()),
+                142857, 0, 0.01f));
+        iceOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 2),
+                new ItemStack(Items.SNOWBALL, 1),
+                getSpellScroll(SpellRegistry.FROSTWAVE_SPELL.get()),
+                142857, 0, 0.01f));
+        iceOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 3),
+                new ItemStack(Items.ICE, 1),
+                getSpellScroll(SpellRegistry.CONE_OF_COLD_SPELL.get()),
+                142857, 0, 0.01f));
+        iceOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 1),
+                new ItemStack(Items.SNOWBALL, 1),
+                getSpellScroll(SpellRegistry.ICE_SPIKES_SPELL.get()),
+                142857, 0, 0.01f));
+        iceOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 2),
+                new ItemStack(Items.ICE, 1),
+                getSpellScroll(SpellRegistry.ICE_TOMB_SPELL.get()),
+                142857, 0, 0.01f));
+        iceOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 1),
+                new ItemStack(Items.ARROW, 1),
+                getSpellScroll(SpellRegistry.ICICLE_SPELL.get()),
+                142857, 0, 0.01f));
+        iceOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 3),
+                new ItemStack(Items.ICE, 1),
+                getSpellScroll(SpellRegistry.RAY_OF_FROST_SPELL.get()),
+                142857, 0, 0.01f));
+        iceOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.FROZEN_BONE_SHARD.get(), 3),
+                new ItemStack(Items.SNOWBALL, 1),
+                getSpellScroll(SpellRegistry.SNOWBALL_SPELL.get()),
+                142857, 0, 0.01f));
+
+        // 炽焰
+        fireOffers.add(new MerchantOffer(
+                new ItemStack(Items.BLAZE_ROD, 3),
+                new ItemStack(com.github.L_Ender.cataclysm.init.ModItems.BURNING_ASHES.get(), 1),
+                getSpellScroll(SpellRegistries.ASHEN_BREATH.get()),
+                142857, 0, 0.01f));
+        fireOffers.add(new MerchantOffer(
+                new ItemStack(Items.BLAZE_ROD, 3),
+                new ItemStack(com.github.L_Ender.cataclysm.init.ModItems.BURNING_ASHES.get(), 1),
+                getSpellScroll(SpellRegistries.BONE_STORM.get()),
+                142857, 0, 0.01f));
+        fireOffers.add(new MerchantOffer(
+                new ItemStack(Items.BLAZE_ROD, 2),
+                new ItemStack(com.github.L_Ender.cataclysm.init.ModItems.BURNING_ASHES.get(), 1),
+                getSpellScroll(SpellRegistries.BONE_PIERCE.get()),
+                142857, 0, 0.01f));
+        fireOffers.add(new MerchantOffer(
+                new ItemStack(Items.BLAZE_ROD, 5),
+                new ItemStack(com.github.L_Ender.cataclysm.init.ModItems.IGNITIUM_INGOT.get(), 1),
+                getSpellScroll(SpellRegistries.TECTONIC_TREMBLE.get()),
+                142857, 0, 0.01f));
+        fireOffers.add(new MerchantOffer(
+                new ItemStack(Items.BLAZE_ROD, 1),
+                new ItemStack(Items.BLAZE_POWDER, 1),
+                getSpellScroll(SpellRegistry.BLAZE_STORM_SPELL.get()),
+                142857, 0, 0.01f));
+        fireOffers.add(new MerchantOffer(
+                new ItemStack(Items.BLAZE_ROD, 1),
+                new ItemStack(Items.SPECTRAL_ARROW, 1),
+                getSpellScroll(SpellRegistry.FIRE_ARROW_SPELL.get()),
+                142857, 0, 0.01f));
+        fireOffers.add(new MerchantOffer(
+                new ItemStack(Items.BLAZE_ROD, 1),
+                new ItemStack(Items.BLAZE_POWDER, 1),
+                getSpellScroll(SpellRegistry.FIRE_BREATH_SPELL.get()),
+                142857, 0, 0.01f));
+        fireOffers.add(new MerchantOffer(
+                new ItemStack(Items.BLAZE_ROD, 3),
+                new ItemStack(Items.MAGMA_CREAM, 1),
+                getSpellScroll(SpellRegistry.FIREBALL_SPELL.get()),
+                142857, 0, 0.01f));
+        fireOffers.add(new MerchantOffer(
+                new ItemStack(Items.BLAZE_ROD, 3),
+                new ItemStack(Items.MAGMA_CREAM, 1),
+                getSpellScroll(SpellRegistry.FLAMING_BARRAGE_SPELL.get()),
+                142857, 0, 0.01f));
+        fireOffers.add(new MerchantOffer(
+                new ItemStack(Items.BLAZE_ROD, 3),
+                new ItemStack(Items.BLAZE_POWDER, 1),
+                getSpellScroll(SpellRegistry.FLAMING_STRIKE_SPELL.get()),
+                142857, 0, 0.01f));
+        fireOffers.add(new MerchantOffer(
+                new ItemStack(Items.BLAZE_ROD, 2),
+                new ItemStack(Items.MAGMA_CREAM, 1),
+                getSpellScroll(SpellRegistry.MAGMA_BOMB_SPELL.get()),
+                142857, 0, 0.01f));
+        fireOffers.add(new MerchantOffer(
+                new ItemStack(Items.BLAZE_ROD, 3),
+                new ItemStack(Items.BLAZE_POWDER, 1),
+                getSpellScroll(SpellRegistry.RAISE_HELL_SPELL.get()),
+                142857, 0, 0.01f));
+        fireOffers.add(new MerchantOffer(
+                new ItemStack(Items.BLAZE_ROD, 1),
+                new ItemStack(Items.BLAZE_POWDER, 1),
+                getSpellScroll(SpellRegistry.SCORCH_SPELL.get()),
+                142857, 0, 0.01f));
+
+        // 唤魔
+        evocationOffers.add(new MerchantOffer(
+                new ItemStack(Items.EMERALD, 3),
+                new ItemStack(Items.ARROW, 1),
+                getSpellScroll(SpellRegistry.ARROW_VOLLEY_SPELL.get()),
+                142857, 0, 0.01f));
+        evocationOffers.add(new MerchantOffer(
+                new ItemStack(Items.EMERALD, 3),
+                new ItemStack(Items.CREEPER_HEAD, 1),
+                getSpellScroll(SpellRegistry.CHAIN_CREEPER_SPELL.get()),
+                142857, 0, 0.01f));
+        evocationOffers.add(new MerchantOffer(
+                new ItemStack(Items.EMERALD, 1),
+                new ItemStack(Items.GHAST_TEAR, 1),
+                getSpellScroll(SpellRegistry.FANG_STRIKE_SPELL.get()),
+                142857, 0, 0.01f));
+        evocationOffers.add(new MerchantOffer(
+                new ItemStack(Items.EMERALD, 2),
+                new ItemStack(Items.GHAST_TEAR, 1),
+                getSpellScroll(SpellRegistry.FANG_WARD_SPELL.get()),
+                142857, 0, 0.01f));
+        evocationOffers.add(new MerchantOffer(
+                new ItemStack(Items.EMERALD, 1),
+                new ItemStack(Items.FIREWORK_STAR, 1),
+                getSpellScroll(SpellRegistry.FIRECRACKER_SPELL.get()),
+                142857, 0, 0.01f));
+        evocationOffers.add(new MerchantOffer(
+                new ItemStack(Items.EMERALD, 1),
+                new ItemStack(Items.GHAST_TEAR, 1),
+                getSpellScroll(SpellRegistry.GUST_SPELL.get()),
+                142857, 0, 0.01f));
+        evocationOffers.add(new MerchantOffer(
+                new ItemStack(Items.EMERALD, 1),
+                new ItemStack(Items.CREEPER_HEAD, 1),
+                getSpellScroll(SpellRegistry.LOB_CREEPER_SPELL.get()),
+                142857, 0, 0.01f));
+        evocationOffers.add(new MerchantOffer(
+                new ItemStack(Items.EMERALD, 1),
+                new ItemStack(Items.GHAST_TEAR, 1),
+                getSpellScroll(SpellRegistry.SHIELD_SPELL.get()),
+                142857, 0, 0.01f));
+
+        // 雷霆
+        lightningOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 1),
+                new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
+                getSpellScroll(SpellRegistry.ASCENSION_SPELL.get()),
+                142857, 0, 0.01f));
+        lightningOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 1),
+                new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
+                getSpellScroll(SpellRegistry.BALL_LIGHTNING_SPELL.get()),
+                142857, 0, 0.01f));
+        lightningOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 1),
+                new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
+                getSpellScroll(SpellRegistry.CHAIN_LIGHTNING_SPELL.get()),
+                142857, 0, 0.01f));
+        lightningOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 1),
+                new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
+                getSpellScroll(SpellRegistry.ELECTROCUTE_SPELL.get()),
+                142857, 0, 0.01f));
+        lightningOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 1),
+                new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
+                getSpellScroll(SpellRegistry.LIGHTNING_BOLT_SPELL.get()),
+                142857, 0, 0.01f));
+        lightningOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 1),
+                new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
+                getSpellScroll(SpellRegistry.LIGHTNING_LANCE_SPELL.get()),
+                142857, 0, 0.01f));
+        lightningOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 2),
+                new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
+                getSpellScroll(SpellRegistry.SHOCKWAVE_SPELL.get()),
+                142857, 0, 0.01f));
+        lightningOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.LIGHTNING_BOTTLE.get(), 2),
+                new ItemStack(AetherBlocks.COLD_AERCLOUD.get(), 1),
+                getSpellScroll(SpellRegistry.THUNDERSTORM_SPELL.get()),
+                142857, 0, 0.01f));
+
+        // 末影
+        enderOffers.add(new MerchantOffer(
                 new ItemStack(Items.ENDER_EYE, 1),
-                new ItemStack(ModBlocks.waystone, 1),
-                142857, 0, 0.02f));
+                new ItemStack(Items.DRAGON_BREATH, 1),
+                getSpellScroll(SpellRegistry.DRAGON_BREATH_SPELL.get()),
+                142857, 0, 0.01f));
+        enderOffers.add(new MerchantOffer(
+                new ItemStack(Items.ENDER_EYE, 1),
+                new ItemStack(Items.ARROW, 1),
+                getSpellScroll(SpellRegistry.MAGIC_ARROW_SPELL.get()),
+                142857, 0, 0.01f));
+        enderOffers.add(new MerchantOffer(
+                new ItemStack(Items.ENDER_EYE, 1),
+                new ItemStack(ItemRegistry.ARCANE_ESSENCE.get(), 1),
+                getSpellScroll(SpellRegistry.MAGIC_MISSILE_SPELL.get()),
+                142857, 0, 0.01f));
+        enderOffers.add(new MerchantOffer(
+                new ItemStack(Items.ENDER_EYE, 3),
+                new ItemStack(ItemRegistry.ARCANE_ESSENCE.get(), 1),
+                getSpellScroll(SpellRegistry.SHADOW_SLASH.get()),
+                142857, 0, 0.01f));
+        enderOffers.add(new MerchantOffer(
+                new ItemStack(Items.ENDER_EYE, 1),
+                new ItemStack(ItemRegistry.ARCANE_ESSENCE.get(), 1),
+                getSpellScroll(SpellRegistry.STARFALL_SPELL.get()),
+                142857, 0, 0.01f));
+
+        // 神圣
+        holyOffers.add(new MerchantOffer(
+                new ItemStack(Items.GOLDEN_APPLE, 1),
+                new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
+                getSpellScroll(SpellRegistry.BLESSING_OF_LIFE_SPELL.get()),
+                142857, 0, 0.01f));
+        holyOffers.add(new MerchantOffer(
+                new ItemStack(Items.GOLDEN_APPLE, 5),
+                new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
+                getSpellScroll(SpellRegistry.DIVINE_SMITE_SPELL.get()),
+                142857, 0, 0.01f));
+        holyOffers.add(new MerchantOffer(
+                new ItemStack(Items.GOLDEN_APPLE, 1),
+                new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
+                getSpellScroll(SpellRegistry.FORTIFY_SPELL.get()),
+                142857, 0, 0.01f));
+        holyOffers.add(new MerchantOffer(
+                new ItemStack(Items.GOLDEN_APPLE, 5),
+                new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
+                getSpellScroll(SpellRegistry.GREATER_HEAL_SPELL.get()),
+                142857, 0, 0.01f));
+        holyOffers.add(new MerchantOffer(
+                new ItemStack(Items.GOLDEN_APPLE, 1),
+                new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
+                getSpellScroll(SpellRegistry.GUIDING_BOLT_SPELL.get()),
+                142857, 0, 0.01f));
+        holyOffers.add(new MerchantOffer(
+                new ItemStack(Items.GOLDEN_APPLE, 4),
+                new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
+                getSpellScroll(SpellRegistry.HASTE_SPELL.get()),
+                142857, 0, 0.01f));
+        holyOffers.add(new MerchantOffer(
+                new ItemStack(Items.GOLDEN_APPLE, 2),
+                new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
+                getSpellScroll(SpellRegistry.HEAL_SPELL.get()),
+                142857, 0, 0.01f));
+        holyOffers.add(new MerchantOffer(
+                new ItemStack(Items.GOLDEN_APPLE, 1),
+                new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
+                getSpellScroll(SpellRegistry.SUNBEAM_SPELL.get()),
+                142857, 0, 0.01f));
+        holyOffers.add(new MerchantOffer(
+                new ItemStack(Items.GOLDEN_APPLE, 1),
+                new ItemStack(ItemRegistry.DIVINE_PEARL.get(), 1),
+                getSpellScroll(SpellRegistry.WISP_SPELL.get()),
+                142857, 0, 0.01f));
+
+        // technomancy
+        technomancyOffers.add(new MerchantOffer(
+                new ItemStack(Items.REDSTONE, 3),
+                new ItemStack(ItemRegistry.ENERGIZED_CORE.get(), 1),
+                getSpellScroll(SpellRegistries.LOCK_ON.get()),
+                142857, 0, 0.01f));
+        technomancyOffers.add(new MerchantOffer(
+                new ItemStack(Items.REDSTONE, 2),
+                new ItemStack(ItemRegistry.ENERGIZED_CORE.get(), 1),
+                getSpellScroll(SpellRegistries.REBOOT.get()),
+                142857, 0, 0.01f));
+
+        // 猩红
+        bloodOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 5),
+                new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
+                getSpellScroll(SpellRegistries.FINAL_REND.get()),
+                142857, 0, 0.01f));
+        bloodOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 5),
+                new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
+                getSpellScroll(SpellRegistries.HEMORRHAGING_IMPACT.get()),
+                142857, 0, 0.01f));
+        bloodOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 3),
+                new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
+                getSpellScroll(SpellRegistries.QUICK_STRIKE.get()),
+                142857, 0, 0.01f));
+        bloodOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 1),
+                new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
+                getSpellScroll(SpellRegistry.BLOOD_NEEDLES_SPELL.get()),
+                142857, 0, 0.01f));
+        bloodOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 1),
+                new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
+                getSpellScroll(SpellRegistry.ACUPUNCTURE_SPELL.get()),
+                142857, 0, 0.01f));
+        bloodOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 3),
+                new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
+                getSpellScroll(SpellRegistry.BLOOD_SLASH_SPELL.get()),
+                142857, 0, 0.01f));
+        bloodOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 1),
+                new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
+                getSpellScroll(SpellRegistry.DEVOUR_SPELL.get()),
+                142857, 0, 0.01f));
+        bloodOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 1),
+                new ItemStack(ItemRegistry.BLOODY_VELLUM.get(), 1),
+                getSpellScroll(SpellRegistry.RAY_OF_SIPHONING_SPELL.get()),
+                142857, 0, 0.01f));
+        bloodOffers.add(new MerchantOffer(
+                new ItemStack(ItemRegistry.BLOOD_VIAL.get(), 1),
+                new ItemStack(Items.WITHER_SKELETON_SKULL, 1),
+                getSpellScroll(SpellRegistry.WITHER_SKULL_SPELL.get()),
+                142857, 0, 0.01f));
+
+        // 自然
+        natureOffers.add(new MerchantOffer(
+                new ItemStack(Items.POISONOUS_POTATO, 1),
+                new ItemStack(Items.MOSS_BLOCK, 1),
+                getSpellScroll(SpellRegistry.EARTHQUAKE_SPELL.get()),
+                142857, 0, 0.01f));
+        natureOffers.add(new MerchantOffer(
+                new ItemStack(Items.POISONOUS_POTATO, 1),
+                new ItemStack(Items.SHROOMLIGHT, 1),
+                getSpellScroll(SpellRegistry.FIREFLY_SWARM_SPELL.get()),
+                142857, 0, 0.01f));
+        natureOffers.add(new MerchantOffer(
+                new ItemStack(Items.POISONOUS_POTATO, 1),
+                new ItemStack(Items.ARROW, 1),
+                getSpellScroll(SpellRegistry.POISON_ARROW_SPELL.get()),
+                142857, 0, 0.01f));
+        natureOffers.add(new MerchantOffer(
+                new ItemStack(Items.POISONOUS_POTATO, 1),
+                new ItemStack(Items.MUD, 1),
+                getSpellScroll(SpellRegistry.POISON_BREATH_SPELL.get()),
+                142857, 0, 0.01f));
+        natureOffers.add(new MerchantOffer(
+                new ItemStack(Items.POISONOUS_POTATO, 1),
+                new ItemStack(Items.MUD, 1),
+                getSpellScroll(SpellRegistry.POISON_SPLASH_SPELL.get()),
+                142857, 0, 0.01f));
+        natureOffers.add(new MerchantOffer(
+                new ItemStack(Items.POISONOUS_POTATO, 2),
+                new ItemStack(Items.SPIDER_EYE, 1),
+                getSpellScroll(SpellRegistry.SPIDER_ASPECT_SPELL.get()),
+                142857, 0, 0.01f));
+        natureOffers.add(new MerchantOffer(
+                new ItemStack(Items.POISONOUS_POTATO, 3),
+                new ItemStack(Items.MOSS_BLOCK, 1),
+                getSpellScroll(SpellRegistry.STOMP_SPELL.get()),
+                142857, 0, 0.01f));
+    }
+
+    public ItemStack getSpellScroll(AbstractSpell spell) {
+        var itemstack = new ItemStack(ItemRegistry.SCROLL.get());
+        ISpellContainer.createScrollContainer(spell, Math.max(spell.getMaxLevel() / 2, 1), itemstack);
+        return itemstack;
     }
 
     @Override

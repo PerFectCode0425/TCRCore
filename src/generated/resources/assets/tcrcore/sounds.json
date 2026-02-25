@@ -10,5 +10,11 @@
       "tcrcore:bgm/win_bgm"
     ],
     "subtitle": "subtitles.tcrcore.bgm.win_bgm"
+  },
+  "sound.tcr.clap": {
+    "sounds": [
+      "tcrcore:common/clap"
+    ],
+    "subtitle": "subtitles.tcrcore.sound.clap"
   }
 }

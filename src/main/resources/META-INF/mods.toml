@@ -56,7 +56,7 @@ side="BOTH"
 modId="minecraft"
 mandatory=true
 versionRange="${minecraft_version_range}"
-ordering="NONE"
+ordering="AFTER"
 side="BOTH"
 
 [[dependencies.${mod_id}]]
@@ -96,6 +96,20 @@ side="BOTH"
 
 [[dependencies.${mod_id}]]
 modId="efn"
+mandatory=true
+versionRange="[0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="indestructible"
+mandatory=true
+versionRange="[0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="combat_evolution"
 mandatory=true
 versionRange="[0,)"
 ordering="AFTER"

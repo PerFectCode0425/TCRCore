@@ -3,6 +3,7 @@ package com.p1nero.tcrcore.datagen.lang;
 import com.github.L_Ender.cataclysm.init.ModItems;
 import com.github.dodo.dodosmobs.init.ModEntities;
 import com.hm.efn.registries.EFNItem;
+import com.p1nero.p1nero_ec.effect.PECEffects;
 import com.p1nero.tcr_bosses.entity.TCRBossEntities;
 import com.p1nero.tcrcore.TCRCoreMod;
 import com.p1nero.tcrcore.block.TCRBlocks;
@@ -29,6 +30,8 @@ public class TCRZHLangGenerator extends TCRLangProvider {
     @Override
     protected void addTranslations() {
 
+        this.add("travelerstitles.tcrcore.sanctum", "梦之领域");
+        this.add("travelerstitles.tcrcore.real", "永远抵达不到的现实");
         this.add("travelerstitles.minecraft.overworld", "记忆中的主世界");
         this.add("travelerstitles.aether.the_aether", "记忆中的天界");
         this.add("travelerstitles.minecraft.the_nether", "记忆中的下界");
@@ -36,6 +39,9 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.add("travelerstitles.minecraft.the_end", "记忆中的终界");
         this.add("travelerstitles.minecraft.the_end.color", "4f219e");
         this.add("travelerstitles.pbf1.sanctum_of_the_battle1", "轮回绝境");
+
+        this.addBiome(TCRBiomes.AIR, "");
+        this.addBiome(TCRBiomes.REAL, "");
 
         this.addQuest(TCRQuests.WAIT_RESONANCE_STONE_CHARGE, "间章", "等待[%s]充能", "[%s]的能量已经耗尽，重新充能需要一段时间。在充能完成之前先去做点别的事吧！\n\n§6[注意]：若不想等待，可使用\"/time add\"命令将时间增加6000。");
         this.addQuest(TCRQuests.PUT_DESERT_EYE_ON_ALTAR, "间章", "将[%s]置于祭坛上", "[%s]已经寻回，快将它归位到圣殿长廊的祭坛上吧！");
@@ -53,7 +59,7 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         //序章
         this.addQuest(TCRQuests.TALK_TO_AINE_0, "序章", "和%s对话", "和%s说好了一起来到这个世界，但是当你回过神来后%s已经找不着人影了，快去圣殿里找找她吧！你依稀记得她好像说有什么新时装要给你。");
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_0, "序章", "和？对话", "和%s说好了一起来到这个世界，但是当你回过神来后%s已经找不着人影了。这里到底是什么地方？和圣殿长廊中那位端庄的女人交流看看吧！");
-        this.addQuest(TCRQuests.TALK_TO_FERRY_GIRL_0, "序章", "前往Overworld", "你已经听说了这个世界的故事，准备好了就前往码头寻找 %s 吧！她将为我们打开前往Overworld的路！她似乎还有什么宝贝要送给你。");
+        this.addQuest(TCRQuests.TALK_TO_FERRY_GIRL_0, "序章", "前往[%s]", "你已经听说了这个世界的故事，准备好了就前往码头寻找 %s 吧！她将为我们打开前往[%s]的路！她似乎还有什么宝贝要送给你。");
         this.addQuest(TCRQuests.TALK_TO_ORNN_0, "序章", "和%s对话", "在%s的建议下，先去武库找%s武装一下我们自己吧！充分的武装才能保证我们顺利的冒险！");
 
         //驯龙支线
@@ -61,7 +67,7 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addQuest(TCRQuests.TAME_DRAGON_BACK_TO_FERRY_GIRL, "驯龙之章", "和%s对话", "经过你精心呵护，龙已长大成年。%s之前说过，在龙养大后她有宝具要赠与我们。快回去找%s看看吧！\n\n§a[任务奖励]: §f[%s] [%s]");
 
         //主线·沙漠之眼
-        this.addQuest(TCRQuests.USE_LAND_RESONANCE_STONE, "大地之章", "使用[%s]", "你终于来到了传说中的Overworld。在这里将会遇到什么样的冒险呢？快使用[%s]吧！它将指引我们寻回第一颗眼睛。");
+        this.addQuest(TCRQuests.USE_LAND_RESONANCE_STONE, "大地之章", "使用[%s]", "你终于来到了传说中的[%s]。在这里将会遇到什么样的冒险呢？快使用[%s]吧！它将指引我们寻回第一颗眼睛。");
         this.addQuest(TCRQuests.GET_DESERT_EYE, "大地之章", "寻回[%s]", "[%s]为我们标记了[%s]所散落的位置，快出发去寻回[%s]吧！\n\n§a[提示]:[%s§a]可能藏匿于方块之中！\n\n§4[注意]：若获取后无法完成任务，请尝试关闭可能自动拾取物品的插件，并扔出去后重新拾取！");
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_1, "大地之章", "和%s对话", "[%s]已经寻回，快回主城找%s汇报吧！她将告诉我们下一步该做什么。");
         //奇美拉支线
@@ -70,8 +76,8 @@ public class TCRZHLangGenerator extends TCRLangProvider {
 
         //主线·深渊之眼
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_2, "海洋之章", "和%s对话", "经过漫长的等待，%s已完成充能。快回去找%s吧！她在圣殿里等你。");
-        this.addQuest(TCRQuests.GO_TO_OVERWORLD_OCEAN, "海洋之章", "前往Overworld", "[%s]已完成充能，该前往Overworld使用它了！它将为我们指引[%s]的位置！");
-        this.addQuest(TCRQuests.USE_OCEAN_RESONANCE_STONE, "海洋之章", "使用[%s]", "你已经抵达了Overworld，快使用[%s]吧！它将为我们指引[%s]的位置！到底有什么样的冒险在等着我们呢？");
+        this.addQuest(TCRQuests.GO_TO_OVERWORLD_OCEAN, "海洋之章", "前往[%s]", "[%s]已完成充能，该前往[%s]使用它了！它将为我们指引[%s]的位置！");
+        this.addQuest(TCRQuests.USE_OCEAN_RESONANCE_STONE, "海洋之章", "使用[%s]", "你已经抵达了[%s]，快使用[%s]吧！它将为我们指引[%s]的位置！到底有什么样的冒险在等着我们呢？");
         this.addQuest(TCRQuests.GET_OCEAN_EYE, "海洋之章", "寻回[%s]", "[%s]为我们标记了[%s]所散落的位置，快出发去寻回[%s]吧！\n\n§a[提示]:[%s§a]可能藏匿于方块之中！ \n\n§4[注意]：若获取后无法完成任务，请尝试关闭可能自动拾取物品的插件，并扔出去后重新拾取！");
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_3, "海洋之章", "和%s对话", "[%s]已经寻回，快回主城找%s汇报吧！她将告诉我们下一步该做什么。\n\n本次我们还取回了[%s]，这里面究竟蕴藏了什么秘密？顺便问问吧！");
 
@@ -81,8 +87,8 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         //主线·诅咒之眼
         this.addQuest(TCRQuests.TALK_TO_AINE_ECHO, "灵魂之章", "和%s对话", "[%s]也不知道[%s]的来历，去找%s问问吧！或许智库中有所记载，借助魔力或许可以解读其中的秘密。");
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_4, "灵魂之章", "和%s对话", "%s已经将[%s]解读完毕了，现在请把消息告诉%s吧！");
-        this.addQuest(TCRQuests.GO_TO_OVERWORLD_CURSED, "灵魂之章", "前往Overworld", "你意外地从[%s]中获得了[%s]散落的位置，快前去Overworld寻回它吧！[%s]将为我们指引它的位置。");
-        this.addQuest(TCRQuests.USE_CURSED_RESONANCE_STONE, "灵魂之章", "使用[%s]", "你意外地从[%s]中获得了[%s]散落的位置，快前去Overworld寻回它吧！[%s]将为我们指引它的位置。");
+        this.addQuest(TCRQuests.GO_TO_OVERWORLD_CURSED, "灵魂之章", "前往[%s]", "你意外地从[%s]中获得了[%s]散落的位置，快前去[%s]寻回它吧！[%s]将为我们指引它的位置。");
+        this.addQuest(TCRQuests.USE_CURSED_RESONANCE_STONE, "灵魂之章", "使用[%s]", "你意外地从[%s]中获得了[%s]散落的位置，快前去[%s]寻回它吧！[%s]将为我们指引它的位置。");
         this.addQuest(TCRQuests.GET_CURSED_EYE, "灵魂之章", "寻回[%s]", "[%s]为我们标记了[%s]所散落的位置，快出发去寻回[%s]吧！\n\n§a[提示]:§f探索以寻找召唤[%s]的线索！");
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_5, "灵魂之章", "和%s对话", "[%s]已经寻回，快回主城找%s汇报吧！她将告诉我们下一步该做什么。");
 
@@ -93,8 +99,8 @@ public class TCRZHLangGenerator extends TCRLangProvider {
 
         //主线·烈焰之眼
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_6, "烈焰之章", "和%s对话", "经过漫长的等待，%s已完成充能。快回去找%s吧！她在圣殿里等你。");
-        this.addQuest(TCRQuests.GO_TO_OVERWORLD_CORE, "烈焰之章", "前往Overworld", "[%s]已完成充能，该前往Overworld使用它了！它将为我们指引[%s]的位置！");
-        this.addQuest(TCRQuests.USE_CORE_RESONANCE_STONE, "烈焰之章", "使用[%s]", "你已经抵达了Overworld，快使用[%s]吧！它将为我们指引[%s]的位置！到底有什么样的冒险在等着我们呢？");
+        this.addQuest(TCRQuests.GO_TO_OVERWORLD_CORE, "烈焰之章", "前往[%s]", "[%s]已完成充能，该前往[%s]使用它了！它将为我们指引[%s]的位置！");
+        this.addQuest(TCRQuests.USE_CORE_RESONANCE_STONE, "烈焰之章", "使用[%s]", "你已经抵达了[%s]，快使用[%s]吧！它将为我们指引[%s]的位置！到底有什么样的冒险在等着我们呢？");
         this.addQuest(TCRQuests.GET_FLAME_EYE, "烈焰之章", "寻回[%s]", "[%s]为我们标记了[%s]所散落的位置，快出发去寻回[%s]吧！\n\n§a[提示]:§f[%s]或藏匿于地下高塔之中，你需要有破开黑曜石屏障的力量！");
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_7, "烈焰之章", "和%s对话", "[%s]已经寻回，快回主城找%s汇报吧！她将告诉我们下一步该做什么。");
 
@@ -102,8 +108,8 @@ public class TCRZHLangGenerator extends TCRLangProvider {
 
         //主线·地狱之章
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_8, "地狱之章", "和%s对话", "经过漫长的等待，%s已完成充能。快回去找%s吧！她在圣殿里等你。");
-        this.addQuest(TCRQuests.GO_TO_NETHER, "地狱之章", "前往Nether", "散落在Overworld的神之眼皆已寻回，共鸣石或许无法在Overworld发挥作用。按%s所说，使用[%s]点燃黑曜石框架打开地狱之门（Gate of the Nether）吧！");
-        this.addQuest(TCRQuests.USE_NETHER_RESONANCE_STONE, "地狱之章", "使用[%s]", "你已经抵达The Nether，快使用[%s]吧！它将为我们指引[%s]的位置！到底有什么样的冒险在等着我们呢？");
+        this.addQuest(TCRQuests.GO_TO_NETHER, "地狱之章", "前往[%s]", "散落在[%s]的神之眼皆已寻回，共鸣石或许无法在[%s]发挥作用。按%s所说，使用[%s]点燃黑曜石框架打开地狱之门（Gate of the Nether）吧！");
+        this.addQuest(TCRQuests.USE_NETHER_RESONANCE_STONE, "地狱之章", "使用[%s]", "你已经抵达[%s]，快使用[%s]吧！它将为我们指引[%s]的位置！到底有什么样的冒险在等着我们呢？");
         this.addQuest(TCRQuests.GET_MONST_EYE, "地狱之章", "寻回[%s]", "[%s]为我们标记了[%s]所散落的位置，快出发去寻回[%s]吧！ \n\n§a[提示]：建议装备[%s]");
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_9, "地狱之章", "和%s对话", "[%s]已经寻回，快回主城找%s汇报吧！她将告诉我们下一步该做什么。");
 
@@ -111,22 +117,31 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addQuest(TCRQuests.GET_WITHER_EYE, "毁灭之章", "寻回[%s]", "海船墓地回响的研究有进展了！我们必须启动古老的召唤仪式，将死亡使徒唤回！快按%s所说的，召唤[%s]，夺回[%s]吧！");
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_10, "毁灭之章", "和%s对话", "[%s]已经寻回，快回主城找%s汇报吧！她将告诉我们下一步该做什么。");
         this.addQuest(TCRQuests.TALK_TO_AINE_SAMSARA, "间章", "和%s对话", "%s告诉我们，[%s]是打开[%s]的钥匙。[%s]究竟有什么秘密？快去找%s问问吧！");
+        this.addQuest(TCRQuests.GO_TO_SAMSARA, "轮回之章", "前往[%s]", "[%s]里到底藏着什么秘密？快按%s所说的方法，激活[%s]看看吧！");
 
         //主线·天域之章
         this.addQuest(TCRQuests.TALK_TO_CHRONOS_11, "天域之章", "和%s对话", "经过漫长的等待，%s已完成充能。快回去找%s吧！她在圣殿里等你。");
-        this.addQuest(TCRQuests.GO_TO_AETHER, "天域之章", "前往Aether", "以生命之源（%s）浇灌%s所筑之框，即可开启天堂之门！");
+        this.addQuest(TCRQuests.GO_TO_AETHER, "天域之章", "前往[%s]", "以生命之源（%s）浇灌%s所筑之框，即可开启天堂之门！");
         this.addQuest(TCRQuests.USE_AETHER_RESONANCE_STONE, "天域之章", "使用[%s]", "收集神之眼的旅途至今，仅剩天域使徒（Sky Angel），和虚无使徒（Void Angel）的神之眼尚未归还...");
         this.addQuest(TCRQuests.GET_STORM_EYE, "天域之章", "寻回[%s]", "[%s]为我们标记了[%s]所散落的位置，快出发去寻回[%s]吧！");
-        this.addQuest(TCRQuests.TALK_TO_CHRONOS_12, "天域之章", "和%s对话", "[%s]已经寻回，快回主城找%s汇报吧！她将告诉我们下一步该做什么。");
-        //        this.addQuest(TCRQuests., "", "", "");
+        this.addQuest(TCRQuests.TALK_TO_SKY_GOLEM, "天域之章", "和%s对话", "%s似乎...没有完全消散，祂似乎恢复了神智，和%s交流看看吧！");
+        this.addQuest(TCRQuests.TALK_TO_CHRONOS_12, "天域之章", "和%s对话", "[%s]已经寻回，并且了解了自己的故事...快回主城找%s汇报吧！她将告诉我们下一步该做什么。");
+        this.addQuest(TCRQuests.TALK_TO_AINE_2, "天域之章", "和%s对话", "[%s]已经寻回，并且了解了自己的故事...和%s聊聊吧。");
+        //主线·终末之章
+        this.addQuest(TCRQuests.GO_TO_OVERWORLD_END, "终末之章", "前往[%s]", "%s说，最后一颗神之眼，就位于[%s]。我们需要在[%s]，找到通往[%s]的[%s]，才能开启前往[%s]的大门！");
+        this.addQuest(TCRQuests.USE_END_RESONANCE_STONE, "终末之章", "使用[%s]", "我们需要在[%s]，找到通往[%s]的[%s]，才能开启前往[%s]的大门！共鸣石将为我们指引[%s]的位置。");
+        this.addQuest(TCRQuests.GO_TO_THE_END, "终末之章", "前往[%s]", "[%s]为我们指引了[%s]的位置，接下来，想办法前往[%s]吧！");
+        this.addQuest(TCRQuests.GET_VOID_EYE, "终末之章", "寻回[%s]", "[%s]就在[%s]，拼尽全力夺回它！");
+        this.addQuest(TCRQuests.TALK_TO_CHRONOS_END, "终章", "和%对话", "[%s]已经寻回...你终于集齐了8颗神之眼，是时候准备再创世仪式了。");
+        this.addQuest(TCRQuests.KILL_MAD_CHRONOS, "终章", "击败[？？？]", "出现巨大的魔物，拼尽全力战胜祂！");
+        this.addQuest(TCRQuests.TALK_TO_AINE_GAME_CLEAR, "后日谈", "和%s对话", "你，真的读懂[远梦之棺（The Casket of Reveries）]了吗？");
 
         this.addEffect(TCREffects.INVULNERABLE, "无敌");
         this.addEffect(TCREffects.SOUL_INCINERATOR, "灵魂火");
+        this.addEffect(PECEffects.SOUL_INCINERATOR, "灵魂火");
 
         this.add("epicfight.skill_slot.passive4", "被动4");
         this.add("epicfight.skill_slot.passive5", "被动5");
-        this.add("travelerstitles.tcrcore.sanctum", "梦之领域");
-        this.addBiome(TCRBiomes.AIR, "虚无之地");
 
         StartScreenHandler.onGenerateZH(this);
         FirstEnterCloudlandScreenHandler.onGenerateZH(this);
@@ -173,6 +188,7 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.add(TCRItems.CORE_RESONANCE_STONE.get(), "炉心共鸣石");
         this.add(TCRItems.NETHER_RESONANCE_STONE.get(), "地狱共鸣石");
         this.add(TCRItems.SKY_RESONANCE_STONE.get(), "天域共鸣石");
+        this.add(TCRItems.END_RESONANCE_STONE.get(), "终界共鸣石");
         this.addInfo("resonance_stone_usage", "可与使徒封印的位置共鸣。");
         this.add(TCRItems.CORE_FLINT.get(), "炉心火石");
         this.addItemUsageInfo(TCRItems.CORE_FLINT.get(), "在黑曜石框架上使用，可打开地狱之门。");
@@ -192,6 +208,8 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "上面写着古老的神谕，暗示了火种散落的地方。回主城给守望者看看吧，说不定对冒险有帮助！");
         this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "§c多人模式请勿占据他人任务道具！每人都需各自提交！", 2);
 
+        this.addInfo("yamato_skill_lock", "[%s]已锁定，需对应附魔书以解锁！");
+        this.addInfo("congratulation", "恭喜！");
         this.addInfo("open_backpack_tutorial", "按下 [%s] 以打开随身空间");
         this.addInfo("unlock_new_ftb_page_title", "§6新图鉴解锁！");
         this.addInfo("unlock_new_ftb_page_subtitle", "§a按[%s§a]查看");
@@ -217,6 +235,7 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addInfo("nether_unlock", "地狱之门已解锁！");
         this.addInfo("end_unlock", "末地之门已解锁！");
         this.addInfo("dim_max_4_players", "§6幻境最多容纳4人！");
+        this.addInfo("dim_max_players", "§6已达人数上限");
         this.addInfo("can_not_enter_before_finish", "§6当前没有进入幻镜的命运。");
         this.addInfo("can_not_do_this_too_early", "§6当前没有做此事的命运。");
         this.addInfo("after_heal_stop_attack", "§6停止攻击以取消傀儡仇恨");
@@ -299,33 +318,10 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addInfo("godness_statue_pos", "女神像");
         this.addInfo("eye_pos_mark", "[%s]之所在：[%s]");
 
-        this.addAdvancement("dragon_tame", "驯龙高手", "驯服斯克里兹");
-        this.addAdvancement(TCRCoreMod.MOD_ID, "远梦之棺", "梦开始的地方，前往主城寻找守护者。");
-        this.addAdvancement(TCRCoreMod.MOD_ID + "_weapon", "王之宝库", "所有可获得的且进行过适配的武器或材料，可通过 [JEI] 查看获取方式及详细信息");
-        this.addAdvancement("find_ymsw", "呱呱村庄", "抵达呱呱村庄");
-        this.addAdvancement("aquamirae_weapon", "海灵物语-武器", "");
-        this.addAdvancement("cataclysm_weapon", "灾变-武器", "");
-        this.addAdvancement("legend_weapon", "传奇武器", "");
-        this.addAdvancement("ef_legacy", "史诗战斗-武器", "皆可通过合成获取，拥有不同的武器技能和不同的动作模板，可在JEI查看合成方式及技能信息");
-        this.addAdvancement("kill_pillager", "投名状", "任务已经完成，该回去找守护神了。");
-        this.addAdvancement("mark_map", "标记地点", "守护神帮你标出了神之眼散落的地方，现在动身去夺回它们吧！");
-        this.addAdvancement("storm_eye", "风暴之眼", "§a§o当战火撕裂云层，她以风暴为阶梯，为子民筑起悬空净土");
-        this.addAdvancement("abyss_eye", "深渊之眼", "§a§o深渊吞噬陆地时，祂将自己缝进海床，血肉化成气泡之城");
-        this.addAdvancement("flame_eye", "烈焰之眼", "§a§o岩浆奔涌之地，祂剜出心脏，铸成永不熄灭的烽火台");
-        this.addAdvancement("desert_eye", "沙漠之眼", "§a§o守卫者不是怪物，它们是子民自愿化身的活体墓碑");
-        this.addAdvancement("cursed_eye", "诅咒之眼", "§a§o当背叛者刺穿她的脊柱，冻泪瞬间冰封三千幽灵船");
-
-        this.addAdvancement("flame_kill", "伊格尼斯(Ignis)之魂", "击败伊格尼斯(Ignis)，获得炎葬");
-        this.addAdvancement("storm_kill", "斯库拉(Scylla)之魂", "击败斯库拉(Scylla)，获得庭浪锚戟");
-        this.addAdvancement("abyss_kill", "利维坦(Leviathan)之魂", "击败利维坦(Leviathan)，获得潮汐利爪");
-        this.addAdvancement("desert_kill", "远古遗魂(Ancient Remnant)之魂", "击败远古遗魂(Ancient Remnant)，获得沙暴之怒");
-        this.addAdvancement("cursed_kill", "玛莱迪克特斯(Maledictus)之魂", "击败玛莱迪克特斯(Maledictus)，获得断魂战戟");
-
-        this.addAdvancement("stage1", "阶段1","");
-        this.addAdvancement("stage2", "阶段2","");
-        this.addAdvancement("stage3", "阶段3","");
-        this.addAdvancement("stage4", "阶段4","");
-        this.addAdvancement("stage5", "阶段5","");
+        this.addAdvancement(TCRCoreMod.MOD_ID, "远梦之棺", "梦开始的地方");
+        this.addAdvancement("unlock_weapon_armor_book", "百兵图", "");
+        this.addAdvancement("unlock_magic_and_boss", "死灵法卷", "");
+        this.addAdvancement("unlock_epic_boss", "凋灵魂石", "");
 
         this.add(TCREntities.CHRONOS_SOL.get(), "羲轮｜Chronos Sol");
         this.add(TCREntities.FERRY_GIRL.get(), "摆渡人");
@@ -333,15 +329,15 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.add(TCREntities.ORNN.get(), "老奥恩");
         this.add(TCREntities.TUTORIAL_GOLEM.get(), "训练傀儡");
 
-        this.add(TCRBossEntities.LEVIATHAN_HUMANOID.get(), "沧溟 | Thalassa Mare");
-        this.add(TCRBossEntities.HARBINGER_HUMANOID.get(), "归寂 | Letum Quietus");
-        this.add(TCRBossEntities.ENDER_GUARDIAN_HUMANOID.get(), "湮无 | Nihil Vacuum");
-        this.add(TCRBossEntities.IGNIS_HUMANOID.get(), "烬煌 | Ignis Ardens");
+        this.add(TCRBossEntities.LEVIATHAN_HUMANOID.get(), "沧溟|Thalassa-Mare");
+        this.add(TCRBossEntities.HARBINGER_HUMANOID.get(), "归寂|Letum-Quietus");
+        this.add(TCRBossEntities.ENDER_GUARDIAN_HUMANOID.get(), "湮无|Nihil-Vacuum");
+        this.add(TCRBossEntities.IGNIS_HUMANOID.get(), "烬煌|Ignis-Ardens");
         this.add(TCRBossEntities.IGNIS_SHIELD.get(), "烬煌盾");
-        this.add(TCRBossEntities.SCYLLA_HUMANOID.get(), "穹霄 | Caelum Altum");
-        this.add(TCRBossEntities.ANCIENT_REMNANT_HUMANOID.get(), "坤岳 | Terra Montis");
-        this.add(TCRBossEntities.MALEDICTUS_HUMANOID.get(), "魂兮 | Anima Essentia");
-        this.add(TCRBossEntities.NETHERITE_HUMANOID.get(), "狱渊 | Infernus Abyssus");
+        this.add(TCRBossEntities.SCYLLA_HUMANOID.get(), "穹霄|Caelum-Altum");
+        this.add(TCRBossEntities.ANCIENT_REMNANT_HUMANOID.get(), "坤岳|Terra-Montis");
+        this.add(TCRBossEntities.MALEDICTUS_HUMANOID.get(), "魂兮|Anima-Essentia");
+        this.add(TCRBossEntities.NETHERITE_HUMANOID.get(), "狱渊|Infernus-Abyssus");
 
 
         this.addDialogAnswer(EntityType.IRON_GOLEM, 0, "人类，准备好接受试炼了？");
@@ -425,14 +421,28 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 37, "归还神之眼之旅至今，仅剩天域使徒（Sky Angel），和虚无使徒（Void Angel）的神之眼尚未归还...随着[死亡使徒之眼]归还，天堂之门也随之打开。");
         this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 38, "传言生灵死后，善者入天堂，恶者下地狱，善恶不分者遁入虚无，而死亡使徒与灵魂使徒（Soul Angel），则掌管冥河，安排亡灵们的去向。");
         this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 39, "黑潮过后，阴阳平衡被打乱，亡灵也不断涌入主世界，无法轮回。");
-        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 40, "出发吧，趁我的力量还未完全消退，§6以生命之源浇灌萤石所筑之框，即可开启天堂之门！§f待阁下步入天境（The Aether），再以共鸣石寻[%s]之所在吧。");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 40, "出发吧，趁我的力量还未完全消退，§6以生命之源浇灌萤石所筑之框，即可开启天堂之门！§f待阁下步入天域（The Aether），再以共鸣石寻[%s]之所在吧。");
         this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 41, "天域凶险，吾将赐予阁下§6[御剑(Sword Soaring)]§f的祝福！");
-        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 42, "");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 42, "咳咳，阁下，你来了，咳咳...寻找[%s]可还顺利？");
+        this.addDialogOption(TCREntities.CHRONOS_SOL.get(), 14, "%s，");
+        this.addDialogOption(TCREntities.CHRONOS_SOL.get(), 15, "我已知晓我是谁");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 43, "...（你将%s发生的事告诉了%s）");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 44, "原来如此...原来死海文书中的救世主，乃是纯净使徒...唯有纯净能扫去一切黑暗...");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 45, "难怪吾总觉得，阁下与我们有着同样的气息，且能穿行于三界。");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 46, "咳，眼下就差最后一步...就可以启动仪式了...虚无使徒的神之眼，就在终界...");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 47, "我已无力为共鸣石充能，这共鸣石的能量，仅足以为阁下寻找[%s]...剩下的路，还请阁下保重！");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 48, "......");
+        this.addDialogOption(TCREntities.CHRONOS_SOL.get(), 16, "%s？");
+        this.addDialogOption(TCREntities.CHRONOS_SOL.get(), 17, "%s！");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 49, "Purus Absolutus..Purus Absolutus...!");
+        this.addDialogAnswer(TCREntities.CHRONOS_SOL.get(), 50, "");
 
         this.addDialogOption(TCREntities.AINE.get(), -4, "§6法术淬灵");
         this.addDialogOption(TCREntities.AINE.get(), -3, "§6法术交易");
         this.addDialogOption(TCREntities.AINE.get(), -2, "结束对话");
         this.addDialogOption(TCREntities.AINE.get(), -1, "继续");
+        this.addDialogAnswer(TCREntities.AINE.get(), -2, "要学习哪个流派（School）呢？");
+        this.addDialogAnswer(TCREntities.AINE.get(), -1, "%s, 你来了！今天要做些什么呢？");
         this.addDialogAnswer(TCREntities.AINE.get(), 0, "%s, 你来了！我正在阅读这个世界的智库");
         this.addDialogOption(TCREntities.AINE.get(), 0, "关于%s");
         this.addDialogAnswer(TCREntities.AINE.get(), 1, "你已经和那个女人打过招呼啦？她应该就是这里的老大了，看来要解决这里的问题，我们暂时只能按她的话做了。");
@@ -483,12 +493,39 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addDialogAnswer(TCREntities.AINE.get(), 30, "嗯...智库里说，注入[%s]，就可以激活它，打开[%s]的传送门！");
         this.addDialogAnswer(TCREntities.AINE.get(), 31, "§6[%s§6]是介于冥界和主世界之间的地带，在[%s§6]内，我们可以借助召唤祭坛，觐见往昔的使徒");
         this.addDialogAnswer(TCREntities.AINE.get(), 32, "或许我们可以进去瞧瞧，说不定可以从记忆中获取祂们的力量！");
-        this.addDialogAnswer(TCREntities.AINE.get(), 33, "");
-        this.addDialogAnswer(TCREntities.AINE.get(), 34, "");
-        this.addDialogAnswer(TCREntities.AINE.get(), 35, "");
+        this.addDialogAnswer(TCREntities.AINE.get(), 33, "%s，你看起来似乎有什么心事，在%s发生了什么？");
+        this.addDialogOption(TCREntities.AINE.get(), 18, "%s，其实我...");
+        this.addDialogAnswer(TCREntities.AINE.get(), 34, "...（你将%s发生的事告诉了%s）");
+        this.addDialogAnswer(TCREntities.AINE.get(), 35, "原来，这就是为什么你之前说，祂们似乎都认识你...");
+        this.addDialogAnswer(TCREntities.AINE.get(), 36, "不知不觉，只剩下[%s]还未归还了...加油，！");
+        this.addDialogAnswer(TCREntities.AINE.get(), 37, "%s，你来了！或者说，应该称呼你为...祂们怎么称乎你的来着？Purus！");
+        this.addDialogAnswer(TCREntities.AINE.get(), 38, "治疗结束，有什么想问的尽管问吧！我都会为你解答的！");
+        this.addDialogOption(TCREntities.AINE.get(), 19, "关于你");
+        this.addDialogOption(TCREntities.AINE.get(), 20, "关于使徒(Angel)");
+        this.addDialogOption(TCREntities.AINE.get(), 21, "关于黑潮的真相");
+        this.addDialogOption(TCREntities.AINE.get(), 22, "关于未来");
+        this.addDialogOption(TCREntities.AINE.get(), 23, "§a我没有想问的了");
+        this.addDialogAnswer(TCREntities.AINE.get(), 39, "我是你的主治医师，负责治疗你的精神分裂症。至于我为什么长这副样子，因为我们在你的精神世界，这里的一切都是你想象的样子。");
+        this.addDialogAnswer(TCREntities.AINE.get(), 40, "无需担心，你已经亲手杀死了它们，它们永远死在了你的梦中，它们不会再来了。");
+        this.addDialogAnswer(TCREntities.AINE.get(), 41, "黑潮实际上是Risperdal的药物作用，我们通过药物控制住各个人格的活动。而你，作为最友善的一个人格，最纯洁的一个人格，我们选择了你，作为突破口。其他人格太难缠了，因此我们只能在你掌控身体的时候，对你使用药物，镇压其他人格。");
+        this.addDialogAnswer(TCREntities.AINE.get(), 42, "药物在你的精神世界里就表现为“黑潮”，它替我们束缚住了其他人格。但是，在你的世界里，只有你能够对他们产生实质的影响。于是我们编造了再创世的谎言，引导你一步步地抹除它们。");
+        this.addDialogAnswer(TCREntities.AINE.get(), 43, "今后，你可以像正常人一样生活了！当然，只要你想回到这里，随时可以告诉我！");
+        this.addDialogAnswer(TCREntities.AINE.get(), 44, "那么，我们一起出去吧！");
+        this.addDialogOption(TCREntities.AINE.get(), 24, "去哪里？");
+        this.addDialogAnswer(TCREntities.AINE.get(), 45, "回到现实！");
+        this.addDialogOption(TCREntities.AINE.get(), 25, "...");
+        this.addDialogAnswer(TCREntities.AINE.get(), 46, "怎么啦，%s？");
+        this.addDialogAnswer(TCREntities.AINE.get(), 47, "...");
+        this.addDialogOption(TCREntities.AINE.get(), 26, "不，我想留在这里");
+        this.addDialogAnswer(TCREntities.AINE.get(), 48, "为什么？");
+        this.addDialogOption(TCREntities.AINE.get(), 27, "我想...");
+        this.addDialogOption(TCREntities.AINE.get(), 28, "永远...");
+        this.addDialogOption(TCREntities.AINE.get(), 29 , "和他们在一起...");
+        this.addDialogAnswer(TCREntities.AINE.get(), 49, "...我尊重你的选择。等你想回到现实了，随时可以来找我！");
 
         this.addDialogOption(TCREntities.ORNN.get(), -2, "结束对话");
         this.addDialogOption(TCREntities.ORNN.get(), -1, "继续");
+        this.addDialogAnswer(TCREntities.ORNN.get(), -1, "火焰的温度、钢铁的韧性——这两样东西能解决世上大多数问题。主人，有何吩咐？");
         this.addDialogAnswer(TCREntities.ORNN.get(), 0, "火焰的温度、钢铁的韧性——这两样东西能解决世上大多数问题。");
         this.addDialogOption(TCREntities.ORNN.get(), 0, "你是何人？");
         this.addDialogAnswer(TCREntities.ORNN.get(), 1, "吾乃半神，主掌锻造与工艺，为圣殿铸神兵。黑潮来袭之前，本以为老夫所铸神兵天下无敌。现在想来，可笑，可笑。");
@@ -509,6 +546,7 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addDialogOption(TCREntities.FERRY_GIRL.get(), -3, "返回");
         this.addDialogOption(TCREntities.FERRY_GIRL.get(), -2, "结束对话");
         this.addDialogOption(TCREntities.FERRY_GIRL.get(), -1, "继续");
+        this.addDialogAnswer(TCREntities.FERRY_GIRL.get(), -1, "你好，主人，有什么可以帮助您的吗？");
         this.addDialogAnswer(TCREntities.FERRY_GIRL.get(), 0, "你好，阁下，有什么可以帮助您的吗？");
         this.addDialogOption(TCREntities.FERRY_GIRL.get(), 0, "你是何人？");
         this.addDialogAnswer(TCREntities.FERRY_GIRL.get(), 1, "吾乃圣殿摆渡人，受%s大人之令在此处护送阁下离开结界前往那方世界。吾也会接纳那方世界的亡魂，因此也留下了不少他们散落的饰品遗物。但需使用[%s]才能于原始之海中打捞。若是阁下有%s，也可交予我。");
@@ -547,6 +585,53 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addDialogAnswer(EntityTypeModule.RIBBIT.get(), 3, "呱，打发叫花子呱！我要12个呱！");
         this.addDialogAnswer(EntityTypeModule.RIBBIT.get(), 4, "我们原是海洋村庄的人类，受到黑潮诅咒而变成这副模样呱。");
         this.addDialogAnswer(EntityTypeModule.RIBBIT.get(), 5, "海洋高塔十分危险呱，念在紫水晶块的份上，这些宝具你暂且带着防身呱！");
+
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), -2, "返回");
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), -1, "继续");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 0, "Purus Absolutus！我想起来了，我全都想起来了！");
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), 0, "Purus Absolutus？");
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), 1, "究竟是什么意思？");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 1, "你不记得了吗？Purus Absolutus！");
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), 2, "我？");
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), 3, "我的名字？");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 2, "看来你也受黑潮侵蚀，失去了记忆...没错，你，Purus Absolutus，纯净之使徒！");
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), 4, "？？？");
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), 5, "这一切是怎么回事？");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 3, "吾将神性划入[%s]之中，以免受黑潮之侵蚀。");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 4, "共鸣石指引你取回了[%s]，才能将我的记忆补全！Purus Absolutus，你当真什么都不记得了吗？");
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), 6, "抱歉");
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), 7, "我什么都不记得了");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 5, "这样啊...在帮助你找回记忆之前，请告诉我都发生了什么，你为何来到这里？");
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), 8, "...");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 6, "...（你将之前发生的一切告诉了[%s]）");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 7, "原来如此...%s真的坚持到了最后一刻...没想到你最终竟会和魔女一同归来拯救世界。好吧，关于过去的一切，你想知道些什么，我尽可能地回答你。");
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), 9, "我到底是谁？");
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), 10, "黑潮到底是什么？");
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), 11, "§6我没有想问的了");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 8, "你名为Purus Absolutus，乃纯净之使徒，负责净化世间黑暗，与我们同为尘世十执政。");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 9, "千年以前，恰好轮到你出面解决天外的事务，但在你离去后不久，黑潮便降临世界。");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 10, "也许是失去了来自你的净化的神力，我们无力抵抗黑潮，只能任由黑潮侵蚀我们。");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 11, "我不知道。黑潮刚刚降临时，我们对黑潮做了大量的研究，但毫无进展。");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 12, "黑潮本是代号Risperdal的一种介质，我们无法具体感知其存在。但受它影响的生灵皆逐渐发黑而死，因此我们将其命名为黑潮。");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 13, "我们只知道黑潮来自天外的世界，但黑潮的目标似乎很明确，总是针对以我们使徒为首的生命。");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 14, "也许，由你来带领我们进行再创世，是我们文明延续的唯一希望了。");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 15, "也就是说，现在需要代表我神性的神之眼，来协助完成仪式是吧。但神之眼的剥离，意味着我将放弃身为人的肉体。");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 16, "也罢，现在的我，黑潮缠身，早已不是我原初的身躯...我离开了神之眼的力量，便无法再维持人形...");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 17, "...也许这就是我们的宿命吧。");
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), 12, "不要这样...");
+        this.addDialogAnswer(TCREntities.FAKE_SKY_GOLEM.get(), 18, "...明天见，Purus Absolutus！愿我们能在约定的新世界相遇！");
+        this.addDialogOption(TCREntities.FAKE_SKY_GOLEM.get(), 13, "§4处决");
+
+        this.addDialogAnswer(TCREntities.FAKE_END_GOLEM.get(), 0, "往日种种，你当真不记得了吗？");
+        this.addDialogOption(TCREntities.FAKE_END_GOLEM.get(), 0, "§4处决");
+        this.addDialogOption(TCREntities.FAKE_END_GOLEM.get(), 1, "往日种种...");
+        this.addDialogOption(TCREntities.FAKE_END_GOLEM.get(), 2, "你说的可是往日...");
+        this.addDialogAnswer(TCREntities.FAKE_END_GOLEM.get(), 1, "吾将神性铸成%s，才避免了黑潮之侵蚀，虽然吾之神躯早已成为腐朽的傀儡...");
+        this.addDialogOption(TCREntities.FAKE_END_GOLEM.get(), 3, "继续");
+        this.addDialogAnswer(TCREntities.FAKE_END_GOLEM.get(), 2, "方才你释放吾之神躯之时，我便取回了自己的部分力量。Purus，这把兵刃乃是当初你以净化之力炼成。");
+        this.addDialogAnswer(TCREntities.FAKE_END_GOLEM.get(), 3, "可惜黑潮侵蚀，仅剩残胚。拿去吧，愿它能助你扫荡最后的黑潮！");
+        this.addDialogAnswer(TCREntities.FAKE_END_GOLEM.get(), 4, "收下吧，[%s]，我将在世界之尽头等你！");
+        this.addDialogOption(TCREntities.FAKE_END_GOLEM.get(), 4, "...");
 
     }
 }

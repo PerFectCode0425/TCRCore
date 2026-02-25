@@ -107,6 +107,9 @@ public class OrnnEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
         StreamDialogueScreenBuilder treeBuilder = new StreamDialogueScreenBuilder(this, TCRCoreMod.MOD_ID);
         DialogueComponentBuilder dBuilder = treeBuilder.getComponentBuildr();
         DialogNode root = new DialogNode(dBuilder.ans(0));
+        if(PlayerDataManager.gameCleared.get(localPlayer)) {
+            root = new DialogNode(dBuilder.ans(-1));
+        }
         DialogNode aboutChronos = new DialogNode(dBuilder.ans(2), dBuilder.opt(1, TCREntities.CHRONOS_SOL.get().getDescription()))
                 .addLeaf(dBuilder.opt(-2));
         DialogNode aboutFerryGirl = new DialogNode(dBuilder.ans(3), dBuilder.opt(1, TCREntities.FERRY_GIRL.get().getDescription()))
@@ -125,7 +128,7 @@ public class OrnnEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
 
             root.addChild(whoAreU);
 
-            if(PlayerDataManager.chonosTalked.get(localPlayer)) {
+            if(PlayerDataManager.chronosTalked.get(localPlayer)) {
                 root.addChild(aboutChronos);
             }
             if(PlayerDataManager.ferryGirlTalked.get(localPlayer)) {
@@ -140,8 +143,10 @@ public class OrnnEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
                             .addChild(new DialogNode(dBuilder.ans(7), dBuilder.opt(-1))
                                     .addLeaf(dBuilder.opt(6), 8))));
         } else {
-            if(PlayerDataManager.chonosTalked.get(localPlayer)) {
-                root.addChild(aboutChronos);
+            if(!PlayerDataManager.gameCleared.get(localPlayer)) {
+                if(PlayerDataManager.chronosTalked.get(localPlayer)) {
+                    root.addChild(aboutChronos);
+                }
             }
             if(PlayerDataManager.ferryGirlTalked.get(localPlayer)) {
                 root.addChild(aboutFerryGirl);

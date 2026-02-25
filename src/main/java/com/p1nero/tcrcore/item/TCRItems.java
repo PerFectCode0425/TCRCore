@@ -31,6 +31,7 @@ public class TCRItems {
     public static final RegistryObject<Item> PROOF_OF_ADVENTURE = REGISTRY.register("proof_of_adventure", () -> new SimpleDescriptionItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant(), true));
     public static final RegistryObject<Item> CORE_FLINT = REGISTRY.register("core_flint", () -> new CoreFlintItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
     public static final RegistryObject<Item> DRAGON_FLUTE = REGISTRY.register("dragon_flute", () -> new DragonFluteItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
+    public static final RegistryObject<Item> YAMATO_FRAGMENT = REGISTRY.register("yamato_fragment", () -> new SimpleDescriptionItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
 
     public static final RegistryObject<Item> RESONANCE_STONE = REGISTRY.register("resonance_stone", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
 
@@ -82,7 +83,7 @@ public class TCRItems {
                     TCRQuestManager.hasQuest(serverPlayer, TCRQuests.USE_NETHER_RESONANCE_STONE),
                     ((pos, serverPlayer) ->
                     {
-                        WaypointUtil.sendWaypoint(serverPlayer, "eye_pos_mark", TCRCoreMod.getInfo("eye_pos_mark", ModItems.MONSTROUS_EYE.get().getDescription(), Component.translatable("structure.nightfall_invade.gate_of_disaster")), pos, WaypointColor.DARK_RED);
+                        WaypointUtil.sendWaypoint(serverPlayer, "eye_pos_mark", TCRCoreMod.getInfo("eye_pos_mark", ModItems.MONSTROUS_EYE.get().getDescription(), Component.translatable("structure.tcrcore.gate_of_disaster")), pos, WaypointColor.DARK_RED);
                         TCRQuests.USE_NETHER_RESONANCE_STONE.finish(serverPlayer, true);
                         TCRQuests.GET_MONST_EYE.start(serverPlayer);
                     }))
@@ -99,6 +100,17 @@ public class TCRItems {
                     }))
     );
 
+    public static final RegistryObject<Item> END_RESONANCE_STONE = REGISTRY.register("end_resonance_stone",
+            () -> new ResonanceStoneItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant(), ResourceLocation.parse(WorldUtil.SKY_GOLEM), 80, Level.OVERWORLD, (serverPlayer) ->
+                    TCRQuestManager.hasQuest(serverPlayer, TCRQuests.USE_END_RESONANCE_STONE),
+                    ((pos, serverPlayer) ->
+                    {
+                        WaypointUtil.sendWaypoint(serverPlayer, "eye_pos_mark", TCRCoreMod.getInfo("eye_pos_mark", Component.translatable("structure.integrated_stronghold.stronghold")), pos, WaypointColor.PURPLE);
+                        TCRQuests.USE_END_RESONANCE_STONE.finish(serverPlayer, true);
+                        TCRQuests.GO_TO_THE_END.start(serverPlayer);
+                    }))
+    );
+
     public static final RegistryObject<Item> MYSTERIOUS_WEAPONS = REGISTRY.register("mysterious_weapons", () -> new SimpleDescriptionItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant(), true));
 
     public static final RegistryObject<Item> NECROMANCY_SCROLL = REGISTRY.register("necromancy_scroll", () -> new SimpleDescriptionItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant(), true));
@@ -106,6 +118,8 @@ public class TCRItems {
     public static final RegistryObject<Item> WITHER_SOUL_STONE = REGISTRY.register("wither_soul_stone", () -> new SimpleDescriptionItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant(), true));
 
     public static final RegistryObject<Item> WITHER_SOUL_STONE_ACTIVATED = REGISTRY.register("wither_soul_stone_activated", () -> new WitherSoulStoneItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
+
+    public static final RegistryObject<Item> DIVINE_FRAGMENT = REGISTRY.register("divine_fragment", () -> new SimpleDescriptionItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant(), true));
 
     public static final RegistryObject<Item> MAGIC_BOTTLE = REGISTRY.register("magic_bottle", () -> new BlueBottle(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
 

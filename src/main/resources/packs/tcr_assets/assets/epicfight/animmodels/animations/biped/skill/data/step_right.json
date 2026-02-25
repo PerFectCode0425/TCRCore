@@ -1,3 +1,10 @@
 {
-	"priority":"LOW"
+	"priority":"MIDDLE",
+	"masks":
+	[
+		{
+			"livingmotion":"ALL",
+			"type":"none"
+		}
+	]
 }

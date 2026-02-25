@@ -1,0 +1,10 @@
+{
+    "priority":"HIGH",
+    "masks":
+    [
+        {
+            "livingmotion":"ALL",
+            "type":"none"
+        }
+    ]
+}

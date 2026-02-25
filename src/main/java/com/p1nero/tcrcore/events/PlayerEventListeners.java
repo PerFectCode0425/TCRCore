@@ -4,6 +4,7 @@ import com.aetherteam.aether.data.resources.registries.AetherDimensions;
 import com.github.L_Ender.cataclysm.init.ModItems;
 import com.hm.efn.gameasset.EFNSkills;
 import com.obscuria.aquamirae.registry.AquamiraeItems;
+import com.p1nero.battle_field1.worldgen.PBF1Dimensions;
 import com.p1nero.cataclysm_dimension.worldgen.CataclysmDimensions;
 import com.p1nero.dpr.gameassets.DPRSkills;
 import com.p1nero.fast_tpa.network.PacketRelay;
@@ -11,6 +12,8 @@ import com.p1nero.tcrcore.TCRCoreMod;
 import com.p1nero.tcrcore.capability.*;
 import com.p1nero.tcrcore.datagen.TCRAdvancementData;
 import com.p1nero.tcrcore.effect.TCREffects;
+import com.p1nero.tcrcore.entity.TCREntities;
+import com.p1nero.tcrcore.entity.custom.fake_npc.fake_boss.FakeBossNpc;
 import com.p1nero.tcrcore.item.TCRItems;
 import com.p1nero.tcrcore.network.TCRPacketHandler;
 import com.p1nero.tcrcore.network.packet.clientbound.CSTipPacket;
@@ -18,6 +21,7 @@ import com.p1nero.tcrcore.network.packet.clientbound.OpenCustomDialogPacket;
 import com.p1nero.tcrcore.network.packet.clientbound.PlayItemPickupParticlePacket;
 import com.p1nero.tcrcore.network.packet.clientbound.PlayTitlePacket;
 import com.p1nero.tcrcore.save_data.TCRDimSaveData;
+import com.p1nero.tcrcore.utils.EntityUtil;
 import com.p1nero.tcrcore.utils.ItemUtil;
 import com.p1nero.tcrcore.utils.WorldUtil;
 import com.p1nero.tcrcore.worldgen.TCRDimensions;
@@ -30,6 +34,7 @@ import net.blay09.mods.waystones.block.ModBlocks;
 import net.genzyuro.uniqueaccessories.registry.UAItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.resources.ResourceKey;
@@ -41,6 +46,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -53,7 +59,10 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -69,6 +78,7 @@ import net.p1nero.ss.gameassets.skills.SwordControllerSkills;
 import org.merlin204.wraithon.util.PositionTeleporter;
 import org.merlin204.wraithon.worldgen.WraithonDimensions;
 import top.theillusivec4.curios.api.event.CurioEquipEvent;
+import yesman.epicfight.api.utils.math.MathUtils;
 import yesman.epicfight.network.EpicFightNetworkManager;
 import yesman.epicfight.skill.Skill;
 import yesman.epicfight.skill.SkillContainer;
@@ -77,9 +87,7 @@ import yesman.epicfight.skill.SkillSlots;
 import yesman.epicfight.world.capabilities.EpicFightCapabilities;
 import yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Mod.EventBusSubscriber(modid = TCRCoreMod.MOD_ID)
 public class PlayerEventListeners {
@@ -206,7 +214,7 @@ public class PlayerEventListeners {
                 serverLevel.playSound(null, blessPos, SoundEvents.BEACON_AMBIENT,
                         SoundSource.AMBIENT, 0.7F, 0.5F + serverLevel.random.nextFloat() * 0.3F);
 
-                if(!tcrPlayer.inBlessing()) {
+                if (!tcrPlayer.inBlessing()) {
                     tcrPlayer.setTickAfterBless(100);
                     tcrPlayer.setBlessPos(event.getPos());
                     tcrPlayer.setBlessItem(serverPlayer.getMainHandItem().getItem());
@@ -267,7 +275,7 @@ public class PlayerEventListeners {
                     return;
                 }
                 if (WorldUtil.inMainLand(serverPlayer)) {
-                    if(serverPlayer.isSprinting()) {
+                    if (serverPlayer.isSprinting()) {
                         serverPlayer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 10, 2, false, false, true));
                     }
                 }
@@ -309,6 +317,21 @@ public class PlayerEventListeners {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             //允许创造进
             if (!serverPlayer.isCreative()) {
+
+                if (event.getDimension() == PBF1Dimensions.SANCTUM_OF_THE_BATTLE_LEVEL_KEY) {
+                    ServerLevel targetLevel = serverPlayer.server.getLevel(PBF1Dimensions.SANCTUM_OF_THE_BATTLE_LEVEL_KEY);
+                    if (targetLevel != null && !targetLevel.players().isEmpty()) {
+                        event.setCanceled(true);
+                        serverPlayer.displayClientMessage(TCRCoreMod.getInfo("dim_max_players"), true);
+                    }
+                }
+
+                if (event.getDimension() == TCRDimensions.REAL_LEVEL_KEY) {
+                    if (TCRQuests.TALK_TO_AINE_GAME_CLEAR.isFinished(serverPlayer) || TCRQuestManager.hasQuest(serverPlayer, TCRQuests.TALK_TO_AINE_GAME_CLEAR)) {
+                        event.setCanceled(true);
+                        serverPlayer.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
+                    }
+                }
                 if (event.getDimension() == Level.NETHER) {
                     if (!(TCRQuests.GO_TO_NETHER.isFinished(serverPlayer) || TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_NETHER))) {
                         event.setCanceled(true);
@@ -334,7 +357,7 @@ public class PlayerEventListeners {
                     ServerLevel targetLevel = serverPlayer.server.getLevel(event.getDimension());
                     if (targetLevel != null && targetLevel.players().size() >= 4) {
                         event.setCanceled(true);
-                        serverPlayer.displayClientMessage(TCRCoreMod.getInfo("dim_max_4_players"), false);
+                        serverPlayer.displayClientMessage(TCRCoreMod.getInfo("dim_max_players"), false);
                     }
                 }
 
@@ -355,13 +378,13 @@ public class PlayerEventListeners {
     }
 
     @SubscribeEvent
-    public static void onPlayerEnterDim(PlayerEvent.PlayerChangedDimensionEvent event) {
+    public static void onPlayerEnteredDim(PlayerEvent.PlayerChangedDimensionEvent event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             TCRCapabilityProvider.syncPlayerDataToClient(serverPlayer);
             if (event.getFrom() == WraithonDimensions.SANCTUM_OF_THE_WRAITHON_LEVEL_KEY) {
                 ServerLevel wraithonLevel = serverPlayer.server.getLevel(WraithonDimensions.SANCTUM_OF_THE_WRAITHON_LEVEL_KEY);
-                if (wraithonLevel.players().isEmpty()) {
-                    wraithonLevel.getAllEntities().forEach(Entity::discard);
+                if (wraithonLevel != null && wraithonLevel.players().isEmpty()) {
+                    EntityUtil.safelyClearAll(wraithonLevel);
                     TCRDimSaveData.get(wraithonLevel).setBossSummoned(false);
                 }
             }
@@ -371,41 +394,106 @@ public class PlayerEventListeners {
                     TCRDimSaveData.get(serverPlayer.getServer().getLevel(event.getTo())).setBossKilled(false);
                 }
                 //和安聊聊幻境
-                if(!TCRQuests.TALK_TO_AINE_CLOUDLAND.isFinished(serverPlayer)){
+                if (!TCRQuests.TALK_TO_AINE_CLOUDLAND.isFinished(serverPlayer)) {
                     TCRQuests.TALK_TO_AINE_CLOUDLAND.start(serverPlayer);
                     PacketRelay.sendToPlayer(TCRPacketHandler.INSTANCE, new OpenCustomDialogPacket(OpenCustomDialogPacket.FIRST_ENTER_CLOUDLAND), serverPlayer);
                 }
             }
             //处理使用共鸣石任务
-            if(event.getTo().equals(Level.OVERWORLD)) {
-                if(TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_OVERWORLD_OCEAN)) {
+            if (event.getTo().equals(Level.OVERWORLD)) {
+                if (TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_OVERWORLD_OCEAN)) {
                     TCRQuests.GO_TO_OVERWORLD_OCEAN.finish(serverPlayer, true);
                     TCRQuests.USE_OCEAN_RESONANCE_STONE.start(serverPlayer);
                 }
-                if(TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_OVERWORLD_CURSED)) {
+                if (TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_OVERWORLD_CURSED)) {
                     TCRQuests.GO_TO_OVERWORLD_CURSED.finish(serverPlayer, true);
                     TCRQuests.USE_CURSED_RESONANCE_STONE.start(serverPlayer);
                 }
-                if(TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_OVERWORLD_CORE)) {
+                if (TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_OVERWORLD_CORE)) {
                     TCRQuests.GO_TO_OVERWORLD_CORE.finish(serverPlayer, true);
                     TCRQuests.USE_CORE_RESONANCE_STONE.start(serverPlayer);
                 }
             }
-            if(event.getTo().equals(Level.NETHER)) {
-                if(TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_NETHER)) {
+            if (event.getTo().equals(Level.NETHER)) {
+                if (TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_NETHER)) {
                     TCRQuests.GO_TO_NETHER.finish(serverPlayer, true);
                     TCRQuests.USE_NETHER_RESONANCE_STONE.start(serverPlayer);
                 }
             }
-            if(event.getTo().equals(AetherDimensions.AETHER_LEVEL)) {
-                if(TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_AETHER)) {
+            if (event.getTo().equals(AetherDimensions.AETHER_LEVEL)) {
+                if (TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_AETHER)) {
                     TCRQuests.GO_TO_AETHER.finish(serverPlayer, true);
                     TCRQuests.USE_AETHER_RESONANCE_STONE.start(serverPlayer);
                 }
             }
-            if(event.getTo().equals(Level.END)) {
-
+            if (event.getTo().equals(Level.END)) {
+                if (TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_THE_END)) {
+                    TCRQuests.GO_TO_THE_END.finish(serverPlayer, true);
+                    TCRQuests.GET_VOID_EYE.start(serverPlayer);
+                }
             }
+            if (event.getTo().equals(PBF1Dimensions.SANCTUM_OF_THE_BATTLE_LEVEL_KEY)) {
+                if (TCRQuestManager.hasQuest(serverPlayer, TCRQuests.GO_TO_SAMSARA)) {
+                    TCRQuests.GO_TO_SAMSARA.finish(serverPlayer, true);
+                }
+            }
+
+            //维度没有人就重制末影龙，方便多人
+            if (event.getFrom().equals(Level.END)) {
+                ServerLevel end = serverPlayer.server.getLevel(Level.END);
+                if (end != null && end.players().isEmpty() && end.getDragonFight() != null) {
+                    end.getDragonFight().tryRespawn();
+                }
+            }
+
+            //摆床
+            if (event.getTo().equals(TCRDimensions.REAL_LEVEL_KEY)) {
+
+                if (!serverPlayer.serverLevel().getBlockState(new BlockPos(WorldUtil.BED_POS)).is(Blocks.WHITE_BED)) {
+                    serverPlayer.serverLevel().setBlockAndUpdate(new BlockPos(WorldUtil.BED_POS).east(), Blocks.WHITE_BED.defaultBlockState().setValue(BlockStateProperties.BED_PART, BedPart.HEAD).setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST));
+                    serverPlayer.serverLevel().setBlockAndUpdate(new BlockPos(WorldUtil.BED_POS), Blocks.WHITE_BED.defaultBlockState().setValue(BlockStateProperties.BED_PART, BedPart.FOOT).setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST));
+                }
+
+                if (EntityUtil.getNearByEntities(FakeBossNpc.class, serverPlayer, 50).isEmpty()) {
+                    ServerLevel level = serverPlayer.serverLevel();
+
+                    double[] angles = {
+                            0, Math.PI / 4, Math.PI / 2, 3 * Math.PI / 4,
+                            Math.PI, 5 * Math.PI / 4, 3 * Math.PI / 2, 7 * Math.PI / 4
+                    };
+
+                    List<EntityType<FakeBossNpc>> entityTypes = Arrays.asList(
+                            TCREntities.FAKE_MALEDICTUS_HUMANOID.get(),
+                            TCREntities.FAKE_IGNIS_HUMANOID.get(),
+                            TCREntities.FAKE_NETHERITE_HUMANOID.get(),
+                            TCREntities.FAKE_SCYLLA_HUMANOID.get(),
+                            TCREntities.FAKE_ENDER_GUARDIAN_HUMANOID.get(),
+                            TCREntities.FAKE_HARBINGER_HUMANOID.get(),
+                            TCREntities.FAKE_LEVIATHAN_HUMANOID.get(),
+                            TCREntities.FAKE_ANCIENT_REMNANT_HUMANOID.get()
+                    );
+
+                    for (int i = 0; i < 8; i++) {
+                        double angle = angles[i];
+                        double distance = 5 + level.random.nextInt(4);
+                        double dx = distance * Math.cos(angle);
+                        double dz = distance * Math.sin(angle);
+
+                        FakeBossNpc fakeBossNpc = entityTypes.get(i).create(level);
+                        if (fakeBossNpc != null) {
+                            fakeBossNpc.setPos(WorldUtil.BED_POS.getX() + dx, WorldUtil.BED_POS.getY(), WorldUtil.BED_POS.getZ() + dz);
+                            Vec3 dir = new BlockPos(WorldUtil.BED_POS).getCenter().subtract(fakeBossNpc.position());
+                            float yRot = (float) MathUtils.getYRotOfVector(dir);
+                            fakeBossNpc.setYRot(yRot);
+                            fakeBossNpc.setYBodyRot(yRot);
+                            fakeBossNpc.getLookControl().setLookAt(WorldUtil.BED_POS.getX(), WorldUtil.BED_POS.getY() + 2, WorldUtil.BED_POS.getZ());
+                            level.addFreshEntity(fakeBossNpc);
+                        }
+                    }
+
+                }
+            }
+
             updateHealth(serverPlayer, event.getFrom());
             updateHealth(serverPlayer, event.getTo());
         }
@@ -457,29 +545,33 @@ public class PlayerEventListeners {
 
     @SubscribeEvent
     public static void onPlayerReadyPickupItem(EntityItemPickupEvent event) {
-        if(event.getEntity() instanceof ServerPlayer player) {
+        if (event.getEntity() instanceof ServerPlayer player) {
             //未完成过前置时则不能捡起，防止多人游戏捡了别人的眼睛，进度直接乱了
-            if(!TCRQuests.USE_LAND_RESONANCE_STONE.isFinished(player) && event.getItem().getItem().is(com.github.L_Ender.cataclysm.init.ModItems.DESERT_EYE.get())) {
+            if (!TCRQuests.USE_LAND_RESONANCE_STONE.isFinished(player) && event.getItem().getItem().is(com.github.L_Ender.cataclysm.init.ModItems.DESERT_EYE.get())) {
                 player.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
                 event.setCanceled(true);
             }
-            if(!TCRQuests.USE_OCEAN_RESONANCE_STONE.isFinished(player) && event.getItem().getItem().is(com.github.L_Ender.cataclysm.init.ModItems.ABYSS_EYE.get())) {
+            if (!TCRQuests.USE_OCEAN_RESONANCE_STONE.isFinished(player) && event.getItem().getItem().is(com.github.L_Ender.cataclysm.init.ModItems.ABYSS_EYE.get())) {
                 player.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
                 event.setCanceled(true);
             }
-            if(!TCRQuests.USE_CURSED_RESONANCE_STONE.isFinished(player) && event.getItem().getItem().is(com.github.L_Ender.cataclysm.init.ModItems.CURSED_EYE.get())) {
+            if (!TCRQuests.USE_CURSED_RESONANCE_STONE.isFinished(player) && event.getItem().getItem().is(com.github.L_Ender.cataclysm.init.ModItems.CURSED_EYE.get())) {
                 player.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
                 event.setCanceled(true);
             }
-            if(!TCRQuests.USE_CORE_RESONANCE_STONE.isFinished(player) && event.getItem().getItem().is(ModItems.FLAME_EYE.get())) {
+            if (!TCRQuests.USE_CORE_RESONANCE_STONE.isFinished(player) && event.getItem().getItem().is(ModItems.FLAME_EYE.get())) {
                 player.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
                 event.setCanceled(true);
             }
-            if(!TCRQuests.USE_NETHER_RESONANCE_STONE.isFinished(player) && event.getItem().getItem().is(ModItems.MONSTROUS_EYE.get())) {
+            if (!TCRQuests.USE_NETHER_RESONANCE_STONE.isFinished(player) && event.getItem().getItem().is(ModItems.MONSTROUS_EYE.get())) {
                 player.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
                 event.setCanceled(true);
             }
-            if(!(TCRQuests.GET_WITHER_EYE.isFinished(player) || TCRQuestManager.hasQuest(player, TCRQuests.GET_WITHER_EYE)) && event.getItem().getItem().is(ModItems.MECH_EYE.get())) {
+            if (!(TCRQuests.GET_WITHER_EYE.isFinished(player) || TCRQuestManager.hasQuest(player, TCRQuests.GET_WITHER_EYE)) && event.getItem().getItem().is(ModItems.MECH_EYE.get())) {
+                player.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
+                event.setCanceled(true);
+            }
+            if (!TCRQuests.TALK_TO_SKY_GOLEM.isFinished(player) && event.getItem().getItem().is(ModItems.STORM_EYE.get())) {
                 player.displayClientMessage(TCRCoreMod.getInfo("can_not_do_this_too_early"), true);
                 event.setCanceled(true);
             }
@@ -497,75 +589,102 @@ public class PlayerEventListeners {
         if (event.getEntity() instanceof ServerPlayer player) {
 
             //持有任务时捡起来才推进进度
-            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_DESERT_EYE) && itemStack.is(ModItems.DESERT_EYE.get())) {
+            if (TCRQuestManager.hasQuest(player, TCRQuests.GET_DESERT_EYE) && itemStack.is(ModItems.DESERT_EYE.get())) {
                 giveOracleEffect(player, ModItems.DESERT_EYE.get());
                 PlayerDataManager.desertEyeGotten.put(player, true);
                 //完成收回眼睛的任务
                 TCRQuests.GET_DESERT_EYE.finish(player, true);
                 TCRQuests.TALK_TO_CHRONOS_1.start(player);
             }
-            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_OCEAN_EYE) && itemStack.is(ModItems.ABYSS_EYE.get())) {
+            if (TCRQuestManager.hasQuest(player, TCRQuests.GET_OCEAN_EYE) && itemStack.is(ModItems.ABYSS_EYE.get())) {
                 giveOracleEffect(player, ModItems.ABYSS_EYE.get());
                 PlayerDataManager.abyssEyeGotten.put(player, true);
                 TCRQuests.GET_OCEAN_EYE.finish(player, true);
                 //点神像和点祭坛
-                if(!PlayerDataManager.abyssEyeActivated.get(player)) {
+                if (!PlayerDataManager.abyssEyeActivated.get(player)) {
                     TCRQuests.PUT_ABYSS_EYE_ON_ALTAR.start(player, false);
                 }
-                if(!PlayerDataManager.abyssEyeBlessed.get(player)) {
+                if (!PlayerDataManager.abyssEyeBlessed.get(player)) {
                     TCRQuests.BLESS_ON_THE_GODNESS_STATUE.start(player, false);
                 }
                 TCRQuests.TALK_TO_CHRONOS_3.start(player);
             }
-            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_CURSED_EYE) && itemStack.is(ModItems.CURSED_EYE.get())) {
+            if (TCRQuestManager.hasQuest(player, TCRQuests.GET_CURSED_EYE) && itemStack.is(ModItems.CURSED_EYE.get())) {
                 giveOracleEffect(player, ModItems.CURSED_EYE.get());
                 PlayerDataManager.cursedEyeGotten.put(player, true);
                 TCRQuests.GET_CURSED_EYE.finish(player, true);
-                if(!PlayerDataManager.cursedEyeActivated.get(player)) {
+                if (!PlayerDataManager.cursedEyeActivated.get(player)) {
                     TCRQuests.PUT_CURSED_EYE_ON_ALTAR.start(player);
                 }
-                if(!PlayerDataManager.cursedEyeBlessed.get(player)) {
+                if (!PlayerDataManager.cursedEyeBlessed.get(player)) {
                     TCRQuests.BLESS_ON_THE_GODNESS_STATUE.start(player);
                 }
                 TCRQuests.TALK_TO_AINE_MAGIC.start(player);
                 TCRQuests.TALK_TO_CHRONOS_5.start(player);
             }
-            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_FLAME_EYE) && itemStack.is(ModItems.FLAME_EYE.get())) {
+            if (TCRQuestManager.hasQuest(player, TCRQuests.GET_FLAME_EYE) && itemStack.is(ModItems.FLAME_EYE.get())) {
                 giveOracleEffect(player, ModItems.FLAME_EYE.get());
                 PlayerDataManager.flameEyeGotten.put(player, true);
                 TCRQuests.GET_FLAME_EYE.finish(player, true);
-                if(!PlayerDataManager.flameEyeActivated.get(player)) {
+                if (!PlayerDataManager.flameEyeActivated.get(player)) {
                     TCRQuests.PUT_FLAME_EYE_ON_ALTAR.start(player);
                 }
-                if(!PlayerDataManager.flameEyeBlessed.get(player)) {
+                if (!PlayerDataManager.flameEyeBlessed.get(player)) {
                     TCRQuests.BLESS_ON_THE_GODNESS_STATUE.start(player);
                 }
                 TCRQuests.TALK_TO_AINE_1.start(player);
                 TCRQuests.TALK_TO_CHRONOS_7.start(player);
             }
-            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_MONST_EYE) && itemStack.is(ModItems.MONSTROUS_EYE.get())) {
+            if (TCRQuestManager.hasQuest(player, TCRQuests.GET_MONST_EYE) && itemStack.is(ModItems.MONSTROUS_EYE.get())) {
                 giveOracleEffect(player, ModItems.MONSTROUS_EYE.get());
                 PlayerDataManager.monstEyeGotten.put(player, true);
                 TCRQuests.GET_MONST_EYE.finish(player, true);
-                if(!PlayerDataManager.monstEyeActivated.get(player)) {
+                if (!PlayerDataManager.monstEyeActivated.get(player)) {
                     TCRQuests.PUT_MONST_EYE_ON_ALTAR.start(player);
                 }
-                if(!PlayerDataManager.monstEyeBlessed.get(player)) {
+                if (!PlayerDataManager.monstEyeBlessed.get(player)) {
                     TCRQuests.BLESS_ON_THE_GODNESS_STATUE.start(player);
                 }
                 TCRQuests.TALK_TO_CHRONOS_9.start(player);
             }
-            if(TCRQuestManager.hasQuest(player, TCRQuests.GET_WITHER_EYE) && itemStack.is(ModItems.MECH_EYE.get())) {
+            if (TCRQuestManager.hasQuest(player, TCRQuests.GET_WITHER_EYE) && itemStack.is(ModItems.MECH_EYE.get())) {
                 giveOracleEffect(player, ModItems.MECH_EYE.get());
                 PlayerDataManager.mechEyeGotten.put(player, true);
                 TCRQuests.GET_WITHER_EYE.finish(player, true);
-                if(!PlayerDataManager.mechEyeActivated.get(player)) {
+                if (!PlayerDataManager.mechEyeActivated.get(player)) {
                     TCRQuests.PUT_MECH_EYE_ON_ALTAR.start(player);
                 }
-                if(!PlayerDataManager.mechEyeBlessed.get(player)) {
+                if (!PlayerDataManager.mechEyeBlessed.get(player)) {
                     TCRQuests.BLESS_ON_THE_GODNESS_STATUE.start(player);
                 }
                 TCRQuests.TALK_TO_CHRONOS_10.start(player);
+            }
+
+            if (TCRQuestManager.hasQuest(player, TCRQuests.GET_STORM_EYE) && itemStack.is(ModItems.STORM_EYE.get())) {
+                giveOracleEffect(player, ModItems.STORM_EYE.get());
+                PlayerDataManager.stormEyeGotten.put(player, true);
+                TCRQuests.GET_STORM_EYE.finish(player, true);
+                if (!PlayerDataManager.stormEyeActivated.get(player)) {
+                    TCRQuests.PUT_STORM_EYE_ON_ALTAR.start(player);
+                }
+                if (!PlayerDataManager.stormEyeBlessed.get(player)) {
+                    TCRQuests.BLESS_ON_THE_GODNESS_STATUE.start(player);
+                }
+                TCRQuests.TALK_TO_AINE_2.start(player);
+                TCRQuests.TALK_TO_CHRONOS_12.start(player);
+            }
+
+            if (TCRQuestManager.hasQuest(player, TCRQuests.GET_VOID_EYE) && itemStack.is(ModItems.VOID_EYE.get())) {
+                giveOracleEffect(player, ModItems.VOID_EYE.get());
+                PlayerDataManager.voidEyeGotten.put(player, true);
+                TCRQuests.GET_VOID_EYE.finish(player, true);
+                if (!PlayerDataManager.voidEyeActivated.get(player)) {
+                    TCRQuests.PUT_VOID_EYE_ON_ALTAR.start(player);
+                }
+                if (!PlayerDataManager.voidEyeBlessed.get(player)) {
+                    TCRQuests.BLESS_ON_THE_GODNESS_STATUE.start(player);
+                }
+                TCRQuests.TALK_TO_CHRONOS_END.start(player);
             }
 
             if (itemStack.is(AquamiraeItems.SHELL_HORN.get()) && !PlayerDataManager.cursedEyeGotten.get(player)) {
@@ -573,7 +692,7 @@ public class PlayerEventListeners {
             }
 
             //捡起百兵图后
-            if(itemStack.is(TCRItems.MYSTERIOUS_WEAPONS.get()) && !TCRQuestManager.hasFinished(player, TCRQuests.TALK_TO_ORNN_1)) {
+            if (itemStack.is(TCRItems.MYSTERIOUS_WEAPONS.get()) && !TCRQuestManager.hasFinished(player, TCRQuests.TALK_TO_ORNN_1)) {
                 giveOracleEffect(player, TCRItems.MYSTERIOUS_WEAPONS.get());
                 TCRQuests.TALK_TO_ORNN_1.start(player, true);
             }

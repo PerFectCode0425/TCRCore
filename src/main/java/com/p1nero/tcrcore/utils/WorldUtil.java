@@ -7,6 +7,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -33,6 +34,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class WorldUtil {
+    //维度翻译名
+    public static final MutableComponent REAL_NAME = Component.translatable("travelerstitles.tcrcore.real");
+    public static final MutableComponent SANCTUM_NAME = Component.translatable("travelerstitles.tcrcore.sanctum");
+    public static final MutableComponent OVERWORLD_NAME = Component.translatable("travelerstitles.minecraft.overworld");
+    public static final MutableComponent AETHER_NAME = Component.translatable("travelerstitles.aether.the_aether");
+    public static final MutableComponent NETHER_NAME = Component.translatable("travelerstitles.minecraft.the_nether");
+    public static final MutableComponent END_NAME = Component.translatable("travelerstitles.minecraft.the_end");
+    public static final MutableComponent SAMSARA_NAME = Component.translatable("travelerstitles.pbf1.sanctum_of_the_battle1");
+
     //祭坛定位
     public static final Vec3i DESERT_EYE_ALTAR_POS = new Vec3i(-140, 83, -176);
     public static final Vec3i ABYSS_EYE_ALTAR_POS = new Vec3i(-128, 83, -206);
@@ -43,11 +53,16 @@ public class WorldUtil {
     public static final Vec3i VOID_EYE_ALTAR_POS = new Vec3i(-116, 83, -206);
     public static final Vec3i MONST_EYE_ALTAR_POS = new Vec3i(-104, 83, -206);
 
+    //一些关键定位
+    public static final Vec3i BED_POS = new Vec3i(0, 96, 0);
     public static final Vec3i ORNN_POS = new Vec3i(-224, 80, -99);
+    public static final BlockPos ORNN_BLOCK_POS = new BlockPos(-224, 80, -99);
     public static final BlockPos SMITH_BLOCK_POS = new BlockPos(-226, 77, -100);
     public static final Vec3i AINE_POS = new Vec3i(-115, 80, -127);
+    public static final BlockPos AINE_BLOCK_POS = new BlockPos(-115, 80, -127);
     public static final BlockPos ARCANE_ANVIL_BLOCK_POS = new BlockPos(-115, 77, -127);
     public static final Vec3i FERRY_GIRL_POS = new Vec3i(80, 74, -133);
+    public static final BlockPos FERRY_GIRL_BLOCK_POS = new BlockPos(80, 74, -133);
     public static final Vec3i FERRY_GIRL_PORTAL_POS = new Vec3i(80, 73, -138);
     public static final Vec3i START_POS = new Vec3i(-3, 75, -190);
     public static final Vec3i GODNESS_STATUE_POS = new Vec3i(-169, 86, -118);
@@ -55,7 +70,7 @@ public class WorldUtil {
     public static final Vec3i GOLEM_CENTER_POS_VEC3I = new Vec3i(78, 75, -190);
     public static final Vec3 CENTER_POS = new Vec3(-19, 75, -79);
     public static final Vec3 CHRONOS_SOL_POS = new Vec3(-186, 85, -191);
-    public static final Vec3i CHRONOS_SOL_BLOCK_POS = new Vec3i(-186, 85, -191);
+    public static final BlockPos CHRONOS_SOL_BLOCK_POS = new BlockPos(-186, 85, -191);
 //    public static final String COVES = "trek:overworld/very_rare/coves";
     public static final String RIBBIT_VILLAGE = "ribbits:ribbit_village";
     public static final String SKY_ISLAND = "trek:overworld/very_rare/floating_farm_large";
@@ -66,7 +81,8 @@ public class WorldUtil {
     public static final String OCEAN_GOLEM = "ba_bt:ocean_tower";
     public static final String LAND_GOLEM = "ba_bt:land_tower";
     public static final String CORE_GOLEM = "ba_bt:core_tower";
-    public static final String NETHER_GOLEM = "nightfall_invade:gate_of_disaster";
+    public static final String NETHER_GOLEM = "tcrcore:gate_of_disaster";
+    public static final String STRONG_HOLD = "integrated_stronghold:stronghold";
     public static Vec2i storm, flame, abyss, cursed, desert;
 
     public static List<MapColor> surfaceMaterials = Arrays.asList(MapColor.WATER, MapColor.ICE);
@@ -75,6 +91,10 @@ public class WorldUtil {
 
     public static boolean inMainLand(Entity entity) {
         return entity.level().dimension() == TCRDimensions.SANCTUM_LEVEL_KEY;
+    }
+
+    public static boolean inReal(Entity entity) {
+        return entity.level().dimension() == TCRDimensions.REAL_LEVEL_KEY;
     }
 
     public static boolean inMainLandRange(Entity entity) {

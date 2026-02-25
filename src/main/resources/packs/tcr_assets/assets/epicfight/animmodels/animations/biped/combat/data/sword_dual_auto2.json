@@ -2,7 +2,9 @@
 	"trail_effects": [
 		{
 			"start_time": 0.0,
-			"end_time": 0.15,
+			"end_time": 0.35,
+			"lifetime": 3,
+			"interpolations": 6,
 			"joint": "Tool_L",
 			"item_skin_hand": "off_hand"
 		}

@@ -1,13 +1,14 @@
 {
-    "renderer": "epicfight:uchigatana",
-    "sheath": "epicfight:uchigatana_sheath",
+	"renderer": "epicfightx:uchigatana_x",
+	"sheath": "epicfight:uchigatana_sheath",
+	"sheath_alter": "epicfightx:uchigatana_sheath_alter",
     "trail": {
-    	"color": [150,150,150],
-    	"begin_pos": [0.05, 0.05, 0.0],
-		"end_pos": [0.05, 0.05, -1.9],
-    	"lifetime": 5,
-		"interpolations": 2,
-    	"texture_path": "epicfight:textures/particle/uchigatana.png",
+    	"color": [225,225,225],
+    	"begin_pos": [0.0, 0.0, -0.2],
+    	"end_pos": [0.0, 0.0, -1.8],
+    	"lifetime": 4,
+		"interpolations": 5,
+    	"texture_path": "epicfight:textures/particle/katana_trail.png",
     	"particle_type": "efn:bloom_trail"
     },
     "transforms": {
@@ -16,7 +17,12 @@
 	    		"translation": [0.155, 0.165, 0.145],
 	    		"rotation": [-50.0, -86.0, 3.0],
 	    		"scale": [1, 1, 1]
-	    	}
+	    	},
+			"Tool_L": {
+				"translation": [0, 0.001, -0.225],
+				"rotation": [85, 177, 0],
+				"scale": [1, 1, 1]
+			}
     	}
     }
 }

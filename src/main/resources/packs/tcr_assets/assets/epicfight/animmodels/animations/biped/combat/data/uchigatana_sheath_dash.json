@@ -1,11 +1,26 @@
 {
 	"trail_effects": [
 		{
+			"begin_pos": [0.0, 0.0, -0.2],
+    		"end_pos": [0.0, -0.2, -1.7],
 			"start_time": 0.1666,
 			"end_time": 0.35,
+			"interpolations": 3,
 			"lifetime": 6,
 			"joint": "Tool_R",
 			"item_skin_hand": "main_hand"
+		},
+		{
+			"begin_pos": [0.0, 0.0, -0.2],
+    		"end_pos": [0.0, -0.2, -1.7],
+			"start_time": 0.1666,
+			"end_time": 0.35,
+			"interpolations": 3,
+			"lifetime": 6,
+			"joint": "Tool_R",
+			"item_skin_hand": "main_hand",
+    	"texture_path": "epicfight:textures/particle/uchigatana.png",
+    	"particle_type": "epicfight:swing_trail"
 		}
 	]
 }
