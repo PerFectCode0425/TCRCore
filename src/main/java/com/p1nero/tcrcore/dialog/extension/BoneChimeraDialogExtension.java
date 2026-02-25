@@ -9,6 +9,7 @@ import com.p1nero.dialog_lib.api.entity.IEntityDialogueExtension;
 import com.p1nero.dialog_lib.client.screen.DialogueScreen;
 import com.p1nero.dialog_lib.client.screen.builder.StreamDialogueScreenBuilder;
 import com.p1nero.tcrcore.TCRCoreMod;
+import com.p1nero.tcrcore.capability.TCREntityCapabilityProvider;
 import com.p1nero.tcrcore.capability.TCRQuestManager;
 import com.p1nero.tcrcore.capability.TCRQuests;
 import net.minecraft.client.player.LocalPlayer;
@@ -32,7 +33,7 @@ public class BoneChimeraDialogExtension implements IEntityDialogueExtension<Bone
      */
     @Override
     public boolean canInteractWith(Player player, Bone_Chimera_Entity boneChimeraEntity) {
-        return !boneChimeraEntity.getPersistentData().getBoolean("fighting")
+        return !TCREntityCapabilityProvider.getTCREntityPatch(boneChimeraEntity).isFighting()
                 && (TCRQuestManager.hasQuest(player, TCRQuests.BONE_CHIMERA_QUEST) || TCRQuestManager.hasFinished(player, TCRQuests.BONE_CHIMERA_QUEST));
     }
 
@@ -59,7 +60,7 @@ public class BoneChimeraDialogExtension implements IEntityDialogueExtension<Bone
     public void handleNpcInteraction(Bone_Chimera_Entity boneChimeraEntity, ServerPlayer serverPlayer, int i) {
         //开打
         if(i == 1) {
-            boneChimeraEntity.getPersistentData().putBoolean("fighting", true);
+            TCREntityCapabilityProvider.getTCREntityPatch(boneChimeraEntity).setFighting(true);
             TCRQuests.BONE_CHIMERA_QUEST.finish(serverPlayer, true);
         }
         removeConservingPlayer(boneChimeraEntity);
