@@ -10,7 +10,7 @@
 			fdbosses: { }
 		}
 	}
-	id: "16AFC8ED236C979B"
+	id: "721BC8BD525EA3BB"
 	images: [{
 		height: 9.0d
 		image: "tcrcore:textures/ftb/preface_bg.png"
@@ -24,30 +24,30 @@
 	quests: [
 		{
 			description: [
-				"{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.description1}"
-				"{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.description2}"
+				"{ftbquests.chapter.xu_zhang.quest711034741643803066.description1}"
+				"{ftbquests.chapter.xu_zhang.quest711034741643803066.description2}"
 				""
-				"{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.description3}"
-				"{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.description4}"
+				"{ftbquests.chapter.xu_zhang.quest711034741643803066.description3}"
+				"{ftbquests.chapter.xu_zhang.quest711034741643803066.description4}"
 				""
-				"{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.description5}"
+				"{ftbquests.chapter.xu_zhang.quest711034741643803066.description5}"
 				""
-				"{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.description6}"
+				"{ftbquests.chapter.xu_zhang.quest711034741643803066.description6}"
 				""
-				"{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.description7}"
+				"{ftbquests.chapter.xu_zhang.quest711034741643803066.description7}"
 				""
-				"{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.description8}"
+				"{ftbquests.chapter.xu_zhang.quest711034741643803066.description8}"
 				""
 				""
 				""
-				"{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.description9}"
-				"{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.description10}"
-				"{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.description11}"
-				"{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.description12}"
-				"{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.description13}"
-				"{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.description14}"
+				"{ftbquests.chapter.xu_zhang.quest711034741643803066.description9}"
+				"{ftbquests.chapter.xu_zhang.quest711034741643803066.description10}"
+				"{ftbquests.chapter.xu_zhang.quest711034741643803066.description11}"
+				"{ftbquests.chapter.xu_zhang.quest711034741643803066.description12}"
+				"{ftbquests.chapter.xu_zhang.quest711034741643803066.description13}"
+				"{ftbquests.chapter.xu_zhang.quest711034741643803066.description14}"
 				""
-				"{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.description15}"
+				"{ftbquests.chapter.xu_zhang.quest711034741643803066.description15}"
 			]
 			icon: "cataclysm:strange_key"
 			icon_scale: 2.0d
@@ -57,13 +57,13 @@
 				type: "xp"
 				xp: 1
 			}]
-			subtitle: "{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.subtitle}"
+			subtitle: "{ftbquests.chapter.xu_zhang.quest711034741643803066.subtitle}"
 			tasks: [{
 				id: "7A35FB5FAB5EC5CC"
-				title: "{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.task.8806221034708452812.title}"
+				title: "{ftbquests.chapter.xu_zhang.quest711034741643803066.task.8806221034708452812.title}"
 				type: "checkmark"
 			}]
-			title: "{ftbquests.chapter.16AFC8ED236C979B.quest711034741643803066.title}"
+			title: "{ftbquests.chapter.xu_zhang.quest711034741643803066.title}"
 			x: 2.0d
 			y: 0.0d
 		}
@@ -100,5 +100,5 @@
 			y: -3.0d
 		}
 	]
-	title: "{ftbquests.chapter.16AFC8ED236C979B.title}"
+	title: "{ftbquests.chapter.xu_zhang.title}"
 }

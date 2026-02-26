@@ -6,7 +6,7 @@
 	hide_quest_until_deps_visible: true
 	icon: "cataclysm:ceraunus"
 	id: "2D391C2F48D42ABA"
-	order_index: 2
+	order_index: 1
 	quest_links: [ ]
 	quests: [
 		{
@@ -29,15 +29,15 @@
 			}]
 			shape: "square"
 			size: 2.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest3431479692052966900.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest3431479692052966900.subtitle}"
 			tasks: [{
 				advancement: "tcrcore:unlock_weapon_armor_book"
 				criterion: ""
 				id: "79001546914C8E0B"
-				title: "{ftbquests.chapter.chaptertcr2.quest3431479692052966900.task.8718992271418887691.title}"
+				title: "{ftbquests.chapter.wu_qi.quest3431479692052966900.task.8718992271418887691.title}"
 				type: "advancement"
 			}]
-			title: "{ftbquests.chapter.chaptertcr2.quest3431479692052966900.title}"
+			title: "{ftbquests.chapter.wu_qi.quest3431479692052966900.title}"
 			x: 0.0d
 			y: -2.5d
 		}
@@ -60,7 +60,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest7738234039258348075.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest7738234039258348075.subtitle}"
 			tasks: [{
 				id: "67F99AFF3DDE1380"
 				item: {
@@ -79,9 +79,9 @@
 		{
 			dependencies: ["2F9F109962C8ADF4"]
 			description: [
-				"{ftbquests.chapter.chaptertcr2.quest970201556921326311.description1}"
+				"{ftbquests.chapter.wu_qi.quest970201556921326311.description1}"
 				""
-				"{ftbquests.chapter.chaptertcr2.quest970201556921326311.description2}"
+				"{ftbquests.chapter.wu_qi.quest970201556921326311.description2}"
 			]
 			icon: "cataclysm:soul_render"
 			icon_scale: 2.0d
@@ -93,7 +93,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest970201556921326311.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest970201556921326311.subtitle}"
 			tasks: [{
 				id: "6CFDD098517A11C9"
 				item: "cataclysm:soul_render"
@@ -108,7 +108,7 @@
 			description: [
 				""
 				""
-				"{ftbquests.chapter.chaptertcr2.quest5465744286518435450.description1}"
+				"{ftbquests.chapter.wu_qi.quest5465744286518435450.description1}"
 			]
 			icon: "efn:meen_spear"
 			icon_scale: 1.5d
@@ -120,7 +120,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest5465744286518435450.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest5465744286518435450.subtitle}"
 			tasks: [{
 				id: "6EBE0D34093C08A1"
 				item: "efn:meen_spear"
@@ -141,7 +141,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest8304354729150815994.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest8304354729150815994.subtitle}"
 			tasks: [{
 				id: "44C0883B531DC3C8"
 				item: {
@@ -158,7 +158,7 @@
 		}
 		{
 			dependencies: ["2F9F109962C8ADF4"]
-			description: ["{ftbquests.chapter.chaptertcr2.quest4807562247735743917.description1}"]
+			description: ["{ftbquests.chapter.wu_qi.quest4807562247735743917.description1}"]
 			icon_scale: 1.5d
 			id: "42B7E4648BDE15AD"
 			rewards: [{
@@ -168,7 +168,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest4807562247735743917.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest4807562247735743917.subtitle}"
 			tasks: [{
 				id: "02BA280CFC4F0205"
 				item: "efn:nf_claw"
@@ -180,11 +180,11 @@
 		{
 			dependencies: ["42B7E4648BDE15AD"]
 			description: [
-				"{ftbquests.chapter.chaptertcr2.quest1352920048638303632.description1}"
+				"{ftbquests.chapter.wu_qi.quest1352920048638303632.description1}"
 				""
-				"{ftbquests.chapter.chaptertcr2.quest1352920048638303632.description2}"
+				"{ftbquests.chapter.wu_qi.quest1352920048638303632.description2}"
 				""
-				"{ftbquests.chapter.chaptertcr2.quest1352920048638303632.description3}"
+				"{ftbquests.chapter.wu_qi.quest1352920048638303632.description3}"
 			]
 			hide_dependency_lines: false
 			hide_dependent_lines: true
@@ -197,7 +197,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest1352920048638303632.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest1352920048638303632.subtitle}"
 			tasks: [{
 				id: "23D10CE650728621"
 				item: "cataclysm:tidal_claws"
@@ -234,7 +234,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest6094420483594131130.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest6094420483594131130.subtitle}"
 			tasks: [{
 				id: "0CC228538AD46E3E"
 				item: {
@@ -273,7 +273,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest7340118874838468132.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest7340118874838468132.subtitle}"
 			tasks: [{
 				id: "3C3BD883E127616F"
 				item: "efn:sword_of_pioneer"
@@ -286,9 +286,9 @@
 		{
 			dependencies: ["2F9F109962C8ADF4"]
 			description: [
-				"{ftbquests.chapter.chaptertcr2.quest103322110141927354.description1}"
+				"{ftbquests.chapter.wu_qi.quest103322110141927354.description1}"
 				""
-				"{ftbquests.chapter.chaptertcr2.quest103322110141927354.description2}"
+				"{ftbquests.chapter.wu_qi.quest103322110141927354.description2}"
 			]
 			icon: "cataclysm:the_incinerator"
 			icon_scale: 2.0d
@@ -300,7 +300,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest103322110141927354.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest103322110141927354.subtitle}"
 			tasks: [{
 				id: "3B361D6AE7D721DD"
 				item: "cataclysm:the_incinerator"
@@ -313,9 +313,9 @@
 		{
 			dependencies: ["2BC22961C6AEF8D9"]
 			description: [
-				"{ftbquests.chapter.chaptertcr2.quest5283406340565177552.description1}"
+				"{ftbquests.chapter.wu_qi.quest5283406340565177552.description1}"
 				""
-				"{ftbquests.chapter.chaptertcr2.quest5283406340565177552.description2}"
+				"{ftbquests.chapter.wu_qi.quest5283406340565177552.description2}"
 			]
 			hide_dependency_lines: false
 			hide_dependent_lines: true
@@ -329,7 +329,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest5283406340565177552.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest5283406340565177552.subtitle}"
 			tasks: [{
 				id: "413115A2E793D86F"
 				item: "cataclysm:wrath_of_the_desert"
@@ -342,9 +342,9 @@
 		{
 			dependencies: ["2F9F109962C8ADF4"]
 			description: [
-				"{ftbquests.chapter.chaptertcr2.quest4621109420579122097.description1}"
+				"{ftbquests.chapter.wu_qi.quest4621109420579122097.description1}"
 				""
-				"{ftbquests.chapter.chaptertcr2.quest4621109420579122097.description2}"
+				"{ftbquests.chapter.wu_qi.quest4621109420579122097.description2}"
 			]
 			icon: "cataclysm:ceraunus"
 			icon_scale: 2.0d
@@ -356,7 +356,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest4621109420579122097.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest4621109420579122097.subtitle}"
 			tasks: [{
 				id: "0B6DBDCC389C2B9E"
 				item: "cataclysm:ceraunus"
@@ -368,7 +368,7 @@
 		}
 		{
 			dependencies: ["2F9F109962C8ADF4"]
-			description: ["{ftbquests.chapter.chaptertcr2.quest1696022313405171865.description1}"]
+			description: ["{ftbquests.chapter.wu_qi.quest1696022313405171865.description1}"]
 			hide_dependency_lines: false
 			hide_dependent_lines: true
 			icon: "efn:ruinsgreatsword"
@@ -381,7 +381,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest1696022313405171865.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest1696022313405171865.subtitle}"
 			tasks: [{
 				id: "1CFDB3F5D53BE5B7"
 				item: "efn:ruinsgreatsword"
@@ -394,11 +394,11 @@
 		{
 			dependencies: ["2F9F109962C8ADF4"]
 			description: [
-				"{ftbquests.chapter.chaptertcr2.quest8446857425516070955.description1}"
+				"{ftbquests.chapter.wu_qi.quest8446857425516070955.description1}"
 				""
-				"{ftbquests.chapter.chaptertcr2.quest8446857425516070955.description2}"
+				"{ftbquests.chapter.wu_qi.quest8446857425516070955.description2}"
 				""
-				"[\"\",{\"translate\":\"ftbquests.chapter.chaptertcr2.quest8446857425516070955.rich_description1\"},{\"underlined\":1,\"translate\":\"ftbquests.chapter.chaptertcr2.quest8446857425516070955.rich_description2\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"032062CBCDEC3C85\"}}]"
+				"[\"\",{\"translate\":\"ftbquests.chapter.wu_qi.quest8446857425516070955.rich_description1\"},{\"underlined\":1,\"translate\":\"ftbquests.chapter.wu_qi.quest8446857425516070955.rich_description2\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"032062CBCDEC3C85\"}}]"
 			]
 			icon_scale: 1.5d
 			id: "753944133C41882B"
@@ -409,7 +409,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest8446857425516070955.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest8446857425516070955.subtitle}"
 			tasks: [
 				{
 					id: "7A923418BBA02FF6"
@@ -431,7 +431,7 @@
 			description: [
 				""
 				""
-				"{ftbquests.chapter.chaptertcr2.quest6948876923325267382.description1}"
+				"{ftbquests.chapter.wu_qi.quest6948876923325267382.description1}"
 			]
 			icon: "efn:nf_dual_sword"
 			icon_scale: 1.5d
@@ -443,7 +443,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest6948876923325267382.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest6948876923325267382.subtitle}"
 			tasks: [{
 				id: "607DE602F85D4F13"
 				item: "efn:nf_dual_sword"
@@ -458,7 +458,7 @@
 			description: [
 				""
 				""
-				"{ftbquests.chapter.chaptertcr2.quest3746410661820674281.description1}"
+				"{ftbquests.chapter.wu_qi.quest3746410661820674281.description1}"
 			]
 			icon_scale: 1.5d
 			id: "33FDECA5C88EB0E9"
@@ -469,7 +469,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest3746410661820674281.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest3746410661820674281.subtitle}"
 			tasks: [
 				{
 					id: "25B72AB677FC7EED"
@@ -483,18 +483,18 @@
 					type: "item"
 				}
 			]
-			title: "{ftbquests.chapter.chaptertcr2.quest3746410661820674281.title}"
+			title: "{ftbquests.chapter.wu_qi.quest3746410661820674281.title}"
 			x: -6.75d
 			y: 0.75d
 		}
 		{
 			dependencies: ["2F9F109962C8ADF4"]
 			description: [
-				"{ftbquests.chapter.chaptertcr2.quest7097191615691279450.description1}"
+				"{ftbquests.chapter.wu_qi.quest7097191615691279450.description1}"
 				""
 				""
 				""
-				"{ftbquests.chapter.chaptertcr2.quest7097191615691279450.description2}"
+				"{ftbquests.chapter.wu_qi.quest7097191615691279450.description2}"
 			]
 			icon_scale: 1.4d
 			id: "627E4A2C0428CC5A"
@@ -505,7 +505,7 @@
 			}]
 			shape: "rsquare"
 			size: 3.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest7097191615691279450.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest7097191615691279450.subtitle}"
 			tasks: [
 				{
 					id: "541CDD896754257A"
@@ -541,7 +541,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest3520088244414429018.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest3520088244414429018.subtitle}"
 			tasks: [{
 				id: "4966A9A9FBCB62AB"
 				item: {
@@ -569,7 +569,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest3658525919730360002.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest3658525919730360002.subtitle}"
 			tasks: [
 				{
 					id: "59F8C4F178149A3A"
@@ -591,7 +591,7 @@
 			dependency_requirement: "one_completed"
 			description: [
 				""
-				"{ftbquests.chapter.chaptertcr2.quest401042223978499222.description1}"
+				"{ftbquests.chapter.wu_qi.quest401042223978499222.description1}"
 			]
 			icon: {
 				Count: 1
@@ -609,7 +609,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest401042223978499222.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest401042223978499222.subtitle}"
 			tasks: [{
 				id: "4C5C12FB9A27DB22"
 				item: {
@@ -653,7 +653,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest2621597126477747816.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest2621597126477747816.subtitle}"
 			tasks: [{
 				id: "1BC422CFA17BF57F"
 				item: {
@@ -696,7 +696,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest3375755063403535007.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest3375755063403535007.subtitle}"
 			tasks: [{
 				id: "12E619E47619C93E"
 				item: {
@@ -729,7 +729,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest7364889014198298717.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest7364889014198298717.subtitle}"
 			tasks: [{
 				id: "6E75884B99961D4C"
 				item: {
@@ -762,7 +762,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest6153572832358073879.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest6153572832358073879.subtitle}"
 			tasks: [{
 				id: "721A19709767F7A2"
 				item: {
@@ -799,7 +799,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest493976747794885912.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest493976747794885912.subtitle}"
 			tasks: [{
 				id: "4FA519FC5DE359E6"
 				item: {
@@ -836,7 +836,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest8657681165834480593.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest8657681165834480593.subtitle}"
 			tasks: [{
 				id: "57D3CACFFC31AE38"
 				item: {
@@ -869,7 +869,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest5576167974382138060.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest5576167974382138060.subtitle}"
 			tasks: [{
 				id: "19EAFD50A614FBC8"
 				item: {
@@ -902,7 +902,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest3153128189034690777.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest3153128189034690777.subtitle}"
 			tasks: [{
 				id: "0AD0C56F6D419699"
 				item: {
@@ -927,7 +927,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest334265865966585776.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest334265865966585776.subtitle}"
 			tasks: [{
 				id: "3104154F67C8E5E5"
 				item: "cataclysm:gauntlet_of_guard"
@@ -938,7 +938,7 @@
 		}
 		{
 			dependencies: ["04A38D08B97A07B0"]
-			description: ["{ftbquests.chapter.chaptertcr2.quest8474908420337455815.description1}"]
+			description: ["{ftbquests.chapter.wu_qi.quest8474908420337455815.description1}"]
 			hide_dependency_lines: false
 			hide_dependent_lines: true
 			icon: "cataclysm:gauntlet_of_bulwark"
@@ -951,7 +951,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest8474908420337455815.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest8474908420337455815.subtitle}"
 			tasks: [{
 				id: "415DF5832E4C8D7C"
 				item: "cataclysm:gauntlet_of_bulwark"
@@ -962,7 +962,7 @@
 		}
 		{
 			dependencies: ["04A38D08B97A07B0"]
-			description: ["{ftbquests.chapter.chaptertcr2.quest7307970604368276746.description1}"]
+			description: ["{ftbquests.chapter.wu_qi.quest7307970604368276746.description1}"]
 			hide_dependency_lines: false
 			hide_dependent_lines: true
 			icon: "cataclysm:gauntlet_of_maelstrom"
@@ -975,7 +975,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest7307970604368276746.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest7307970604368276746.subtitle}"
 			tasks: [{
 				id: "50F9A77D17C1354B"
 				item: "cataclysm:gauntlet_of_maelstrom"
@@ -996,7 +996,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest5365638740882033471.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest5365638740882033471.subtitle}"
 			tasks: [{
 				id: "2B2C2303081A901D"
 				item: "cataclysm:the_annihilator"
@@ -1007,7 +1007,7 @@
 		}
 		{
 			dependencies: ["4A769401A7590B3F"]
-			description: ["{ftbquests.chapter.chaptertcr2.quest5850307671537924095.description1}"]
+			description: ["{ftbquests.chapter.wu_qi.quest5850307671537924095.description1}"]
 			hide_dependency_lines: false
 			hide_dependent_lines: true
 			icon: "cataclysm:the_immolator"
@@ -1020,7 +1020,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest5850307671537924095.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest5850307671537924095.subtitle}"
 			tasks: [{
 				id: "620A3960F3F15184"
 				item: "cataclysm:the_immolator"
@@ -1031,7 +1031,7 @@
 		}
 		{
 			dependencies: ["72C5DAEE93ACFDD5"]
-			description: ["{ftbquests.chapter.chaptertcr2.quest136175870569266267.description1}"]
+			description: ["{ftbquests.chapter.wu_qi.quest136175870569266267.description1}"]
 			hide_dependency_lines: false
 			hide_dependent_lines: true
 			icon: {
@@ -1050,7 +1050,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest136175870569266267.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest136175870569266267.subtitle}"
 			tasks: [{
 				id: "5E4E921EFE71EF8A"
 				item: {
@@ -1083,7 +1083,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest8270257008950443477.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest8270257008950443477.subtitle}"
 			tasks: [{
 				id: "1381DFC08EFD931F"
 				item: {
@@ -1100,7 +1100,7 @@
 		}
 		{
 			dependencies: ["2F9F109962C8ADF4"]
-			description: ["{ftbquests.chapter.chaptertcr2.quest665635487848629534.description1}"]
+			description: ["{ftbquests.chapter.wu_qi.quest665635487848629534.description1}"]
 			icon: "cataclysm:meat_shredder"
 			icon_scale: 2.0d
 			id: "093CCFF3131C851E"
@@ -1111,7 +1111,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest665635487848629534.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest665635487848629534.subtitle}"
 			tasks: [{
 				id: "5C1C8AA7BA54458A"
 				item: "cataclysm:meat_shredder"
@@ -1122,7 +1122,7 @@
 		}
 		{
 			dependencies: ["2F9F109962C8ADF4"]
-			description: ["{ftbquests.chapter.chaptertcr2.quest733255575103013824.description1}"]
+			description: ["{ftbquests.chapter.wu_qi.quest733255575103013824.description1}"]
 			icon: {
 				Count: 1
 				id: "cataclysm:laser_gatling"
@@ -1140,7 +1140,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest733255575103013824.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest733255575103013824.subtitle}"
 			tasks: [{
 				id: "64F04D5A90F5CD39"
 				item: {
@@ -1158,7 +1158,7 @@
 		}
 		{
 			dependencies: ["2F9F109962C8ADF4"]
-			description: ["{ftbquests.chapter.chaptertcr2.quest1487237069278884621.description1}"]
+			description: ["{ftbquests.chapter.wu_qi.quest1487237069278884621.description1}"]
 			icon: "cataclysm:wither_assault_shoulder_weapon"
 			icon_scale: 2.0d
 			id: "14A3BA3C1B29330D"
@@ -1169,7 +1169,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest1487237069278884621.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest1487237069278884621.subtitle}"
 			tasks: [{
 				id: "59F6CE0104A253B6"
 				item: "cataclysm:wither_assault_shoulder_weapon"
@@ -1180,7 +1180,7 @@
 		}
 		{
 			dependencies: ["14A3BA3C1B29330D"]
-			description: ["{ftbquests.chapter.chaptertcr2.quest2174003163847852864.description1}"]
+			description: ["{ftbquests.chapter.wu_qi.quest2174003163847852864.description1}"]
 			hide_dependency_lines: false
 			hide_dependent_lines: true
 			icon: "cataclysm:void_assault_shoulder_weapon"
@@ -1193,7 +1193,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest2174003163847852864.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest2174003163847852864.subtitle}"
 			tasks: [{
 				id: "36F71EEBEF8AE900"
 				item: "cataclysm:void_assault_shoulder_weapon"
@@ -1204,7 +1204,7 @@
 		}
 		{
 			dependencies: ["2F9F109962C8ADF4"]
-			description: ["{ftbquests.chapter.chaptertcr2.quest8017075452207773164.description1}"]
+			description: ["{ftbquests.chapter.wu_qi.quest8017075452207773164.description1}"]
 			icon: "cataclysm:bulwark_of_the_flame"
 			icon_scale: 2.0d
 			id: "6F425FA5C25935EC"
@@ -1215,7 +1215,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest8017075452207773164.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest8017075452207773164.subtitle}"
 			tasks: [{
 				id: "54AB791F48B3639C"
 				item: "cataclysm:bulwark_of_the_flame"
@@ -1235,7 +1235,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest8428575710599671508.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest8428575710599671508.subtitle}"
 			tasks: [{
 				id: "79A894D21785767F"
 				item: "cataclysm:astrape"
@@ -1246,7 +1246,7 @@
 		}
 		{
 			dependencies: ["2F9F109962C8ADF4"]
-			description: ["{ftbquests.chapter.chaptertcr2.quest6817462286218534865.description1}"]
+			description: ["{ftbquests.chapter.wu_qi.quest6817462286218534865.description1}"]
 			icon_scale: 2.0d
 			id: "5E9C7DD42FAD9FD1"
 			rewards: [{
@@ -1256,7 +1256,7 @@
 			}]
 			shape: "rsquare"
 			size: 2.0d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest6817462286218534865.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest6817462286218534865.subtitle}"
 			tasks: [{
 				id: "24781C7F9D041837"
 				item: {
@@ -1289,7 +1289,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest7647031252894498822.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest7647031252894498822.subtitle}"
 			tasks: [{
 				id: "202D2895D4AB7546"
 				item: {
@@ -1322,7 +1322,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest8506902448510845513.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest8506902448510845513.subtitle}"
 			tasks: [{
 				id: "33A06A54BFD3FECD"
 				item: {
@@ -1355,7 +1355,7 @@
 			}]
 			shape: "square"
 			size: 1.5d
-			subtitle: "{ftbquests.chapter.chaptertcr2.quest4792967164110097937.subtitle}"
+			subtitle: "{ftbquests.chapter.wu_qi.quest4792967164110097937.subtitle}"
 			tasks: [{
 				id: "0BCFD1A6DE25BEAB"
 				item: {
@@ -1743,6 +1743,7 @@
 				}
 				type: "item"
 			}]
+			title: "斩切模式"
 			x: -4.5d
 			y: -18.5d
 		}
@@ -1844,6 +1845,7 @@
 				}
 				type: "item"
 			}]
+			title: "阎魔刀-防御"
 			x: 2.0d
 			y: -15.0d
 		}
@@ -1873,6 +1875,7 @@
 				}
 				type: "item"
 			}]
+			title: "阎魔刀-同行者"
 			x: 4.0d
 			y: -18.0d
 		}
@@ -1902,6 +1905,7 @@
 				}
 				type: "item"
 			}]
+			title: "阎魔刀-幻影剑"
 			x: 8.0d
 			y: -18.0d
 		}
@@ -1931,6 +1935,7 @@
 				}
 				type: "item"
 			}]
+			title: "阎魔刀-次元斩·绝"
 			x: 10.0d
 			y: -15.0d
 		}
@@ -2022,6 +2027,32 @@
 			x: 9.0d
 			y: -11.0d
 		}
+		{
+			dependencies: [
+				"093CCFF3131C851E"
+				"14A3BA3C1B29330D"
+				"0A2D0C0F839703C0"
+			]
+			dependency_requirement: "one_completed"
+			hide_until_deps_visible: true
+			id: "50040C726AFC8352"
+			rewards: [{
+				id: "091E52A16CB755BA"
+				type: "xp"
+				xp: 1
+			}]
+			shape: "rsquare"
+			size: 2.0d
+			subtitle: "在[轮回绝境]击败[归寂]以解锁武器的全部力量！"
+			tasks: [{
+				entity: "tcr_bosses:harbinger_humanoid"
+				id: "1869F9A366324C62"
+				type: "kill"
+				value: 1L
+			}]
+			x: 14.0d
+			y: -11.0d
+		}
 	]
-	title: "{ftbquests.chapter.chaptertcr2.title}"
+	title: "{ftbquests.chapter.wu_qi.title}"
 }

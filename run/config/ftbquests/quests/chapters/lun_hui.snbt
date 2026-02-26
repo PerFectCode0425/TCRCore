@@ -11,7 +11,7 @@
 		}
 	}
 	id: "21DD27D4B4D79570"
-	order_index: 6
+	order_index: 5
 	quest_links: [ ]
 	quests: [
 		{
@@ -83,12 +83,14 @@
 			size: 1.5d
 			tasks: [{
 				entity: "tcr_bosses:ignis_humanoid"
+				icon: "tcrcore:flame_fragment"
 				id: "5262251A70C63296"
 				type: "kill"
 				value: 1L
 			}]
+			title: "烬煌"
 			x: 0.0d
-			y: -5.0d
+			y: -10.5d
 		}
 		{
 			dependencies: ["048CB00656EE47EF"]
@@ -108,7 +110,8 @@
 				type: "kill"
 				value: 1L
 			}]
-			x: 5.0d
+			title: "坤岳"
+			x: 10.5d
 			y: 0.0d
 		}
 		{
@@ -129,8 +132,9 @@
 				type: "kill"
 				value: 1L
 			}]
+			title: "湮无"
 			x: 0.0d
-			y: 5.0d
+			y: 10.5d
 		}
 		{
 			dependencies: ["048CB00656EE47EF"]
@@ -150,8 +154,9 @@
 				type: "kill"
 				value: 1L
 			}]
-			x: 5.0d
-			y: 5.0d
+			title: "穹霄"
+			x: 5.25d
+			y: 5.25d
 		}
 		{
 			dependencies: ["048CB00656EE47EF"]
@@ -171,7 +176,8 @@
 				type: "kill"
 				value: 1L
 			}]
-			x: -5.0d
+			title: "沧溟"
+			x: -10.5d
 			y: 0.0d
 		}
 		{
@@ -192,8 +198,9 @@
 				type: "kill"
 				value: 1L
 			}]
-			x: -5.0d
-			y: 5.0d
+			title: "魂兮"
+			x: -5.25d
+			y: 5.25d
 		}
 		{
 			dependencies: ["048CB00656EE47EF"]
@@ -204,6 +211,7 @@
 				type: "xp"
 				xp: 1
 			}]
+			size: 1.5d
 			tasks: [{
 				entity: "tcr_bosses:harbinger_humanoid"
 				icon: "tcrcore:mech_fragment"
@@ -211,8 +219,9 @@
 				type: "kill"
 				value: 1L
 			}]
-			x: -5.0d
-			y: -5.0d
+			title: "归寂"
+			x: -5.25d
+			y: -5.25d
 		}
 		{
 			dependencies: ["048CB00656EE47EF"]
@@ -232,8 +241,9 @@
 				type: "kill"
 				value: 1L
 			}]
-			x: 5.0d
-			y: -5.0d
+			title: "狱渊"
+			x: 5.25d
+			y: -5.25d
 		}
 	]
 	title: "轮回绝境"
