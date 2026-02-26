@@ -1,6 +1,7 @@
 package com.p1nero.tcrcore.utils;
 
 import com.mojang.datafixers.util.Pair;
+import com.p1nero.tcrcore.TCRCoreMod;
 import com.p1nero.tcrcore.worldgen.TCRDimensions;
 import com.yungnickyoung.minecraft.yungsapi.criteria.SafeStructureLocationPredicate;
 import net.minecraft.commands.CommandSourceStack;
@@ -169,6 +170,7 @@ public class WorldUtil {
                 String zStr = matcher.group(2).trim();
                 return new Vec2i(Integer.parseInt(xStr), Integer.parseInt(zStr));
             } catch (NumberFormatException ignored) {
+                TCRCoreMod.LOGGER.error(output);
             }
         }
         return null;

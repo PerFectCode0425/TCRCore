@@ -150,7 +150,7 @@ public class CustomQuestOverlayRenderer {
         // Draw hint text below in smaller size
         int hintTextColor = (int) (alpha * 255) << 24 | 0xAAAAAA;
         guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate((float) (x + textX) / 2, textY + 14, 0);
+        guiGraphics.pose().translate((float) x + 2, textY + 14, 0);
         guiGraphics.pose().scale(0.7F, 0.7F, 0.7F);
         guiGraphics.drawString(minecraft.font, hintText, 0, 0, hintTextColor, true);
         guiGraphics.pose().popPose();

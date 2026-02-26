@@ -65,6 +65,7 @@
     "AbilityStoneItemClientMixin",
     "AquamiraeClientMixin",
     "CataclysmClientEventMixin",
+    "CEPosFollowBaseParticleMixin",
     "ClientAnimatorMixin",
     "CMItemStackRendererMixin",
     "ControlEngineMixin",

@@ -210,6 +210,8 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "上面写着古老的神谕，暗示了火种散落的地方。回主城给守望者看看吧，说不定对冒险有帮助！");
         this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "§c多人模式请勿占据他人任务道具！每人都需各自提交！", 2);
 
+        this.addInfo("can_not_dodge", "Boss攻击将无视闪避！");
+        this.addInfo("can_not_guard", "Boss攻击将无视防御！");
         this.addInfo("pec_weapon_lock", "武器技能已锁定！在[%s]击败[%s]以解锁！");
         this.addInfo("resonance_stone_usage", "可与使徒封印的位置共鸣。");
         this.addInfo("resonance_search_failed", "错误：无法共鸣！请稍后再试！[%s]");
