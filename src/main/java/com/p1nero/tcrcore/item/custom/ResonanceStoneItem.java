@@ -65,7 +65,7 @@ public class ResonanceStoneItem extends Item {
         if(player instanceof ServerPlayer serverPlayer) {
             if(predicate.test(serverPlayer) && level.dimension().equals(dimension)) {
                 CompletableFuture.supplyAsync(() -> {
-                    serverPlayer.displayClientMessage(TCRCoreMod.getInfo("resonance_search_failed", this.getDescription()), true);
+                    serverPlayer.displayClientMessage(TCRCoreMod.getInfo("resonance_stone_working", this.getDescription()), true);
                     serverPlayer.connection.send(new ClientboundSoundPacket(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(EpicSkillsSounds.GAIN_ABILITY_POINTS.get()), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 1.0F, 1.0F, player.getRandom().nextInt()));
                     BlockPos pos = null;
                     try {
