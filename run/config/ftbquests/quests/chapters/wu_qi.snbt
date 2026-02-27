@@ -6,7 +6,7 @@
 	hide_quest_until_deps_visible: true
 	icon: "cataclysm:ceraunus"
 	id: "2D391C2F48D42ABA"
-	order_index: 2
+	order_index: 1
 	quest_links: [ ]
 	quests: [
 		{
@@ -127,7 +127,7 @@
 				optional_task: true
 				type: "item"
 			}]
-			x: 0.0d
+			x: 4.5d
 			y: 0.75d
 		}
 		{
@@ -174,7 +174,7 @@
 				item: "efn:nf_claw"
 				type: "item"
 			}]
-			x: 9.0d
+			x: 2.25d
 			y: 0.75d
 		}
 		{
@@ -388,7 +388,7 @@
 				optional_task: true
 				type: "item"
 			}]
-			x: -4.5d
+			x: 11.25d
 			y: 0.75d
 		}
 		{
@@ -423,7 +423,7 @@
 					type: "item"
 				}
 			]
-			x: 4.5d
+			x: -2.25d
 			y: 0.75d
 		}
 		{
@@ -450,7 +450,7 @@
 				optional_task: true
 				type: "item"
 			}]
-			x: 2.25d
+			x: -6.75d
 			y: 0.75d
 		}
 		{
@@ -484,7 +484,7 @@
 				}
 			]
 			title: "{ftbquests.chapter.wu_qi.quest3746410661820674281.title}"
-			x: -6.75d
+			x: -4.5d
 			y: 0.75d
 		}
 		{
@@ -622,7 +622,7 @@
 				optional_task: true
 				type: "item"
 			}]
-			x: 6.75d
+			x: 2.25d
 			y: 3.0d
 		}
 		{
@@ -848,8 +848,8 @@
 				}
 				type: "item"
 			}]
-			x: 11.25d
-			y: 3.0d
+			x: 4.5d
+			y: 5.25d
 		}
 		{
 			dependencies: ["2F9F109962C8ADF4"]
@@ -881,7 +881,7 @@
 				}
 				type: "item"
 			}]
-			x: 9.0d
+			x: 6.75d
 			y: 3.0d
 		}
 		{
@@ -1368,7 +1368,7 @@
 				type: "item"
 			}]
 			x: 4.5d
-			y: 5.25d
+			y: 7.5d
 		}
 		{
 			dependencies: ["2F9F109962C8ADF4"]
@@ -1387,7 +1387,7 @@
 				item: "efn:kusabimaru"
 				type: "item"
 			}]
-			x: 6.75d
+			x: 0.0d
 			y: 0.75d
 		}
 		{
@@ -1407,7 +1407,7 @@
 				item: "efn:crimson_moon"
 				type: "item"
 			}]
-			x: -2.25d
+			x: 9.0d
 			y: 0.75d
 		}
 		{
@@ -1427,7 +1427,7 @@
 				item: "efn:thornwheel"
 				type: "item"
 			}]
-			x: 11.25d
+			x: 6.75d
 			y: 0.75d
 		}
 		{
@@ -2104,6 +2104,48 @@
 			}]
 			x: 14.0d
 			y: -11.0d
+		}
+		{
+			dependencies: ["2F9F109962C8ADF4"]
+			icon_scale: 1.5d
+			id: "4A948CBBF49C9513"
+			rewards: [{
+				id: "14A0F0630B1FF3F5"
+				item: "fantasy_armor:moon_crystal"
+				type: "item"
+			}]
+			shape: "square"
+			size: 1.5d
+			tasks: [{
+				id: "3BB7EBD404A24E1A"
+				item: "efn:crescent_moon"
+				type: "item"
+			}]
+			x: 9.0d
+			y: 3.0d
+		}
+		{
+			dependencies: ["2F9F109962C8ADF4"]
+			icon_scale: 1.5d
+			id: "27A558871393BF23"
+			rewards: [{
+				id: "1C05EFA75D116912"
+				item: "fantasy_armor:moon_crystal"
+				type: "item"
+			}]
+			shape: "square"
+			size: 1.5d
+			tasks: [{
+				id: "65C5C0D3857A0805"
+				item: {
+					Count: 1
+					id: "efn:broadblade"
+					tag: { }
+				}
+				type: "item"
+			}]
+			x: 11.25d
+			y: 3.0d
 		}
 	]
 	title: "{ftbquests.chapter.wu_qi.title}"

@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:smithing_transform",
+    "addition": {
+        "item": "efn:duskfire_ingot"
+    },
+    "base": {
+        "item": "magistuarmory:netherite_flamebladedsword"
+    },
+    "result": {
+        "item": "efn:broadblade"
+    },
+    "template": {
+        "item": "ba_bt:end_golem_eye"
+    }
+}
