@@ -1,6 +1,7 @@
 package com.p1nero.tcrcore.datagen.tags;
 
 import com.p1nero.tcrcore.TCRCoreMod;
+import com.p1nero.tcrcore.item.TCRItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -19,6 +20,14 @@ public class TCRItemTagGenerator extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider pProvider) {
-
+        this.tag(TCRItemTags.CATACLYSM_HUMANOID_BOSS_DROP)
+                .add(TCRItems.ABYSS_FRAGMENT.get())
+                .add(TCRItems.SOUL_FRAGMENT.get())
+                .add(TCRItems.FLAME_FRAGMENT.get())
+                .add(TCRItems.NETHERITE_FRAGMENT.get())
+                .add(TCRItems.ENDER_FRAGMENT.get())
+                .add(TCRItems.DESERT_FRAGMENT.get())
+                .add(TCRItems.STORM_FRAGMENT.get())
+                .add(TCRItems.MECH_FRAGMENT.get());
     }
 }

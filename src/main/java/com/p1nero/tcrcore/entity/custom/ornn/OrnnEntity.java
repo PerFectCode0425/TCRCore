@@ -312,23 +312,26 @@ public class OrnnEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
         SkillBookItem.setContainingSkill(EFNSkills.ZANSETSU, skillBook);
 
         offers.add(new MerchantOffer(
-                new ItemStack(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), 1),
+                new ItemStack(TCRItems.FLAME_FRAGMENT.get(), 1),
+                new ItemStack(TCRItems.NETHERITE_FRAGMENT.get(), 1),
                 guard,
                 142857, 0, 0.01f));
         offers.add(new MerchantOffer(
-                new ItemStack(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), 1),
+                new ItemStack(TCRItems.DESERT_FRAGMENT.get(), 1),
+                new ItemStack(TCRItems.ENDER_FRAGMENT.get(), 1),
                 summonedSword,
                 142857, 0, 0.01f));
         offers.add(new MerchantOffer(
-                new ItemStack(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), 1),
+                new ItemStack(TCRItems.SOUL_FRAGMENT.get(), 1),
                 doppelganger,
                 142857, 0, 0.01f));
         offers.add(new MerchantOffer(
-                new ItemStack(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), 1),
+                new ItemStack(TCRItems.STORM_FRAGMENT.get(), 1),
+                new ItemStack(TCRItems.ABYSS_FRAGMENT.get(), 1),
                 judgementCutEnd,
                 142857, 0, 0.01f));
         offers.add(new MerchantOffer(
-                new ItemStack(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), 1),
+                new ItemStack(TCRItems.MECH_FRAGMENT.get(), 1),
                 EFNItem.HF_MURASAMA.get().getDefaultInstance(),
                 142857, 0, 0.01f));
         offers.add(new MerchantOffer(

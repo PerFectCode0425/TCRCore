@@ -20,13 +20,13 @@ public class OracleItem extends SimpleDescriptionItem{
     @Override
     public void appendHoverText(@NotNull ItemStack itemStack, @Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag) {
         super.appendHoverText(itemStack, level, list, flag);
-        if(level != null && level.isClientSide){
-            if(!Minecraft.getInstance().isSingleplayer()) {
-                list.add(Component.translatable(this.getDescriptionId() + ".usage2").withStyle(ChatFormatting.GRAY));
-            }
-        }
-        if(itemStack.hasTag() && itemStack.getOrCreateTag().contains(TCRPlayer.PLAYER_NAME)) {
-            list.add(Component.literal("——" + itemStack.getOrCreateTag().getString(TCRPlayer.PLAYER_NAME)).withStyle(ChatFormatting.AQUA));
-        }
+//        if(level != null && level.isClientSide){
+//            if(!Minecraft.getInstance().isSingleplayer()) {
+//                list.add(Component.translatable(this.getDescriptionId() + ".usage2").withStyle(ChatFormatting.GRAY));
+//            }
+//        }
+//        if(itemStack.hasTag() && itemStack.getOrCreateTag().contains(TCRPlayer.PLAYER_NAME)) {
+//            list.add(Component.literal("——" + itemStack.getOrCreateTag().getString(TCRPlayer.PLAYER_NAME)).withStyle(ChatFormatting.AQUA));
+//        }
     }
 }

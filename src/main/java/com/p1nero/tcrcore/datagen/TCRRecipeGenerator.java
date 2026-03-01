@@ -1,5 +1,6 @@
 package com.p1nero.tcrcore.datagen;
 
+import com.p1nero.tcrcore.datagen.tags.TCRItemTags;
 import com.p1nero.tcrcore.item.TCRItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -19,6 +20,13 @@ public class TCRRecipeGenerator extends TCRRecipeProvider implements IConditionB
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, TCRItems.WITHER_SOUL_STONE_ACTIVATED.get(), 1)
                 .requires(TCRItems.WITHER_SOUL_STONE.get())
                 .requires(Items.GHAST_TEAR)
+                .unlockedBy(getHasName(TCRItems.WITHER_SOUL_STONE.get()), has(TCRItems.WITHER_SOUL_STONE.get()))
+                .save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), 1)
+                .requires(TCRItemTags.CATACLYSM_HUMANOID_BOSS_DROP)
+                .requires(TCRItemTags.CATACLYSM_HUMANOID_BOSS_DROP)
+                .requires(TCRItemTags.CATACLYSM_HUMANOID_BOSS_DROP)
+                .requires(TCRItemTags.CATACLYSM_HUMANOID_BOSS_DROP)
                 .unlockedBy(getHasName(TCRItems.WITHER_SOUL_STONE.get()), has(TCRItems.WITHER_SOUL_STONE.get()))
                 .save(consumer);
     }

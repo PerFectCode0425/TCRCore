@@ -209,6 +209,16 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addSkill("fire_avoid", "避火咒", "免疫火焰伤害！");
         this.addSkill("perfect_dodge", "闪避特效", "完美闪避时将有帅气的动作！");
 
+        this.add(TCRItems.DIVINE_FRAGMENT.get(), "神性碎片");
+        this.addItemUsageInfo(TCRItems.DIVINE_FRAGMENT.get(), "上面记载了神的意志");
+        this.add(TCRItems.ABYSS_FRAGMENT.get(), "渊海葬歌的回响");
+        this.add(TCRItems.DESERT_FRAGMENT.get(), "遗忘之沙的回响");
+        this.add(TCRItems.ENDER_FRAGMENT.get(), "终末之诗的残片");
+        this.add(TCRItems.MECH_FRAGMENT.get(), "永动齿轮的残骸");
+        this.add(TCRItems.NETHERITE_FRAGMENT.get(), "熔心淬火的余烬");
+        this.add(TCRItems.FLAME_FRAGMENT.get(), "初火残响");
+        this.add(TCRItems.STORM_FRAGMENT.get(), "雷渊怒吼的碎片");
+        this.add(TCRItems.SOUL_FRAGMENT.get(), "咒骨囚魂的遗尘");
         this.add(TCRItems.WITHER_SOUL_STONE.get(), "凋灵魂石");
         this.addItemUsageInfo(TCRItems.WITHER_SOUL_STONE.get(), "它现在似乎失去了魔力，只是一块独特的石头。想办法激活它吧！");
         this.add(TCRItems.WITHER_SOUL_STONE_ACTIVATED.get(), "凋灵魂石");
@@ -244,9 +254,9 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.add(TCRItems.RARE_ARTIFACT_TICKET.get(), "稀有饰品精华");
         this.addItemUsageInfo(TCRItems.RARE_ARTIFACT_TICKET.get(), "通过任务书某些任务获取。可在§d[圣殿港口]§r的§3[摆渡人]§r处提炼稀有饰品");
         this.add(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "神谕残卷");
-        this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "上面写着古老的神谕，暗示了火种散落的地方。回主城给守望者看看吧，说不定对冒险有帮助！");
-        this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "§c多人模式请勿占据他人任务道具！每人都需各自提交！", 2);
+        this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "§c§kI'm Your...");
 
+        this.addInfo("cataclysm_humanoid_drop_desc", "于[%s]击败[%s]掉落");
         this.addInfo("i18n_pack", "国际化翻译包，感谢所有译者！");
         this.addInfo("can_not_dodge", "Boss攻击将无视闪避！");
         this.addInfo("can_not_guard", "Boss攻击将无视防御！");
@@ -328,7 +338,6 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addInfo("time_to_ask_godness_statue", "§d*可在女神像处祈求祝福");
         this.addInfo("time_to_end", "所有祭坛已点亮，该找守卫者举行仪式了...");
 
-        this.addInfo("can_not_enter_dim", "看来当前还未能达到神之认可，无法进入...§6继续收集火种§r以获取更多神谕吧！");
         this.addInfo("reset_when_no_player", "当幻境内没有玩家存在时，离开幻境过久，幻境将会重置！");
         this.addInfo("on_full_set", "套装效果");
         this.addInfo("unlock_new_ftb_page", "解锁了新的任务界面，请打开§6[任务书]§r查看");

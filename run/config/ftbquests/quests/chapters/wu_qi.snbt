@@ -6,6 +6,14 @@
 	hide_quest_until_deps_visible: true
 	icon: "cataclysm:ceraunus"
 	id: "2D391C2F48D42ABA"
+	images: [{
+		height: 48.0d
+		image: "tcrcore:textures/ftb/magic_bg.png"
+		rotation: 0.0d
+		width: 60.0d
+		x: 0.1428571428571388d
+		y: -5.946428571428569d
+	}]
 	order_index: 2
 	quest_links: [ ]
 	quests: [
@@ -58,7 +66,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest7738234039258348075.subtitle}"
 			tasks: [{
@@ -91,7 +99,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest970201556921326311.subtitle}"
 			tasks: [{
@@ -118,7 +126,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest5465744286518435450.subtitle}"
 			tasks: [{
@@ -139,7 +147,7 @@
 				type: "xp"
 				xp: 100
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest8304354729150815994.subtitle}"
 			tasks: [{
@@ -166,7 +174,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest4807562247735743917.subtitle}"
 			tasks: [{
@@ -195,7 +203,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest1352920048638303632.subtitle}"
 			tasks: [{
@@ -232,7 +240,7 @@
 				type: "xp"
 				xp: 100
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest6094420483594131130.subtitle}"
 			tasks: [{
@@ -271,7 +279,7 @@
 				type: "xp"
 				xp: 100
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest7340118874838468132.subtitle}"
 			tasks: [{
@@ -298,7 +306,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest103322110141927354.subtitle}"
 			tasks: [{
@@ -327,7 +335,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest5283406340565177552.subtitle}"
 			tasks: [{
@@ -354,7 +362,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest4621109420579122097.subtitle}"
 			tasks: [{
@@ -379,7 +387,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest1696022313405171865.subtitle}"
 			tasks: [{
@@ -407,7 +415,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest8446857425516070955.subtitle}"
 			tasks: [
@@ -441,7 +449,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest6948876923325267382.subtitle}"
 			tasks: [{
@@ -467,7 +475,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest3746410661820674281.subtitle}"
 			tasks: [
@@ -503,7 +511,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 3.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest7097191615691279450.subtitle}"
 			tasks: [
@@ -539,7 +547,7 @@
 				type: "xp"
 				xp: 100
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest3520088244414429018.subtitle}"
 			tasks: [{
@@ -567,7 +575,7 @@
 				type: "xp"
 				xp: 100
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest3658525919730360002.subtitle}"
 			tasks: [
@@ -607,7 +615,7 @@
 				type: "xp"
 				xp: 100
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest401042223978499222.subtitle}"
 			tasks: [{
@@ -651,7 +659,7 @@
 				type: "xp"
 				xp: 100
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest2621597126477747816.subtitle}"
 			tasks: [{
@@ -694,7 +702,7 @@
 				type: "xp"
 				xp: 100
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest3375755063403535007.subtitle}"
 			tasks: [{
@@ -727,7 +735,7 @@
 				type: "xp"
 				xp: 100
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest7364889014198298717.subtitle}"
 			tasks: [{
@@ -760,7 +768,7 @@
 				type: "xp"
 				xp: 100
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest6153572832358073879.subtitle}"
 			tasks: [{
@@ -797,7 +805,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest493976747794885912.subtitle}"
 			tasks: [{
@@ -834,7 +842,7 @@
 				type: "xp"
 				xp: 100
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest8657681165834480593.subtitle}"
 			tasks: [{
@@ -867,7 +875,7 @@
 				type: "xp"
 				xp: 100
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest5576167974382138060.subtitle}"
 			tasks: [{
@@ -900,7 +908,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest3153128189034690777.subtitle}"
 			tasks: [{
@@ -925,7 +933,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest334265865966585776.subtitle}"
 			tasks: [{
@@ -949,7 +957,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest8474908420337455815.subtitle}"
 			tasks: [{
@@ -973,7 +981,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest7307970604368276746.subtitle}"
 			tasks: [{
@@ -994,7 +1002,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest5365638740882033471.subtitle}"
 			tasks: [{
@@ -1018,7 +1026,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest5850307671537924095.subtitle}"
 			tasks: [{
@@ -1048,7 +1056,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest136175870569266267.subtitle}"
 			tasks: [{
@@ -1081,7 +1089,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest8270257008950443477.subtitle}"
 			tasks: [{
@@ -1109,7 +1117,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest665635487848629534.subtitle}"
 			tasks: [{
@@ -1138,7 +1146,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest733255575103013824.subtitle}"
 			tasks: [{
@@ -1167,7 +1175,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest1487237069278884621.subtitle}"
 			tasks: [{
@@ -1191,7 +1199,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest2174003163847852864.subtitle}"
 			tasks: [{
@@ -1213,7 +1221,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest8017075452207773164.subtitle}"
 			tasks: [{
@@ -1233,7 +1241,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest8428575710599671508.subtitle}"
 			tasks: [{
@@ -1254,7 +1262,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.wu_qi.quest6817462286218534865.subtitle}"
 			tasks: [{
@@ -1287,7 +1295,7 @@
 				type: "xp"
 				xp: 100
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest7647031252894498822.subtitle}"
 			tasks: [{
@@ -1320,7 +1328,7 @@
 				type: "xp"
 				xp: 100
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest8506902448510845513.subtitle}"
 			tasks: [{
@@ -1353,7 +1361,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "{ftbquests.chapter.wu_qi.quest4792967164110097937.subtitle}"
 			tasks: [{
@@ -1379,7 +1387,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "锻造获得"
 			tasks: [{
@@ -1399,7 +1407,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "锻造获得"
 			tasks: [{
@@ -1419,7 +1427,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			subtitle: "锻造获得"
 			tasks: [{
@@ -1439,7 +1447,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			tasks: [{
 				id: "3F930103DD5A0786"
@@ -1464,7 +1472,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			tasks: [{
 				id: "26FE621610DEC56C"
@@ -1489,7 +1497,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			tasks: [{
 				id: "2B9C8BE92E14B700"
@@ -1514,7 +1522,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			tasks: [{
 				id: "6E597920467BD315"
@@ -1539,7 +1547,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			tasks: [{
 				id: "73EF7ED637FC53A4"
@@ -1564,7 +1572,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			tasks: [{
 				id: "2707CA3652379B0E"
@@ -1589,7 +1597,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			tasks: [
 				{
@@ -1627,7 +1635,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			tasks: [{
 				id: "74AF398B13E3304F"
@@ -1652,7 +1660,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			tasks: [{
 				id: "35566B1120A6FD2E"
@@ -1678,7 +1686,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			tasks: [{
 				id: "586B39D2B34644A1"
@@ -1703,7 +1711,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 3.0d
 			subtitle: "合成获得"
 			tasks: [{
@@ -1728,7 +1736,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "解放[&4高频村雨&r]的全部力量！"
 			tasks: [{
@@ -1767,7 +1775,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "在[轮回绝境]击败[魂兮]以解锁武器的全部力量！"
 			tasks: [{
@@ -1796,7 +1804,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "在[轮回绝境]击败[坤岳]以解锁武器的全部力量！"
 			tasks: [{
@@ -1828,7 +1836,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "在[轮回绝境]击败[穹霄]以解锁武器的全部力量！"
 			tasks: [{
@@ -1848,7 +1856,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "解放[&6阎魔刀&r]的全部力量！"
 			tasks: [{
@@ -1878,7 +1886,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "解放[&6阎魔刀&r]的全部力量！"
 			tasks: [{
@@ -1908,7 +1916,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "解放[&6阎魔刀&r]的全部力量！"
 			tasks: [{
@@ -1938,7 +1946,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "解放[&6阎魔刀&r]的全部力量！"
 			tasks: [{
@@ -1977,7 +1985,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "在[轮回绝境]击败[烬煌]以解锁武器的全部力量！"
 			tasks: [{
@@ -2006,7 +2014,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "在[轮回绝境]击败[沧溟]以解锁武器的全部力量！"
 			tasks: [{
@@ -2035,7 +2043,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "在[轮回绝境]击败[狱渊]以解锁武器的全部力量！"
 			tasks: [{
@@ -2064,7 +2072,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "在[轮回绝境]击败[湮无]以解锁武器的全部力量！"
 			tasks: [{
@@ -2093,7 +2101,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "在[轮回绝境]击败[归寂]以解锁武器的全部力量！"
 			tasks: [{
@@ -2114,7 +2122,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			tasks: [{
 				id: "3BB7EBD404A24E1A"
@@ -2133,7 +2141,7 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			shape: "square"
+			shape: "none"
 			size: 1.5d
 			tasks: [{
 				id: "65C5C0D3857A0805"

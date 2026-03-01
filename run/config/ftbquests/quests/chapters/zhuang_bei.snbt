@@ -11,6 +11,14 @@
 		}
 	}
 	id: "2454D069098E415A"
+	images: [{
+		height: 22.0d
+		image: "tcrcore:textures/ftb/magic_bg.png"
+		rotation: 0.0d
+		width: 32.0d
+		x: -0.5d
+		y: -2.5d
+	}]
 	order_index: 3
 	quest_links: [ ]
 	quests: [
@@ -27,9 +35,9 @@
 			id: "6552F3D1C32E5C75"
 			invisible: true
 			rewards: [{
-				id: "594DDDFA7953D7E5"
-				item: "fantasy_armor:moon_crystal"
-				type: "item"
+				id: "32C83E8DD6A12473"
+				type: "xp"
+				xp: 1
 			}]
 			shape: "none"
 			size: 2.0d
@@ -578,7 +586,7 @@
 			icon_scale: 1.5d
 			id: "66B95BDCAFA07D10"
 			rewards: [{
-				id: "506E18C59C183072"
+				id: "3A3E60A5FF29E18C"
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
@@ -770,8 +778,8 @@
 				}
 			]
 			title: "{ftbquests.chapter.zhuang_bei.quest3981524518237695884.title}"
-			x: -1.5d
-			y: 5.25d
+			x: -3.75d
+			y: 3.0d
 		}
 		{
 			dependencies: ["6552F3D1C32E5C75"]
@@ -839,8 +847,8 @@
 				}
 			]
 			title: "{ftbquests.chapter.zhuang_bei.quest3452598305336821364.title}"
-			x: -3.75d
-			y: 5.25d
+			x: -6.0d
+			y: 3.0d
 		}
 		{
 			dependencies: ["6552F3D1C32E5C75"]
@@ -892,8 +900,8 @@
 				item: "mowziesmobs:wrought_helmet"
 				type: "item"
 			}]
-			x: -6.0d
-			y: 5.25d
+			x: -8.25d
+			y: 3.0d
 		}
 		{
 			dependencies: ["6552F3D1C32E5C75"]
@@ -913,8 +921,8 @@
 				item: "mowziesmobs:sol_visage"
 				type: "item"
 			}]
-			x: 3.75d
-			y: 5.25d
+			x: 6.75d
+			y: 3.0d
 		}
 		{
 			dependencies: ["6552F3D1C32E5C75"]
@@ -1003,8 +1011,8 @@
 				}
 			]
 			title: "{ftbquests.chapter.zhuang_bei.quest7795893636116462062.title}"
-			x: 6.0d
-			y: 5.25d
+			x: 9.0d
+			y: 3.0d
 		}
 		{
 			dependencies: ["6552F3D1C32E5C75"]
@@ -1072,8 +1080,8 @@
 				}
 			]
 			title: "{ftbquests.chapter.zhuang_bei.quest4525109753956982642.title}"
-			x: 1.5d
-			y: 5.25d
+			x: 4.5d
+			y: 3.0d
 		}
 	]
 	title: "{ftbquests.chapter.zhuang_bei.title}"

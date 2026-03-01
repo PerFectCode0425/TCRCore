@@ -5,6 +5,14 @@
 	group: ""
 	icon: "tcrcore:ancient_oracle_fragment"
 	id: "18EFF26E3A176E9E"
+	images: [{
+		height: 32.0d
+		image: "tcrcore:textures/ftb/magic_bg_book.png"
+		rotation: 0.0d
+		width: 54.0d
+		x: -1.0d
+		y: -1.5d
+	}]
 	order_index: 1
 	quest_links: [ ]
 	quests: [
@@ -23,7 +31,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest2021770627758923696.subtitle}"
 			tasks: [{
@@ -31,8 +39,8 @@
 				item: "minecraft:netherite_ingot"
 				type: "item"
 			}]
-			x: -8.0d
-			y: 0.0d
+			x: -16.0d
+			y: 3.0d
 		}
 		{
 			description: [
@@ -47,7 +55,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest5964140097553142986.subtitle}"
 			tasks: [{
@@ -55,8 +63,8 @@
 				item: "fantasy_armor:moon_crystal"
 				type: "item"
 			}]
-			x: -8.0d
-			y: -4.0d
+			x: -16.0d
+			y: -1.0d
 		}
 		{
 			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest5944135541529370519.description1}"]
@@ -67,7 +75,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest5944135541529370519.subtitle}"
 			tasks: [{
@@ -75,8 +83,8 @@
 				item: "aquamirae:shell_horn"
 				type: "item"
 			}]
-			x: 4.0d
-			y: -4.0d
+			x: -4.0d
+			y: -1.0d
 		}
 		{
 			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest2205299458336238367.description1}"]
@@ -87,7 +95,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest2205299458336238367.subtitle}"
 			tasks: [{
@@ -95,8 +103,8 @@
 				item: "aquamirae:frozen_key"
 				type: "item"
 			}]
-			x: -4.0d
-			y: -4.0d
+			x: -12.0d
+			y: -1.0d
 		}
 		{
 			description: [
@@ -110,7 +118,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest2643745248865061760.subtitle}"
 			tasks: [{
@@ -118,8 +126,8 @@
 				item: "aquamirae:ship_graveyard_echo"
 				type: "item"
 			}]
-			x: 8.0d
-			y: -4.0d
+			x: 6.0d
+			y: -9.0d
 		}
 		{
 			description: [
@@ -133,7 +141,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest7775256599894434225.subtitle}"
 			tasks: [{
@@ -141,8 +149,8 @@
 				item: "efn:deepdark_heart"
 				type: "item"
 			}]
-			x: 0.0d
-			y: 4.0d
+			x: 6.0d
+			y: -1.0d
 		}
 		{
 			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest2169869265315588366.description1}"]
@@ -153,7 +161,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest2169869265315588366.subtitle}"
 			tasks: [{
@@ -161,8 +169,8 @@
 				item: "fromtheshadows:crimson_shell"
 				type: "item"
 			}]
-			x: 8.0d
-			y: 0.0d
+			x: 2.0d
+			y: -9.0d
 		}
 		{
 			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest1702170312402154650.description1}"]
@@ -173,7 +181,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest1702170312402154650.subtitle}"
 			tasks: [{
@@ -181,8 +189,8 @@
 				item: "dodosmobs:chimera_claw"
 				type: "item"
 			}]
-			x: -4.0d
-			y: 4.0d
+			x: 2.0d
+			y: -1.0d
 		}
 		{
 			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest3488672777360054910.description1}"]
@@ -193,7 +201,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest3488672777360054910.subtitle}"
 			tasks: [{
@@ -201,8 +209,8 @@
 				item: "fromtheshadows:crystallized_blood"
 				type: "item"
 			}]
-			x: -8.0d
-			y: 4.0d
+			x: 2.0d
+			y: -5.0d
 		}
 		{
 			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest7623977956706730271.description1}"]
@@ -213,7 +221,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest7623977956706730271.subtitle}"
 			tasks: [{
@@ -221,8 +229,8 @@
 				item: "fromtheshadows:corrupted_heart"
 				type: "item"
 			}]
-			x: 8.0d
-			y: 4.0d
+			x: 14.0d
+			y: -1.0d
 		}
 		{
 			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest7275702007544484942.description1}"]
@@ -233,7 +241,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest7275702007544484942.subtitle}"
 			tasks: [{
@@ -241,8 +249,8 @@
 				item: "efn:duskfire_ingot"
 				type: "item"
 			}]
-			x: 0.0d
-			y: -8.0d
+			x: 10.0d
+			y: -1.0d
 		}
 		{
 			description: [
@@ -257,7 +265,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest1521002339387395093.subtitle}"
 			tasks: [{
@@ -265,8 +273,8 @@
 				item: "epicskills:ability_stone"
 				type: "item"
 			}]
-			x: 4.0d
-			y: 4.0d
+			x: -10.0d
+			y: -10.0d
 		}
 		{
 			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest3458476712436019723.description1}"]
@@ -277,7 +285,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest3458476712436019723.subtitle}"
 			tasks: [{
@@ -285,8 +293,8 @@
 				item: "tcrcore:proof_of_adventure"
 				type: "item"
 			}]
-			x: 0.0d
-			y: 0.0d
+			x: -8.0d
+			y: 3.0d
 		}
 		{
 			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest5557331432936050401.description1}"]
@@ -297,7 +305,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest5557331432936050401.subtitle}"
 			tasks: [{
@@ -305,8 +313,8 @@
 				item: "fdbosses:lightning_core"
 				type: "item"
 			}]
-			x: -4.0d
-			y: 0.0d
+			x: -12.0d
+			y: 3.0d
 		}
 		{
 			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest7990469202542007160.description1}"]
@@ -317,7 +325,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest7990469202542007160.subtitle}"
 			tasks: [{
@@ -325,8 +333,8 @@
 				item: "fdbosses:fire_and_ice_core"
 				type: "item"
 			}]
-			x: 4.0d
-			y: 0.0d
+			x: -4.0d
+			y: 3.0d
 		}
 		{
 			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest6795423405472902442.description1}"]
@@ -337,7 +345,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest6795423405472902442.subtitle}"
 			tasks: [{
@@ -345,8 +353,8 @@
 				item: "cataclysm:abyssal_sacrifice"
 				type: "item"
 			}]
-			x: -4.0d
-			y: 8.0d
+			x: 6.0d
+			y: -5.0d
 		}
 		{
 			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest8872242641152191514.description1}"]
@@ -357,7 +365,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest8872242641152191514.subtitle}"
 			tasks: [{
@@ -365,8 +373,8 @@
 				item: "cataclysm:necklace_of_the_desert"
 				type: "item"
 			}]
-			x: 0.0d
-			y: 8.0d
+			x: 10.0d
+			y: -5.0d
 		}
 		{
 			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest1310141621149818918.description1}"]
@@ -377,7 +385,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest1310141621149818918.subtitle}"
 			tasks: [{
@@ -385,8 +393,8 @@
 				item: "cataclysm:strange_key"
 				type: "item"
 			}]
-			x: 4.0d
-			y: 8.0d
+			x: 14.0d
+			y: -5.0d
 		}
 		{
 			description: ["{ftbquests.chapter.522B859BEE1EDD88.quest5237705525294358869.description1}"]
@@ -398,15 +406,15 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			tasks: [{
 				id: "59444E5C93BAC211"
 				item: "armourers_workshop:skin-library-global"
 				type: "item"
 			}]
-			x: -8.0d
-			y: -12.0d
+			x: -16.0d
+			y: -6.0d
 		}
 		{
 			dependency_requirement: "one_started"
@@ -423,15 +431,15 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			tasks: [{
 				id: "1E3882E4BD586574"
 				item: "armourers_workshop:skin-library"
 				type: "item"
 			}]
-			x: -4.0d
-			y: -12.0d
+			x: -12.0d
+			y: -6.0d
 		}
 		{
 			description: ["{ftbquests.chapter.522B859BEE1EDD88.quest7469604769731266141.description1}"]
@@ -443,15 +451,15 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			tasks: [{
 				id: "16B6F031E0876ABC"
 				item: "armourers_workshop:skinning-table"
 				type: "item"
 			}]
-			x: 4.0d
-			y: -12.0d
+			x: -8.0d
+			y: -6.0d
 		}
 		{
 			can_repeat: true
@@ -465,7 +473,7 @@
 				type: "xp"
 				xp: 1
 			}]
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			tasks: [{
 				id: "23461D096F761169"
@@ -473,14 +481,14 @@
 				type: "item"
 			}]
 			title: "{item.armourers_workshop.skin-template}"
-			x: 8.0d
-			y: -12.0d
+			x: -4.0d
+			y: -6.0d
 		}
 		{
 			description: ["击败严厉掉落"]
 			id: "36CB2233DCA15781"
 			invisible: true
-			shape: "rsquare"
+			shape: "none"
 			size: 2.0d
 			subtitle: "严厉的核心"
 			tasks: [{
@@ -488,8 +496,8 @@
 				item: "fdbosses:justice_core"
 				type: "item"
 			}]
-			x: 0.0d
-			y: -4.0d
+			x: -8.0d
+			y: -1.0d
 		}
 	]
 	title: "{ftbquests.chapter.zhong_yao_wu_pin.title}"

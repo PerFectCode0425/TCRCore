@@ -4,10 +4,10 @@
 	[mobs."Bone Chimera"]
 		#Bone Chimera's Health Multiplier
 		#Range: 0.0 ~ 1000000.0
-		"Bone Chimera HealthMultiplier" = 0.5
+		"Bone Chimera HealthMultiplier" = 0.3
 		#Bone Chimera's Damage Multiplier
 		#Range: 0.0 ~ 1000000.0
-		"Bone Chimera DamageMultiplier" = 0.5
+		"Bone Chimera DamageMultiplier" = 0.3
 
 	[mobs."Dead Horn"]
 		#Dead Horn's Health Multiplier

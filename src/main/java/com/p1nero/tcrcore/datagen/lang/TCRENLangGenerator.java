@@ -112,6 +112,14 @@ public class TCRENLangGenerator extends TCRLangProvider {
         this.addSkill("fire_avoid", "Fire Avoidance Charm", "Immunity to fire damage!");
         this.addSkill("perfect_dodge", "Dodge Effect", "Play a cool animation when perfect dodge!");
 
+        this.add(TCRItems.ABYSS_FRAGMENT.get(), "Echo of the Abyssal Dirge");
+        this.add(TCRItems.DESERT_FRAGMENT.get(), "Echo of Forgotten Sands");
+        this.add(TCRItems.ENDER_FRAGMENT.get(), "Shard of the Final Verse");
+        this.add(TCRItems.MECH_FRAGMENT.get(), "Remains of the Perpetual Gear");
+        this.add(TCRItems.NETHERITE_FRAGMENT.get(), "Embers of the Quenched Molten Heart");
+        this.add(TCRItems.FLAME_FRAGMENT.get(), "Echo of the First Flame");
+        this.add(TCRItems.STORM_FRAGMENT.get(), "Shard of the Thunderous Roar");
+        this.add(TCRItems.SOUL_FRAGMENT.get(), "Dust of the Cursed Bone Prison");
         this.add(TCRItems.WITHER_SOUL_STONE.get(), "Wither Soul Stone");
         this.addItemUsageInfo(TCRItems.WITHER_SOUL_STONE.get(), "It seems to have lost its magic for now, just a unique stone. Figure out how to reawaken it!");
         this.add(TCRItems.WITHER_SOUL_STONE_ACTIVATED.get(), "Wither Soul Stone");
@@ -147,9 +155,9 @@ public class TCRENLangGenerator extends TCRLangProvider {
         this.add(TCRItems.RARE_ARTIFACT_TICKET.get(), "Golden Artifact Essence");
         this.addItemUsageInfo(TCRItems.RARE_ARTIFACT_TICKET.get(), "Obtained from certain quests in the quest book. Can be used to refine rare artifact with the §3[Ferry girl]§r at the §d[Saint Harbor]§r");
         this.add(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "Oracle Fragment");
-        this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "It bears an ancient oracle hinting at the locations of scattered embers. Show it to the The Sanctuary Keeper in the The Sanctuary; it might aid your adventure!");
-        this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "§cIn multiplayer mode, do not occupy other players'! Everyone must submit their own!", 2);
+        this.addItemUsageInfo(TCRItems.ANCIENT_ORACLE_FRAGMENT.get(), "§c§kI'm Your...");
 
+        this.addInfo("cataclysm_humanoid_drop_desc", "Dropped at [%s] by defeating [%s]");
         this.addInfo("i18n_pack", "I18n pack, thanks to all translators!");
         this.addInfo("can_not_dodge", "Boss attacks cannot be dodged!");
         this.addInfo("can_not_guard", "Boss attacks cannot be blocked!");
@@ -229,7 +237,6 @@ public class TCRENLangGenerator extends TCRLangProvider {
         this.addInfo("time_to_ask_godness_statue", "§d*This item can be used at the statue of the Goddess.");
         this.addInfo("time_to_end", "All altars are lit. It's time to find the The Sanctuary Keeper to perform the ritual...");
 
-        this.addInfo("can_not_enter_dim", "It seems you have not yet gained the divine approval to enter... §6Continue collecting embers§r to receive more oracles!");
         this.addInfo("reset_when_no_player", "If no players remain in the Cloudland, leaving for too long will reset the Cloudland!");
         this.addInfo("on_full_set", "Full Set Effect");
         this.addInfo("unlock_new_ftb_page", "A new quest page has been unlocked. Please open the §6[Quest Book]§r to check");

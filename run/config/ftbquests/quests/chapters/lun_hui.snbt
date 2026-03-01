@@ -11,19 +11,32 @@
 		}
 	}
 	id: "21DD27D4B4D79570"
-	images: [{
-		height: 30.0d
-		image: "tcrcore:textures/ftb/altar/altar.png"
-		rotation: 0.0d
-		width: 30.0d
-		x: 0.0d
-		y: 1.0d
-	}]
+	images: [
+		{
+			color: 0
+			height: 30.0d
+			image: "tcrcore:textures/ftb/altar/altar.png"
+			rotation: 0.0d
+			width: 30.0d
+			x: 0.0d
+			y: 1.0d
+		}
+		{
+			height: 20.0d
+			image: "tcrcore:textures/ftb/magic_bg.png"
+			order: -1
+			rotation: 0.0d
+			width: 32.0d
+			x: 0.0d
+			y: 1.0d
+		}
+	]
 	order_index: 6
 	quest_links: [ ]
 	quests: [
 		{
 			dependencies: ["048CB00656EE47EF"]
+			description: ["&6[思索以查看召唤仪式！]"]
 			hide_dependency_lines: true
 			hide_until_deps_complete: true
 			id: "3825BFB29CCBF7E9"
@@ -33,7 +46,7 @@
 				xp: 1
 			}]
 			shape: "none"
-			subtitle: "通往始源决斗场之门"
+			subtitle: "当你和这块石头接触时，无思涌入你的脑海，你仿看见了“祂们”。"
 			tasks: [{
 				id: "29FE508F97B0D8A2"
 				item: {
@@ -45,8 +58,8 @@
 				}
 				type: "item"
 			}]
-			x: 0.015873015873012264d
-			y: 0.1460317460317455d
+			x: 0.0d
+			y: -0.5d
 		}
 		{
 			icon: {
@@ -64,7 +77,7 @@
 				xp: 1
 			}]
 			shape: "none"
-			size: 2.0d
+			size: 3.0d
 			tasks: [{
 				advancement: "tcrcore:unlock_epic_boss"
 				criterion: ""

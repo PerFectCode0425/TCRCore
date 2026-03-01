@@ -76,6 +76,7 @@
 				type: "xp"
 				xp: 1
 			}]
+			shape: "none"
 			size: 2.0d
 			subtitle: "{ftbquests.chapter.xu_zhang.quest711034741643803066.subtitle}"
 			tasks: [{
