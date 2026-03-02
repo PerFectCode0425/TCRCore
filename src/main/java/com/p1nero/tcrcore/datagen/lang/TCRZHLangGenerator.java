@@ -81,7 +81,7 @@ public class TCRZHLangGenerator extends TCRLangProvider {
         this.addBiome(TCRBiomes.AIR, "");
         this.addBiome(TCRBiomes.REAL, "");
 
-        this.addQuest(TCRQuests.WAIT_RESONANCE_STONE_CHARGE, "间章", "等待[%s]充能", "[%s]的能量已经耗尽，重新充能需要一段时间。在充能完成之前先去做点别的事吧！\n\n§6[注意]：若不想等待，可使用\"/time add\"命令将时间增加6000。");
+        this.addQuest(TCRQuests.WAIT_RESONANCE_STONE_CHARGE, "间章", "等待[%s]充能", "[%s]的能量已经耗尽，重新充能需要一段时间。在充能完成之前先去做点别的事吧！");
         this.addQuest(TCRQuests.PUT_DESERT_EYE_ON_ALTAR, "间章", "将[%s]置于祭坛上", "[%s]已经寻回，快将它归位到圣殿长廊的祭坛上吧！");
         this.addQuest(TCRQuests.PUT_ABYSS_EYE_ON_ALTAR, "间章", "将[%s]置于祭坛上", "[%s]已经寻回，快将它归位到圣殿长廊的祭坛上吧！");
         this.addQuest(TCRQuests.PUT_CURSED_EYE_ON_ALTAR, "间章", "将[%s]置于祭坛上", "[%s]已经寻回，快将它归位到圣殿长廊的祭坛上吧！");

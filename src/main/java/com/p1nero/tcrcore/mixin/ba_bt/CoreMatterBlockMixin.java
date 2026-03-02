@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * 移除CoreMater碰撞
+ * 尝试移除CoreMater碰撞 FIXME
  */
 @Mixin(BlockBehaviour.class)
 public class CoreMatterBlockMixin {

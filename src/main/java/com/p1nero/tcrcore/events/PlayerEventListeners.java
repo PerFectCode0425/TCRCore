@@ -672,8 +672,8 @@ public class PlayerEventListeners {
                 if (!PlayerDataManager.cursedEyeBlessed.get(player)) {
                     TCRQuests.BLESS_ON_THE_GODNESS_STATUE.start(player);
                 }
-                TCRQuests.TALK_TO_AINE_MAGIC.start(player);
                 TCRQuests.TALK_TO_CHRONOS_5.start(player);
+                TCRQuests.TALK_TO_AINE_MAGIC.start(player);
             }
             if (TCRQuestManager.hasQuest(player, TCRQuests.GET_FLAME_EYE) && itemStack.is(ModItems.FLAME_EYE.get())) {
                 giveOracleEffect(player, ModItems.FLAME_EYE.get());

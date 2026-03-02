@@ -175,28 +175,34 @@ public class AineEntity extends PathfinderMob implements IEntityNpc, GeoEntity, 
                     .addFinalOption(-2, 5);
             return dialogueScreenBuilder.build();
         } else if (TCRQuests.TALK_TO_AINE_MAGIC_2.equals(currentQuest)) {
-            //介绍施法
-            DialogNode learnt = new DialogNode(dBuilder.ans(22, TCRItems.MAGIC_BOTTLE.get().getDescription().copy().withStyle(ChatFormatting.AQUA), TCRItems.MAGIC_BOTTLE.get().getDescription().copy().withStyle(ChatFormatting.AQUA)), dBuilder.opt(9))
-                    .addExecutable(dialogueScreen -> {
-                        dialogueScreen.setPicture(null);
-                    })
-                    .addChild(new DialogNode(dBuilder.ans(23, TCRItems.MAGIC_BOTTLE.get().getDescription().copy().withStyle(ChatFormatting.AQUA)), dBuilder.opt(-1))
-                            .addLeaf(dBuilder.opt(-2), 6));
+            TCRCoreMod.LOGGER.debug("TALK_TO_AINE_MAGIC_2 Start");
+            try {
+                //介绍施法
+                DialogNode learnt = new DialogNode(dBuilder.ans(22, TCRItems.MAGIC_BOTTLE.get().getDescription().copy().withStyle(ChatFormatting.AQUA), TCRItems.MAGIC_BOTTLE.get().getDescription().copy().withStyle(ChatFormatting.AQUA)), dBuilder.opt(9))
+                        .addExecutable(dialogueScreen -> {
+                            dialogueScreen.setPicture(null);
+                        })
+                        .addChild(new DialogNode(dBuilder.ans(23, TCRItems.MAGIC_BOTTLE.get().getDescription().copy().withStyle(ChatFormatting.AQUA)), dBuilder.opt(-1))
+                                .addLeaf(dBuilder.opt(-2), 6));
 
-            root = new DialogNode(dBuilder.ans(19, localPlayer.getDisplayName()), dBuilder.opt(10))
-                    .addExecutable(dialogueScreen -> {
-                        dialogueScreen.setPicture(null);
-                    });
+                root = new DialogNode(dBuilder.ans(19, localPlayer.getDisplayName()), dBuilder.opt(10))
+                        .addExecutable(dialogueScreen -> {
+                            dialogueScreen.setPicture(null);
+                        });
 
-            DialogNode next = new DialogNode(dBuilder.ans(20, KeyMappings.SPELLBOOK_CAST_ACTIVE_KEYMAP.getTranslatedKeyMessage().copy().withStyle(ChatFormatting.GOLD)), dBuilder.opt(-1))
-                    .addChild(new DialogNode(dBuilder.ans(21), dBuilder.opt(-1))
-                            .addExecutable(dialogueScreen -> {
+                DialogNode next = new DialogNode(dBuilder.ans(20, KeyMappings.SPELLBOOK_CAST_ACTIVE_KEYMAP.getTranslatedKeyMessage().copy().withStyle(ChatFormatting.GOLD)), dBuilder.opt(-1))
+                        .addChild(new DialogNode(dBuilder.ans(21), dBuilder.opt(-1))
+                                .addExecutable(dialogueScreen -> {
 //                                dialogueScreen.setPicture(MP_DESC);
-                                //TODO 调整插图
-                            })
-                            .addChild(learnt)
-                            .addChild(root));
-            root.addChild(next);
+                                    //TODO 调整插图
+                                })
+                                .addChild(learnt)
+                                .addChild(root));
+                root.addChild(next);
+            } catch (Exception e) {
+                TCRCoreMod.LOGGER.error("Err!", e);
+            }
+            TCRCoreMod.LOGGER.debug("TALK_TO_AINE_MAGIC_2 END");
 
         } else if (TCRQuests.TALK_TO_AINE_1.equals(currentQuest)) {
             //聊聊最近的冒险（没啥用，纯增加氛围
