@@ -1,7 +1,7 @@
 package com.p1nero.tcrcore.mixin.ba_bt;
 
 import com.brass_amber.ba_bt.block.blockentity.spawner.BTAbstractSpawnerBlockEntity;
-import com.p1nero.tcrcore.events.ClientForgeEvents;
+import com.p1nero.tcrcore.client.gui.BTSpawnerBlockIndicatorRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -18,9 +18,9 @@ public class BTSpawnerBlockEntityMixin {
     private static void tcr$clientTick(Level level, BlockPos blockPos, BlockState blockState, BTAbstractSpawnerBlockEntity btSpawnerBlockEntity, CallbackInfo ci) {
         if (Minecraft.getInstance().player != null && Minecraft.getInstance().level != null) {
             if(Minecraft.getInstance().player.position().closerThan(blockPos.getCenter(), 20)) {
-                ClientForgeEvents.addTargetSpawner(blockPos);
-            } else {
-                ClientForgeEvents.removeTargetSpawner(blockPos);
+                BTSpawnerBlockIndicatorRenderer.addTargetSpawner(blockPos);
+            } else if(BTSpawnerBlockIndicatorRenderer.hasTarget()){
+                BTSpawnerBlockIndicatorRenderer.removeTargetSpawner(blockPos);
             }
         }
     }
