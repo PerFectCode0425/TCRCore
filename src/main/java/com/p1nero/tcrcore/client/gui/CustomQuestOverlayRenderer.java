@@ -62,12 +62,13 @@ public class CustomQuestOverlayRenderer {
         float lastArrowCenterY;
         float arrowAngle;
         String distanceText;
+        boolean isOnScreen;
     }
 
     private static class ScreenPos {
         boolean inside;
-        int x;
-        int y;
+        double x;
+        double y;
         double nx;
         double ny;
     }
@@ -184,15 +185,19 @@ public class CustomQuestOverlayRenderer {
         Camera camera = minecraft.gameRenderer.getMainCamera();
 
         for (QuestIndicatorInfo info : QUEST_INDICATOR_INFOS) {
-            ScreenPos screenPos = calculateScreenPos(info.quest.getTrackingPos(), camera, window);
-            boolean onScreen = screenPos != null && screenPos.inside;
-
             float iconX, iconY;
             String distText;
+            boolean onScreen = info.isOnScreen;
 
             if (onScreen) {
-                iconX = screenPos.x - QUEST_ICON_SIZE / 2;
-                iconY = screenPos.y - QUEST_ICON_SIZE / 2;
+                ScreenPos screenPos = calculateScreenPos(info.quest.getTrackingPos(), camera, window);
+                if (screenPos != null) {
+                    iconX = (float) (screenPos.x - QUEST_ICON_SIZE / 2.0);
+                    iconY = (float) (screenPos.y - QUEST_ICON_SIZE / 2.0);
+                } else {
+                    iconX = Mth.lerp(partialTick, info.lastIconX, info.iconX);
+                    iconY = Mth.lerp(partialTick, info.lastIconY, info.iconY);
+                }
                 double dist = localPlayer.position().distanceTo(Vec3.atCenterOf(info.quest.getTrackingPos()));
                 distText = ((int) dist) + "m";
             } else {
@@ -205,7 +210,10 @@ public class CustomQuestOverlayRenderer {
             //非追踪的则画透明点
             guiGraphics.setColor(1.0f, 1.0f, 1.0f, info.quest.equals(currentQuest) ? 1.0F : 0.5F);
 
-            guiGraphics.blit(info.icon, (int) iconX, (int) iconY, 0, 0, QUEST_ICON_SIZE, QUEST_ICON_SIZE, QUEST_ICON_SIZE, QUEST_ICON_SIZE);
+            guiGraphics.pose().pushPose();
+            guiGraphics.pose().translate(iconX, iconY, 0.0F);
+            guiGraphics.blit(info.icon, 0, 0, 0, 0, QUEST_ICON_SIZE, QUEST_ICON_SIZE, QUEST_ICON_SIZE, QUEST_ICON_SIZE);
+            guiGraphics.pose().popPose();
 
             int textWidth = minecraft.font.width(distText);
             guiGraphics.pose().pushPose();
@@ -337,8 +345,8 @@ public class CustomQuestOverlayRenderer {
         result.ny = ny;
 
         if (inside) {
-            result.x = (int) ((nx * 0.5 + 0.5) * screenWidth);
-            result.y = (int) ((-ny * 0.5 + 0.5) * screenHeight);
+            result.x = (nx * 0.5 + 0.5) * screenWidth;
+            result.y = (-ny * 0.5 + 0.5) * screenHeight;
         }
 
         return result;
@@ -361,10 +369,11 @@ public class CustomQuestOverlayRenderer {
         QuestIndicatorInfo info = new QuestIndicatorInfo();
         info.icon = icon;
         info.distanceText = ((int) distance) + "m";
+        info.isOnScreen = screenPos.inside;
 
         if (screenPos.inside) {
-            info.iconX = screenPos.x - QUEST_ICON_SIZE / 2;
-            info.iconY = screenPos.y - QUEST_ICON_SIZE / 2;
+            info.iconX = (float) (screenPos.x - QUEST_ICON_SIZE / 2.0);
+            info.iconY = (float) (screenPos.y - QUEST_ICON_SIZE / 2.0);
             info.drawArrow = false;
             info.arrowCenterX = 0;
             info.arrowCenterY = 0;
