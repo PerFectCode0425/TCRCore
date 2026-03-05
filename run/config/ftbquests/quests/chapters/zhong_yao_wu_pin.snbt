@@ -397,7 +397,7 @@
 			y: -5.0d
 		}
 		{
-			description: ["{ftbquests.chapter.522B859BEE1EDD88.quest5237705525294358869.description1}"]
+			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest750E0B18BC9E9588.description1}"]
 			icon: "armourers_workshop:skin-library-global"
 			icon_scale: 2.0d
 			id: "750E0B18BC9E9588"
@@ -418,11 +418,7 @@
 		}
 		{
 			dependency_requirement: "one_started"
-			description: [
-				"{ftbquests.chapter.522B859BEE1EDD88.quest348391678466111360.description1}"
-				""
-				"{ftbquests.chapter.522B859BEE1EDD88.quest348391678466111360.description2}"
-			]
+			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest39230C6C55DDF6D7.description1}"]
 			icon: "armourers_workshop:skin-library"
 			icon_scale: 2.0d
 			id: "39230C6C55DDF6D7"
@@ -442,7 +438,7 @@
 			y: -6.0d
 		}
 		{
-			description: ["{ftbquests.chapter.522B859BEE1EDD88.quest7469604769731266141.description1}"]
+			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest271FDED5E61F990E.description1}"]
 			icon: "armourers_workshop:skinning-table"
 			icon_scale: 2.0d
 			id: "271FDED5E61F990E"
@@ -462,12 +458,10 @@
 			y: -6.0d
 		}
 		{
-			can_repeat: true
 			dependency_requirement: "one_started"
-			description: ["{ftbquests.chapter.522B859BEE1EDD88.quest9076002229603668648.rich_description1}{ftbquests.chapter.522B859BEE1EDD88.quest9076002229603668648.rich_description2}{ftbquests.chapter.522B859BEE1EDD88.quest9076002229603668648.rich_description3}"]
+			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest6E2FB0C755D9544F.description1}"]
 			icon: "armourers_workshop:skin-template"
 			id: "6E2FB0C755D9544F"
-			optional: true
 			rewards: [{
 				id: "7C9B18788F4FDE31"
 				type: "xp"
@@ -485,12 +479,12 @@
 			y: -6.0d
 		}
 		{
-			description: ["击败严厉掉落"]
+			description: ["{ftbquests.chapter.zhong_yao_wu_pin.quest36CB2233DCA15781.description1}"]
 			id: "36CB2233DCA15781"
 			invisible: true
 			shape: "none"
 			size: 2.0d
-			subtitle: "严厉的核心"
+			subtitle: "{ftbquests.chapter.zhong_yao_wu_pin.quest36CB2233DCA15781.subtitle}"
 			tasks: [{
 				id: "132D3FC6F37CCF23"
 				item: "fdbosses:justice_core"

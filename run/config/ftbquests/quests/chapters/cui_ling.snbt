@@ -2262,5 +2262,5 @@
 			y: 0.0d
 		}
 	]
-	title: "&2淬灵秘法"
+	title: "{ftbquests.chapter.cui_ling.title}"
 }

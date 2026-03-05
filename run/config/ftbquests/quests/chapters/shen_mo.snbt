@@ -385,7 +385,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
-			subtitle: "位于地下"
+			subtitle: "{ftbquests.chapter.shen_mo.quest7351102E290520AA.subtitle}"
 			tasks: [{
 				entity: "bosses_of_mass_destruction:void_blossom"
 				icon: "bosses_of_mass_destruction:void_thorn"
@@ -393,7 +393,7 @@
 				type: "kill"
 				value: 1L
 			}]
-			title: "虚空之花"
+			title: "{ftbquests.chapter.shen_mo.quest7351102E290520AA.title}"
 			x: -2.25d
 			y: 3.0d
 		}
@@ -415,7 +415,7 @@
 				type: "kill"
 				value: 1L
 			}]
-			title: "下界铁掌"
+			title: "{ftbquests.chapter.shen_mo.quest1B626D8CAC2DC5F6.title}"
 			x: 0.0d
 			y: 3.75d
 		}
@@ -430,6 +430,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
+			subtitle: "{ftbquests.chapter.shen_mo.quest6A0D7B0C41B137EC.subtitle}"
 			tasks: [{
 				entity: "bosses_of_mass_destruction:obsidilith"
 				icon: "bosses_of_mass_destruction:obsidian_heart"
@@ -437,7 +438,7 @@
 				type: "kill"
 				value: 1L
 			}]
-			title: "黑曜石柱"
+			title: "{ftbquests.chapter.shen_mo.quest6A0D7B0C41B137EC.title}"
 			x: -3.75d
 			y: 6.0d
 		}
@@ -459,7 +460,7 @@
 				type: "kill"
 				value: 1L
 			}]
-			title: "亚尔特留斯"
+			title: "{ftbquests.chapter.shen_mo.quest67D08F9D3A135152.title}"
 			x: 0.0d
 			y: -2.25d
 		}
@@ -481,7 +482,7 @@
 				type: "kill"
 				value: 1L
 			}]
-			title: "Chesed"
+			title: "{ftbquests.chapter.shen_mo.quest1C6CF37F43D11ED9.title}"
 			x: 4.5d
 			y: -3.75d
 		}
@@ -503,7 +504,7 @@
 				type: "kill"
 				value: 1L
 			}]
-			title: "Malkuth"
+			title: "{ftbquests.chapter.shen_mo.quest4391005A02DF9BA2.title}"
 			x: 0.0d
 			y: -5.25d
 		}
@@ -525,7 +526,7 @@
 				type: "kill"
 				value: 1L
 			}]
-			title: "严厉"
+			title: "{ftbquests.chapter.shen_mo.quest570C81A5E3AB8E08.title}"
 			x: -4.5d
 			y: -3.75d
 		}
@@ -547,7 +548,7 @@
 				type: "kill"
 				value: 1L
 			}]
-			title: "阿拉克涅"
+			title: "{ftbquests.chapter.shen_mo.quest3507A660CAD8962F.title}"
 			x: -6.0d
 			y: -0.75d
 		}
@@ -569,7 +570,7 @@
 				type: "kill"
 				value: 1L
 			}]
-			title: "列奥尼达斯"
+			title: "{ftbquests.chapter.shen_mo.quest48244C835D24AF3B.title}"
 			x: 6.0d
 			y: 0.0d
 		}

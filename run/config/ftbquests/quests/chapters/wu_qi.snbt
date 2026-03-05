@@ -497,13 +497,7 @@
 		}
 		{
 			dependencies: ["2F9F109962C8ADF4"]
-			description: [
-				"{ftbquests.chapter.wu_qi.quest7097191615691279450.description1}"
-				""
-				""
-				""
-				"{ftbquests.chapter.wu_qi.quest7097191615691279450.description2}"
-			]
+			description: ["{ftbquests.chapter.wu_qi.quest7097191615691279450.description2}"]
 			icon_scale: 1.4d
 			id: "627E4A2C0428CC5A"
 			rewards: [{
@@ -597,10 +591,7 @@
 		{
 			dependencies: ["2F9F109962C8ADF4"]
 			dependency_requirement: "one_completed"
-			description: [
-				""
-				"{ftbquests.chapter.wu_qi.quest401042223978499222.description1}"
-			]
+			description: ["{ftbquests.chapter.wu_qi.quest401042223978499222.description1}"]
 			icon: {
 				Count: 1
 				id: "p1nero_bow:mortis"
@@ -1389,7 +1380,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
-			subtitle: "锻造获得"
+			subtitle: "{ftbquests.chapter.wu_qi.questC51C2F3266B0A59.subtitle}"
 			tasks: [{
 				id: "21F48B212F143E80"
 				item: "efn:kusabimaru"
@@ -1409,7 +1400,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
-			subtitle: "锻造获得"
+			subtitle: "{ftbquests.chapter.wu_qi.quest79E905C9C12E9C6.subtitle}"
 			tasks: [{
 				id: "5C1ACA05E8ECD2BD"
 				item: "efn:crimson_moon"
@@ -1429,7 +1420,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
-			subtitle: "锻造获得"
+			subtitle: "{ftbquests.chapter.wu_qi.quest122987FF202B9F24.subtitle}"
 			tasks: [{
 				id: "5ACA29E1486C9BE4"
 				item: "efn:thornwheel"
@@ -1449,6 +1440,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
+			subtitle: "{ftbquests.chapter.wu_qi.quest5E35082A8534EC75.subtitle}"
 			tasks: [{
 				id: "3F930103DD5A0786"
 				item: {
@@ -1474,6 +1466,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
+			subtitle: "{ftbquests.chapter.wu_qi.quest2D25F810E8E9BD63.subtitle}"
 			tasks: [{
 				id: "26FE621610DEC56C"
 				item: {
@@ -1499,6 +1492,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
+			subtitle: "{ftbquests.chapter.wu_qi.quest20BDDA0DE80E1D70.subtitle}"
 			tasks: [{
 				id: "2B9C8BE92E14B700"
 				item: {
@@ -1524,6 +1518,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
+			subtitle: "{ftbquests.chapter.wu_qi.quest4B20B0C3BC19164A.subtitle}"
 			tasks: [{
 				id: "6E597920467BD315"
 				item: {
@@ -1549,6 +1544,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
+			subtitle: "{ftbquests.chapter.wu_qi.quest6143E0E2607DD0A9.subtitle}"
 			tasks: [{
 				id: "73EF7ED637FC53A4"
 				item: {
@@ -1574,6 +1570,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
+			subtitle: "{ftbquests.chapter.wu_qi.quest2A17211083591792.subtitle}"
 			tasks: [{
 				id: "2707CA3652379B0E"
 				item: {
@@ -1599,6 +1596,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
+			subtitle: "{ftbquests.chapter.wu_qi.quest1832915119597FB.subtitle}"
 			tasks: [
 				{
 					id: "33CDA29225FCC635"
@@ -1637,6 +1635,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
+			subtitle: "{ftbquests.chapter.wu_qi.quest60A5CF6C7AEDAF18.subtitle}"
 			tasks: [{
 				id: "74AF398B13E3304F"
 				item: {
@@ -1662,6 +1661,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
+			subtitle: "{ftbquests.chapter.wu_qi.quest42389B50A0F8B6B.subtitle}"
 			tasks: [{
 				id: "35566B1120A6FD2E"
 				item: {
@@ -1688,6 +1688,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
+			subtitle: "{ftbquests.chapter.wu_qi.quest5B90C05F6E086DE3.subtitle}"
 			tasks: [{
 				id: "586B39D2B34644A1"
 				item: {
@@ -1713,7 +1714,7 @@
 			}]
 			shape: "none"
 			size: 3.0d
-			subtitle: "合成获得"
+			subtitle: "{ftbquests.chapter.wu_qi.quest1906CC62E077B227.subtitle}"
 			tasks: [{
 				id: "7ED8555AABADF249"
 				item: {
@@ -1738,7 +1739,7 @@
 			}]
 			shape: "none"
 			size: 2.0d
-			subtitle: "解放[&4高频村雨&r]的全部力量！"
+			subtitle: "{ftbquests.chapter.wu_qi.quest4A93C88987F02ECF.subtitle}"
 			tasks: [{
 				id: "23FD38D1346F10E4"
 				item: {
@@ -1751,7 +1752,7 @@
 				}
 				type: "item"
 			}]
-			title: "斩切模式"
+			title: "{ftbquests.chapter.wu_qi.quest4A93C88987F02ECF.title}"
 			x: -8.0d
 			y: -18.0d
 		}
@@ -1777,7 +1778,7 @@
 			}]
 			shape: "none"
 			size: 2.0d
-			subtitle: "在[轮回绝境]击败[魂兮]以解锁武器的全部力量！"
+			subtitle: "{ftbquests.chapter.wu_qi.quest153BA3E9B85A96B9.subtitle}"
 			tasks: [{
 				entity: "tcr_bosses:maledictus_humanoid"
 				id: "039887128C802B89"
@@ -1806,7 +1807,7 @@
 			}]
 			shape: "none"
 			size: 2.0d
-			subtitle: "在[轮回绝境]击败[坤岳]以解锁武器的全部力量！"
+			subtitle: "{ftbquests.chapter.wu_qi.quest2F6D380DC5FC69B1.subtitle}"
 			tasks: [{
 				entity: "tcr_bosses:ancient_remnant_humanoid"
 				id: "4AFFD7C63CD000D8"
@@ -1838,7 +1839,7 @@
 			}]
 			shape: "none"
 			size: 2.0d
-			subtitle: "在[轮回绝境]击败[穹霄]以解锁武器的全部力量！"
+			subtitle: "{ftbquests.chapter.wu_qi.quest8658F49935E08E0.subtitle}"
 			tasks: [{
 				entity: "tcr_bosses:scylla_humanoid"
 				id: "6AB9B519617B44EB"
@@ -1858,7 +1859,7 @@
 			}]
 			shape: "none"
 			size: 2.0d
-			subtitle: "解放[&6阎魔刀&r]的全部力量！"
+			subtitle: "{ftbquests.chapter.wu_qi.quest3254967D776D648C.subtitle}"
 			tasks: [{
 				id: "3D44318518C329DE"
 				item: {
@@ -1874,7 +1875,7 @@
 				}
 				type: "item"
 			}]
-			title: "阎魔刀-防御"
+			title: "{ftbquests.chapter.wu_qi.quest3254967D776D648C.title}"
 			x: -1.5d
 			y: -14.5d
 		}
@@ -1888,7 +1889,7 @@
 			}]
 			shape: "none"
 			size: 2.0d
-			subtitle: "解放[&6阎魔刀&r]的全部力量！"
+			subtitle: "{ftbquests.chapter.wu_qi.quest6533118C2C897C1E.subtitle}"
 			tasks: [{
 				id: "718AD14EAA4DD552"
 				item: {
@@ -1904,7 +1905,7 @@
 				}
 				type: "item"
 			}]
-			title: "阎魔刀-同行者"
+			title: "{ftbquests.chapter.wu_qi.quest6533118C2C897C1E.title}"
 			x: 0.5d
 			y: -17.5d
 		}
@@ -1918,7 +1919,7 @@
 			}]
 			shape: "none"
 			size: 2.0d
-			subtitle: "解放[&6阎魔刀&r]的全部力量！"
+			subtitle: "{ftbquests.chapter.wu_qi.quest4108291A69C3FFF6.subtitle}"
 			tasks: [{
 				id: "6396BA16C3C11709"
 				item: {
@@ -1934,7 +1935,7 @@
 				}
 				type: "item"
 			}]
-			title: "阎魔刀-幻影剑"
+			title: "{ftbquests.chapter.wu_qi.quest4108291A69C3FFF6.title}"
 			x: 4.5d
 			y: -17.5d
 		}
@@ -1948,7 +1949,7 @@
 			}]
 			shape: "none"
 			size: 2.0d
-			subtitle: "解放[&6阎魔刀&r]的全部力量！"
+			subtitle: "{ftbquests.chapter.wu_qi.quest5DBFF2EAFF720ABF.subtitle}"
 			tasks: [{
 				id: "6B39D41A39B381B4"
 				item: {
@@ -1964,7 +1965,7 @@
 				}
 				type: "item"
 			}]
-			title: "阎魔刀-次元斩·绝"
+			title: "{ftbquests.chapter.wu_qi.quest5DBFF2EAFF720ABF.title}"
 			x: 6.5d
 			y: -14.5d
 		}
@@ -1987,7 +1988,7 @@
 			}]
 			shape: "none"
 			size: 2.0d
-			subtitle: "在[轮回绝境]击败[烬煌]以解锁武器的全部力量！"
+			subtitle: "{ftbquests.chapter.wu_qi.quest494B0310B146210A.subtitle}"
 			tasks: [{
 				entity: "tcr_bosses:ignis_humanoid"
 				id: "0A8F12C168369116"
@@ -2016,7 +2017,7 @@
 			}]
 			shape: "none"
 			size: 2.0d
-			subtitle: "在[轮回绝境]击败[沧溟]以解锁武器的全部力量！"
+			subtitle: "{ftbquests.chapter.wu_qi.quest1E2BB91EDAEA9EFB.subtitle}"
 			tasks: [{
 				entity: "tcr_bosses:leviathan_humanoid"
 				id: "361B1B5784C2512B"
@@ -2045,7 +2046,7 @@
 			}]
 			shape: "none"
 			size: 2.0d
-			subtitle: "在[轮回绝境]击败[狱渊]以解锁武器的全部力量！"
+			subtitle: "{ftbquests.chapter.wu_qi.quest51362145E6878F9F.subtitle}"
 			tasks: [{
 				entity: "tcr_bosses:netherite_humanoid"
 				id: "7BD0A0A33E8C1A3D"
@@ -2074,7 +2075,7 @@
 			}]
 			shape: "none"
 			size: 2.0d
-			subtitle: "在[轮回绝境]击败[湮无]以解锁武器的全部力量！"
+			subtitle: "{ftbquests.chapter.wu_qi.quest30B91B89C7183932.subtitle}"
 			tasks: [{
 				entity: "tcr_bosses:ender_guardian_humanoid"
 				id: "5AC95E5287DC0979"
@@ -2103,7 +2104,7 @@
 			}]
 			shape: "none"
 			size: 2.0d
-			subtitle: "在[轮回绝境]击败[归寂]以解锁武器的全部力量！"
+			subtitle: "{ftbquests.chapter.wu_qi.quest50040C726AFC8352.subtitle}"
 			tasks: [{
 				entity: "tcr_bosses:harbinger_humanoid"
 				id: "1869F9A366324C62"
@@ -2124,6 +2125,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
+			subtitle: "{ftbquests.chapter.wu_qi.quest4A948CBBF49C9513.subtitle}"
 			tasks: [{
 				id: "3BB7EBD404A24E1A"
 				item: "efn:crescent_moon"
@@ -2143,6 +2145,7 @@
 			}]
 			shape: "none"
 			size: 1.5d
+			subtitle: "{ftbquests.chapter.wu_qi.quest27A558871393BF23.subtitle}"
 			tasks: [{
 				id: "65C5C0D3857A0805"
 				item: {
