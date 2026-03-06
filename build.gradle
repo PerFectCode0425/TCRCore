@@ -366,7 +366,7 @@ dependencies {
     compileOnly fg.deobf("curse.maven:sophisticated-backpacks-422301:6246607")
 
     //真背包
-    implementation fg.deobf("curse.maven:beyond-dimensions-1222890:7649365")
+    implementation fg.deobf("curse.maven:beyond-dimensions-1222890:7719949")
 
     implementation fg.deobf("curse.maven:trashslot-235577:6319121")
 

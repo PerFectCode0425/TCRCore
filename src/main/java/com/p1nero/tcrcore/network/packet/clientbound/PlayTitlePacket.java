@@ -3,7 +3,7 @@ package com.p1nero.tcrcore.network.packet.clientbound;
 import com.p1nero.dialog_lib.network.packet.BasePacket;
 import com.p1nero.tcrcore.TCRCoreMod;
 import com.p1nero.tcrcore.client.TCRKeyMappings;
-import com.wintercogs.beyonddimensions.ShortCutKey.DimensionsShortKeys;
+import com.wintercogs.beyonddimensions.client.init.BDShortKeys;
 import com.yesman.epicskills.client.input.EpicSkillsKeyMappings;
 import dev.ftb.mods.ftbquests.client.FTBQuestsClient;
 import net.minecraft.ChatFormatting;
@@ -57,7 +57,7 @@ public record PlayTitlePacket(int id) implements BasePacket {
                 }
                 case OPEN_BACKPACK_TUTORIAL -> {
                     Minecraft.getInstance().gui.setTitle(Component.literal(""));
-                    Minecraft.getInstance().gui.setSubtitle(TCRCoreMod.getInfo("open_backpack_tutorial", DimensionsShortKeys.OPEN_GUI_KEY.getTranslatedKeyMessage().copy().withStyle(ChatFormatting.GOLD)));
+                    Minecraft.getInstance().gui.setSubtitle(TCRCoreMod.getInfo("open_backpack_tutorial", BDShortKeys.OPEN_GUI_KEY.getTranslatedKeyMessage().copy().withStyle(ChatFormatting.GOLD)));
                 }
                 case UNLOCK_NEW_SKILL -> {
                     Minecraft.getInstance().gui.setTitle(Component.literal(""));

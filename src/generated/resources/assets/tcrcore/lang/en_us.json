@@ -352,7 +352,7 @@
   "info.tcr.end_unlock": "End Unlocked!",
   "info.tcr.enter_dimension_tip": "Right-click the altar core to enter the Cloudland",
   "info.tcr.exit_quest_screen": "Exit",
-  "info.tcr.exit_spectator_in_pbf1": "Press [%s] to exit Spectator Mode and return to the main hub.",
+  "info.tcr.exit_spectator_in_pbf1": "Press [%s] to exit Spectator Mode and return to the Sanctum.",
   "info.tcr.eye_pos_mark": "Location of [%s]: [%s]",
   "info.tcr.finish_all_eye": "§dAll altars are lit!§r",
   "info.tcr.get_mimic_invite": "[%s]: Otherworldly one, I knew I was right about you! Take this §6[%s§6]§f!",
